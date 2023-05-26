@@ -22,7 +22,7 @@ const DashboardCustomer = () => {
       progressElements[i].style.width = `${(doneAmount / totalAmount) * 100}%`;
       progressTextElements[i].innerText = `${Math.ceil((doneAmount / totalAmount) * 100)}%`;
     }
-  }, []);
+  });
 
   const viewDetails=()=>{
     

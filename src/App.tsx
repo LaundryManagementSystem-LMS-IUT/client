@@ -6,6 +6,8 @@ import Login from './components/login-signup/login';
 import SignUp from './components/login-signup/signup';
 import DashboardCustomer from './components/laundry-customer/dashboard';
 import DashboardManager from './components/laundry-manager/dashboard';
+import OrderHistoryCustomer from './components/laundry-customer/order-history';
+import OrderHistoryManager from './components/laundry-manager/order-history';
 
 function App() {
   return (
@@ -15,6 +17,9 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/customer/dashboard" element={<DashboardCustomer/>}/>
+          <Route path="/manager/dashboard" element={<DashboardManager/>}/>
+          <Route path="/customer/history" element={<OrderHistoryCustomer/>}/>
+          <Route path="/manager/history" element={<OrderHistoryManager/>}/>
           <Route path="/manager/dashboard" element={<DashboardManager/>}/>
         </Routes>
       </Router>
