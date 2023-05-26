@@ -330,7 +330,7 @@ button{
 .search::-webkit-outer-spin-button,
 .search::-webkit-inner-spin-button {
   -webkit-appearance: none;
-  margin: 0;
+  margin: 0%;
 }
 
 /* Firefox */
@@ -346,6 +346,7 @@ button{
 .wrap-title .payment,
 .wrap-title .status,
 .wrap-title .progress,
+.wrap-title .progress-header,
 .wrap-title .laundry-name {
   font-size: 18px;
   font-weight: bold;
@@ -406,7 +407,7 @@ button{
 }
 
 .wrap-item .progress {
-  margin-top: 2%;
+  padding: 0 12px;
 }
 
 .wrap-item .progress .progress-text {
@@ -418,7 +419,7 @@ button{
 .wrap-item .the-bar {
   background-color: var(--black2);
   border-radius: 20px;
-  height: 20px;
+  height: 15px;
   width: 85%;
   color: var(--black1);
 }

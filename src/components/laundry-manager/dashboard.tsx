@@ -2,10 +2,24 @@ import { IonIcon } from "@ionic/react";
 import { cartOutline, cashOutline } from "ionicons/icons";
 import NavbarManager from "../partials/navbarManager";
 import HeaderManager from "../partials/headerManager";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const DashboardManager = () => {
   const [navigation,setNavigation]=useState(false);
+  useEffect(() => {
+    const doneElements = document.querySelectorAll<HTMLElement>('.wrap-item .progress .done');
+    const totalElements = document.querySelectorAll<HTMLElement>('.wrap-item .progress .total');
+    const progressElements = document.querySelectorAll<HTMLElement>('.wrap-item .progress .progress-done');
+    const progressTextElements = document.querySelectorAll<HTMLElement>('.wrap-item .progress .progress-text');
+
+    for (let i = 0; i < doneElements.length; i++) {
+      const doneAmount = parseInt(doneElements[i].innerHTML);
+      const totalAmount = parseInt(totalElements[i].innerHTML);
+
+      progressElements[i].style.width = `${(doneAmount / totalAmount) * 100}%`;
+      progressTextElements[i].innerText = `${Math.ceil((doneAmount / totalAmount) * 100)}%`;
+    }
+  }, []);
   const viewDetails=()=>{
 
   }
@@ -62,15 +76,8 @@ const DashboardManager = () => {
               <div className="payment">
                 <span>Payment</span>
               </div>
-              <div className="progress">
+              <div className="progress-header">
                 <span>Progress</span>
-                <div className="the-bar">
-                  <span className="done hidden">4</span>
-                  <span className="total hidden">10</span>
-                  <div className="progress-done"></div>
-                </div>
-
-                <span className="progress-text"></span>
               </div>
               <div className="status">
                 <span>Status</span>
