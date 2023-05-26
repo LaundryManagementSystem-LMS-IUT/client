@@ -1,5 +1,5 @@
 import { IonIcon } from "@ionic/react";
-import { chatbubbleOutline, homeOutline, logOutOutline, notificationsCircleOutline, peopleOutline, settingsOutline } from "ionicons/icons";
+import { homeOutline, logOutOutline, notificationsCircleOutline, peopleOutline, settingsOutline } from "ionicons/icons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,7 +13,7 @@ const NavbarManager = ({navigation,setNavigation}:Navbar) => {
   const navigate=useNavigate();
   useEffect(()=>{
     const toggler=()=>{
-      console.log('this runs');
+      // console.log('this runs');
       let navigation = document.querySelector(".navigation");
       let main = document.querySelector(".main");
       navigation?.classList.toggle('active');
