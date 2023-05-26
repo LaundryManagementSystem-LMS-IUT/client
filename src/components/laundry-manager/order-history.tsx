@@ -23,7 +23,7 @@ const OrderHistoryManager = () => {
 
 
   return ( 
-    <div className="history-customer">
+    <div className="history-manager">
       <NavbarManager navigation={navigation}  setNavigation={setNavigation}/>
       <div className="container">
     <div className="main">

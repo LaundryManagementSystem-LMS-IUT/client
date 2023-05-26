@@ -1,6 +1,7 @@
 import { IonIcon } from "@ionic/react";
-import { chatbubbleOutline, homeOutline, logOutOutline, peopleOutline, settingsOutline } from "ionicons/icons";
+import { chatbubbleOutline, homeOutline, logOutOutline, notificationsCircleOutline, peopleOutline, settingsOutline } from "ionicons/icons";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Navbar={
   navigation:boolean,
@@ -9,6 +10,7 @@ type Navbar={
 }
 
 const NavbarCustomer = ({navigation,setNavigation}:Navbar) => {
+  const navigate=useNavigate();
   useEffect(()=>{
       const toggler=()=>{
         console.log('this runs');
@@ -24,7 +26,7 @@ const NavbarCustomer = ({navigation,setNavigation}:Navbar) => {
   <div className="navigation">
   <ul>
     <li>
-      <a>
+      <a onClick={()=>navigate('/customer/dashboard')}>
         <span className="icon">
           <img src="/logo.png" />
         </span>
@@ -35,7 +37,7 @@ const NavbarCustomer = ({navigation,setNavigation}:Navbar) => {
     </li>
 
     <li>
-      <a>
+      <a  onClick={()=>navigate('/customer/dashboard')}>
         <span className="icon">
           <IonIcon icon={homeOutline}></IonIcon>
         </span>
@@ -44,7 +46,7 @@ const NavbarCustomer = ({navigation,setNavigation}:Navbar) => {
     </li>
 
     <li>
-      <a>
+      <a  onClick={()=>navigate('/customer/history')}>
         <span className="icon">
           <IonIcon icon={peopleOutline}></IonIcon>
         </span>
@@ -55,7 +57,7 @@ const NavbarCustomer = ({navigation,setNavigation}:Navbar) => {
     <li>
       <a>
         <span className="icon">
-          <IonIcon icon={chatbubbleOutline}></IonIcon>
+          <IonIcon icon={notificationsCircleOutline}></IonIcon>
         </span>
         <span className="title">Notifications</span>
       </a>

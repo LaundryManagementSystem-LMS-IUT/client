@@ -18,7 +18,7 @@
   --black2: #999;
 }
 
-.customer-dashboard,.history-customer {
+.customer-dashboard,.history-customer,.manager-dashboard,.history-manager {
   min-height: 100vh !important;
   width: 100% !important;
   overflow-x: hidden;
