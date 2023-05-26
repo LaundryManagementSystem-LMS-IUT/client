@@ -7,10 +7,10 @@ import { useEffect, useState } from "react";
 const DashboardManager = () => {
   const [navigation,setNavigation]=useState(false);
   useEffect(() => {
-    const doneElements = document.querySelectorAll<HTMLElement>('.wrap-item .progress .done');
-    const totalElements = document.querySelectorAll<HTMLElement>('.wrap-item .progress .total');
-    const progressElements = document.querySelectorAll<HTMLElement>('.wrap-item .progress .progress-done');
-    const progressTextElements = document.querySelectorAll<HTMLElement>('.wrap-item .progress .progress-text');
+    const doneElements = document.querySelectorAll<HTMLElement>('.wrap-item .order-progress .done');
+    const totalElements = document.querySelectorAll<HTMLElement>('.wrap-item .order-progress .total');
+    const progressElements = document.querySelectorAll<HTMLElement>('.wrap-item .order-progress .progress-done');
+    const progressTextElements = document.querySelectorAll<HTMLElement>('.wrap-item .order-progress .progress-text');
 
     for (let i = 0; i < doneElements.length; i++) {
       const doneAmount = parseInt(doneElements[i].innerHTML);
@@ -91,7 +91,7 @@ const DashboardManager = () => {
               <div className="payment">
                 <span>Tk 1000</span>
               </div>
-              <div className="progress">
+              <div className="order-progress">
                 <div className="the-bar">
       
                   <span className="done hidden">0</span>
@@ -113,7 +113,7 @@ const DashboardManager = () => {
               <div className="payment">
                 <span>Tk 1000</span>
               </div>
-              <div className="progress">
+              <div className="order-progress">
                 <div className="the-bar">
                   <span className="done hidden">13</span>
                   <span className="total hidden">13</span>
@@ -134,7 +134,7 @@ const DashboardManager = () => {
               <div className="payment">
                 <span>Tk 1000</span>
               </div>
-              <div className="progress">
+              <div className="order-progress">
                 <div className="the-bar">
                   <span className="done hidden">4</span>
                   <span className="total hidden">10</span>
@@ -155,7 +155,7 @@ const DashboardManager = () => {
               <div className="payment">
                 <span>Tk 1000</span>
               </div>
-              <div className="progress">
+              <div className="order-progress">
                 <div className="the-bar">
                   <span className="done hidden">4</span>
                   <span className="total hidden">10</span>
