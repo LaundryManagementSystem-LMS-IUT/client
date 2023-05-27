@@ -60,7 +60,7 @@ const DashboardManager = () => {
               </div>
 
               <div className="iconBx">
-                <IonIcon name={cartOutline}></IonIcon>
+                <IonIcon icon={cartOutline}></IonIcon>
               </div>
             </div>
 
@@ -71,7 +71,7 @@ const DashboardManager = () => {
               </div>
 
               <div className="iconBx">
-                <IonIcon name={cashOutline}></IonIcon>
+                <IonIcon icon={cashOutline} ></IonIcon>
               </div>
             </div>
           </div>
@@ -129,7 +129,7 @@ const DashboardManager = () => {
                     <span className="progress-text"></span>
                   </div>
                   <div className="status">
-                    <span className="status pending">Pending</span>
+                    <span className="status cancelled">Cancelled</span>
                   </div>
                 </div>
 
