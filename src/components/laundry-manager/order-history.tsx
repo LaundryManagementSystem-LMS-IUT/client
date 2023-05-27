@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import NavbarManager from "../partials/navbarManager";
 import HeaderManager from "../partials/headerManager";
+import { ActivePageType } from "../../utils/activePageTypes";
 
 const OrderHistoryManager = () => {
   const [navigation, setNavigation] = useState(false);
@@ -32,10 +33,15 @@ const OrderHistoryManager = () => {
 
   return (
     <div className="history-manager">
-      <NavbarManager navigation={navigation} setNavigation={setNavigation} />
-      <div className="container">
+      <NavbarManager
+        navigation={navigation}
+        setNavigation={setNavigation}
+        activePage={ActivePageType.OrderHistory}
+      />
+      <div className="manager-history-container">
         <div className="main">
           <HeaderManager
+            laundryName={"Azwad's Laundry"}
             navigation={navigation}
             setNavigation={setNavigation}
           />
