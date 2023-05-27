@@ -12,6 +12,8 @@ import LaundryRegistration from './components/login-signup/laundry-register';
 import Laundry from './components/laundry-customer/view-laundry/view-all-laundry';
 import LaundryDetails from './components/laundry-customer/laundry-details/laundry-details';
 import Pricing from './components/laundry-manager/set-pricing/pricing';
+import ViewReviewsManager from './components/laundry-manager/viewReviews';
+import ManagerNotifications from './components/laundry-manager/notifications'
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
           <Route path="/manager/history" element={<OrderHistoryManager/>}/>
           <Route path="/manager/fee" element={<Pricing/>}/>
           <Route path="/manager/dashboard" element={<DashboardManager/>}/>
+          <Route path="/manager/review" element={<ViewReviewsManager/>}/>
+          <Route path="/manager/notifications" element={<ManagerNotifications/>}/>
         </Routes>
       </Router>
     </div>
