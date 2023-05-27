@@ -1,14 +1,14 @@
 import { IonIcon } from "@ionic/react";
 import { callOutline, homeOutline, mapOutline, timeOutline, timerOutline } from "ionicons/icons";
-import Map from "../map-manager/map";
+import Map from "../map-customer/map";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
 import { useState } from "react";
-import LaundryImage from "./laundry-image";
+import CustomerImage from "./customer-image";
 
-const LaundryRegistration = () => {
+const CustomerRegistration = () => {
   const [location,setLocation]=useState({lat:23.8103,lng:90.4125});
   const [active,setActive]=useState(true);
   const [address,setAddress]=useState("");
@@ -39,7 +39,7 @@ const LaundryRegistration = () => {
   return (
     <div className="login-registration">
       <section>
-        <div className="laundry-registration-box">
+        <div className="customer-registration-box">
           <div
             className="form-value"
             style={{ width: "50%", marginLeft: "2%" }}
@@ -49,18 +49,8 @@ const LaundryRegistration = () => {
               method="POST"
               style={{ marginLeft: "2%" }}
             >
-              <h2>Laundry Registration</h2>
-              <LaundryImage/>
-              <div className="inputbox mx-auto">
-                <IonIcon icon={homeOutline}></IonIcon>
-                <input
-                  type="text"
-                  required
-                  id="laundry_name"
-                  name="laundry_name"
-                />
-                <label htmlFor="">Laundry Name</label>
-              </div>
+              <h2>Customer Registration</h2>
+              <CustomerImage/>
               <div className="inputbox mx-auto">
                         <IonIcon icon={callOutline}></IonIcon>
                         <input type="text" pattern="[01]{2}[3-9]{1}[0-9]{8}"  id="phone" name="phone"  required/>
@@ -83,16 +73,6 @@ const LaundryRegistration = () => {
                   </ul>
                 )}
               </div>
-              <div className="inputbox mx-auto">
-                <IonIcon icon={timeOutline}></IonIcon>
-                <input type="time" name="openingTime" id="openingTime" />
-                <label htmlFor="openingTime">Opening Time</label>
-              </div>
-              <div className="inputbox mx-auto">
-              <IonIcon icon={timerOutline}></IonIcon>
-                <input type="time" name="closingTime" id="closingTime" />
-                <label htmlFor="closingTime">Closing Time</label>
-              </div>
               <button type="submit" name="submit" id="submit">
                 Register
               </button>
@@ -107,4 +87,4 @@ const LaundryRegistration = () => {
   );
 };
 
-export default LaundryRegistration;
+export default CustomerRegistration;

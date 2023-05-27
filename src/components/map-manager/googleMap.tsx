@@ -73,7 +73,7 @@ const GMap = ({location,setLocation,setAddress}:MapLocation)=>{
   return ( 
       <Card style={{border:'none'}}>
         <Card.Body style={{width:'100%',height:'100%'}}>
-        <GoogleMap zoom={14} center={markerPosition} mapContainerStyle={{width: '100%',height:'486px'}} onClick={handleMapClick}>
+        <GoogleMap zoom={14} center={markerPosition} mapContainerStyle={{width: '100%',height:'518px'}} onClick={handleMapClick}>
         <MarkerF
           position={markerPosition}
           draggable={true}

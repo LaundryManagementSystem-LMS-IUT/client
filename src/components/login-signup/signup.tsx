@@ -37,11 +37,6 @@ const SignUp = () => {
                         <label htmlFor="">Name</label>
                     </div>
                     <div className="inputbox">
-                        <IonIcon icon={callOutline}></IonIcon>
-                        <input type="text" pattern="[01]{2}[3-9]{1}[0-9]{8}"  id="phone" name="phone"  required/>
-                        <label htmlFor="">Phone Number</label>
-                    </div>
-                    <div className="inputbox">
                         <IonIcon icon={mailOutline}></IonIcon>
                         <input type="email" id="email" name="email"  required/>
                         <label htmlFor="">Email</label>

@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Modal } from "react-bootstrap";
 import Loader from "../partials/loader";
 
-const LaundryImage=()=>{
+const CustomerImage=()=>{
   const [modalShow, setModalShow] = useState(false);
-  const [imageURL,setImageURL] = useState("/laundryProfilePicture.png");
+  const [imageURL,setImageURL] = useState("/customerProfilePicture.jpg");
   const [locked,setLocked]=useState(false);
 
   if(locked===false){
@@ -52,4 +52,4 @@ const LaundryImage=()=>{
   }
 }
 
-export default LaundryImage;
+export default CustomerImage;

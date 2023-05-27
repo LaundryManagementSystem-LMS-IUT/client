@@ -12,14 +12,18 @@ import LaundryRegistration from './components/login-signup/laundry-register';
 import Laundry from './components/laundry-customer/view-laundry/view-all-laundry';
 import LaundryDetails from './components/laundry-customer/laundry-details/laundry-details';
 import Pricing from './components/laundry-manager/set-pricing/pricing';
+import CustomerRegistration from './components/login-signup/customer-register';
+import Landing from './components/login-signup/landing';
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Routes>
+          <Route path="/" element={<Landing/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/manager/login" element={<LaundryRegistration/>}/>
+          <Route path="/customer/login" element={<CustomerRegistration/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/customer/dashboard" element={<DashboardCustomer/>}/>
           <Route path="/manager/dashboard" element={<DashboardManager/>}/>

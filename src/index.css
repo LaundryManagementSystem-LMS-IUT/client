@@ -38,6 +38,49 @@
   visibility: none !important;
 }
 
+.landing {
+  position: fixed;
+  min-height: 100vh !important;
+  height:100% !important;
+  width: 100% !important;
+  top:0% !important;
+  margin-top:0% !important;
+  background: url("../public/landing-background.jpg") no-repeat;
+  background-position: center;
+  background-size: cover !important;
+}
+
+.topbar-landing {
+  position:fixed !important;
+  width: 100% !important;
+  height: 60px !important;
+  margin-top:0% !important;
+  top:0%;
+  display: flex;
+  color:#ccc !important;
+}
+
+.get-started{
+  position: fixed;
+  margin-top: 26%;
+  margin-left: 3%;
+}
+
+.landing-button{
+  border:2px solid #fff !important;
+  color:#fff;
+  background: transparent;
+}
+
+.content{
+  position: fixed;
+  width:50% ;
+  height:100vh;
+  margin-left:3% !important;
+  margin-top:17%;
+  color:#fff !important;
+}
+
 
 
 .login-registration {
@@ -67,6 +110,19 @@
   position: relative;
   width: 800px;
   height: 610px;
+  border: 1px solid rgba(255,255,255);
+  border-radius: 15px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.customer-registration-box{
+  position: relative;
+  width: 800px;
+  height: 500px;
   border: 1px solid rgba(255,255,255);
   border-radius: 15px;
   background-color: #fff;
@@ -811,6 +867,21 @@ button {
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
+}
+
+
+
+.landing-information{
+  margin-top:1%;
+  margin-left:2%;
+  color:#ccc !important;
+}
+
+.landing-image{
+  margin-top:0.2%;
+  margin-left:2%;
+  width:50px;
+  height:90%;
 }
 
 .toggle {
