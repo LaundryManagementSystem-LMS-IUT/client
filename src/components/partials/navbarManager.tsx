@@ -1,5 +1,5 @@
 import { IonIcon } from "@ionic/react";
-import { homeOutline, logOutOutline,peopleOutline, settingsOutline } from "ionicons/icons";
+import { cashOutline, chatbubbleEllipsesOutline, homeOutline, logOutOutline,peopleOutline, settingsOutline } from "ionicons/icons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -50,6 +50,22 @@ const NavbarManager = ({navigation,setNavigation}:Navbar) => {
           <IonIcon icon={peopleOutline}></IonIcon>
         </span>
         <span className="title">Order History</span>
+      </a>
+    </li>
+    <li>
+      <a  onClick={()=>navigate('/manager/fee')}>
+        <span className="icon">
+          <IonIcon icon={cashOutline}></IonIcon>
+        </span>
+        <span className="title">Set Pricing</span>
+      </a>
+    </li>
+    <li>
+      <a  onClick={()=>navigate('/manager/chat')}>
+        <span className="icon">
+          <IonIcon icon={chatbubbleEllipsesOutline}></IonIcon>
+        </span>
+        <span className="title">Chat</span>
       </a>
     </li>
 

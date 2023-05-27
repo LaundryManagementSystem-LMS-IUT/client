@@ -36,7 +36,6 @@ const OrderHistoryManager = () => {
       <div className="container">
         <div className="main">
           <HeaderManager
-            laundryName={"Azwad's Laundry"}
             navigation={navigation}
             setNavigation={setNavigation}
           />

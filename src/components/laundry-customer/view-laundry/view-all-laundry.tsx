@@ -135,7 +135,6 @@ const Laundry = () => {
       <div className="container">
         <div className="main">
           <HeaderCustomer
-            username={"Mirza Azwad"}
             navigation={navigation}
             setNavigation={setNavigation}
           />

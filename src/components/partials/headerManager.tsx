@@ -4,12 +4,11 @@ import NavbarManager from "./navbarManager";
 import { useState } from "react";
 
 type LaundryManager={
-  laundryName:string,
   navigation:boolean,
   setNavigation:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const HeaderManager = ({laundryName,navigation,setNavigation}:LaundryManager) => {
+const HeaderManager = ({navigation,setNavigation}:LaundryManager) => {
   const [notification,setNotification]=useState(false);
   const toggleNotification=()=>{
     let box = document.getElementById("box");
@@ -29,10 +28,6 @@ const HeaderManager = ({laundryName,navigation,setNavigation}:LaundryManager) =>
 <div className="topbar">
   <div className="toggle">
     <IonIcon icon={menuOutline} onClick={()=>setNavigation(!navigation)}></IonIcon>
-  </div>
-
-  <div className="profile">
-    <h2>{laundryName}</h2>
   </div>
 
   <div className="dropdowns">

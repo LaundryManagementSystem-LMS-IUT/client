@@ -180,11 +180,23 @@ h2{
     text-align: center;
 }
 
+h5{
+  color: #766788;
+  text-align: left;
+}
+
 .inputbox {
   position: relative;
   margin: 15px 0;
   width: 310px;
   border-bottom: 2px solid #766788;
+}
+
+.inputbox-dropdown {
+  display:flex;
+  position:relative;
+  margin-top: 15px;
+  margin-left:0px;
 }
 
 .errorBox {
@@ -1121,7 +1133,7 @@ button {
   grid-template-columns: 0.5fr 1fr 1fr;
 }
 
-.item-details .item-wash-type,
+.item-details .item-wash-type,.item-cloth-type
 .item-details .item-name {
   margin-top: auto;
   margin-bottom: auto;
@@ -1130,30 +1142,6 @@ button {
 
 .add-order-form .item-quantity {
   width: 80%;
-}
-
-.add-order-form .item-quantity .quantity-btns {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-}
-
-.add-order-form .item-quantity .quantity-btns .add,
-.add-order-form .item-quantity .quantity-btns .subtract {
-  padding: 0.5px 11px;
-  margin-bottom: 3px;
-  border-radius: 7px;
-  border: 1px solid var(--darkbrown);
-  font-size: 16px;
-  outline: none;
-  cursor: pointer;
-  background: transparent;
-}
-
-.add-order-form .item-quantity .quantity-btns .add:hover,
-.add-order-form .item-quantity .quantity-btns .subtract:hover {
-  background: var(--darkbrown);
-  color: var(--white);
 }
 
 .add-order-form .place-order {
@@ -1194,7 +1182,7 @@ button {
 }
 
 .add-order-form .items-dropdown,
-.add-order-form .wash-type-dropdown {
+.add-order-form .wash-type-dropdown, .cloth-type-dropdown {
   padding: 5px;
   border-radius: 7px;
   font-size: 16px;

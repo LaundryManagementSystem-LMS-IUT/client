@@ -33,29 +33,11 @@ const DashboardCustomer = () => {
     <NavbarCustomer navigation={navigation}  setNavigation={setNavigation}/>
     <div className="container">
     <div className="main">
-    <HeaderCustomer  username={"Mirza Azwad"} navigation={navigation}  setNavigation={setNavigation}/>
+    <HeaderCustomer  navigation={navigation}  setNavigation={setNavigation}/>
+    <div className="profile">
+        <h2>Welcome, {"Mirza Azwad"} !</h2>
+      </div>
     <div className="cardBox">
-        <div className="card">
-          <div>
-            <div className="numbers">80</div>
-            <div className="cardName">Orders</div>
-          </div>
-
-          <div className="iconBx">
-            <IonIcon name={cartOutline}></IonIcon>
-          </div>
-        </div>
-
-        <div className="card">
-          <div>
-            <div className="numbers">৳ 7,842</div>
-            <div className="cardName">Earning</div>
-          </div>
-
-          <div className="iconBx">
-            <IonIcon name={cashOutline}></IonIcon>
-          </div>
-        </div>
       </div>
       <div className="wrapper">
         <div className="table">

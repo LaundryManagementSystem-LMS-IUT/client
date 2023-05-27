@@ -30,7 +30,10 @@ const DashboardManager = () => {
     <NavbarManager navigation={navigation}  setNavigation={setNavigation}/>
     <div className="container">
       <div className="main">
-      <HeaderManager  laundryName={"Mirza Azwad"} navigation={navigation}  setNavigation={setNavigation}/>
+      <HeaderManager  navigation={navigation}  setNavigation={setNavigation}/>
+      <div className="profile">
+          <h2>{"Mirza Azwad"}</h2>
+      </div>
       <div className="cardBox">
         <div className="card">
           <div>
