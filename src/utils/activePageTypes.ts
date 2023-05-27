@@ -5,5 +5,6 @@ export enum ActivePageType {
   AccountSettings = "accountSettings",
   ReviewOrder = "reviewOrder",
   SetPricing = "fee",
+  Laundry="laundries",
   Chat="chat"
 }

@@ -52,7 +52,7 @@ const NavbarCustomer = ({ navigation, setNavigation, activePage }: Navbar) => {
             <span className="title">Dashboard</span>
           </a>
         </li>
-        <li>
+        <li className={activePage === ActivePageType.Laundry ? "active" : ""}>
           <a onClick={() => navigate("/customer/laundries")}>
             <span className="icon">
               <IonIcon icon={shirtOutline}></IonIcon>
