@@ -64,7 +64,7 @@ const Pricing = () => {
   }]);
   return ( 
   <div className="pricing">
-   <NavbarManager navigation={navigation}  setNavigation={setNavigation} activePage={ActivePageType.OrderHistory}/>
+   <NavbarManager navigation={navigation}  setNavigation={setNavigation} activePage={ActivePageType.SetPricing}/>
     <div className="container">
       <div className="main">
       <HeaderManager  navigation={navigation}  setNavigation={setNavigation}/>
