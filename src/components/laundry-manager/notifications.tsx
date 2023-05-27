@@ -17,7 +17,6 @@ const ViewReviews = () => {
       <div className="notifications-container">
         <div className="main">
           <HeaderManager
-            laundryName={"Mirza Azwad"}
             navigation={navigation}
             setNavigation={setNavigation}
           />

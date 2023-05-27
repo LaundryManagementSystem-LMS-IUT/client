@@ -4,6 +4,7 @@ import HeaderCustomer from "../../partials/headerCustomer";
 import { IonIcon } from "@ionic/react";
 import { searchCircleOutline } from "ionicons/icons";
 import LaundryArray from "./view-laundry-array";
+import { ActivePageType } from "../../../utils/activePageTypes";
 
 const Laundry = () => {
   const [navigation, setNavigation] = useState(false);
@@ -131,7 +132,7 @@ const Laundry = () => {
 
   return (
     <div className="laundry">
-      <NavbarCustomer navigation={navigation} setNavigation={setNavigation} />
+      <NavbarCustomer navigation={navigation} setNavigation={setNavigation} activePage={ActivePageType.Dashboard} />
       <div className="container">
         <div className="main">
           <HeaderCustomer

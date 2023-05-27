@@ -5,7 +5,8 @@ import {
   peopleOutline,
   settingsOutline,
   starHalfOutline,
-  cashOutline
+  cashOutline,
+  chatbubbleEllipsesOutline
 } from "ionicons/icons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -21,7 +22,6 @@ const NavbarManager = ({ navigation, setNavigation, activePage }: Navbar) => {
   const navigate = useNavigate();
   useEffect(() => {
     const toggler = () => {
-      // console.log('this runs');
       let navigation = document.querySelector(".navigation");
       let main = document.querySelector(".main");
       navigation?.classList.toggle("active");
@@ -74,7 +74,9 @@ const NavbarManager = ({ navigation, setNavigation, activePage }: Navbar) => {
           </a>
         </li>
 
-        <li>
+        <li
+          className={activePage === ActivePageType.SetPricing ? "active" : ""}
+        >
           <a onClick={() => navigate("/manager/fee")}>
             <span className="icon">
               <IonIcon icon={cashOutline}></IonIcon>
@@ -82,7 +84,9 @@ const NavbarManager = ({ navigation, setNavigation, activePage }: Navbar) => {
             <span className="title">Set Pricing</span>
           </a>
         </li>
-        <li>
+        <li
+          className={activePage === ActivePageType.Chat ? "active" : ""}
+        >
           <a onClick={() => navigate("/manager/chat")}>
             <span className="icon">
               <IonIcon icon={chatbubbleEllipsesOutline}></IonIcon>

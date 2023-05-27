@@ -4,13 +4,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 type LaundryManager = {
-  laundryName: string;
   navigation: boolean;
   setNavigation: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const HeaderManager = ({
-  laundryName,
   navigation,
   setNavigation,
 }: LaundryManager) => {
@@ -39,7 +37,7 @@ const HeaderManager = ({
       </div>
 
       <div className="profile">
-        <h2>{laundryName}</h2>
+        <h2>{"Nafisa Update"}</h2>
       </div>
 
       <div className="dropdowns">

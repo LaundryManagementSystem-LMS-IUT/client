@@ -4,4 +4,6 @@ export enum ActivePageType {
   Notifications = "notifications",
   AccountSettings = "accountSettings",
   ReviewOrder = "reviewOrder",
+  SetPricing = "fee",
+  Chat="chat"
 }

@@ -3,7 +3,6 @@ import { addCircleOutline, mailOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import NavbarCustomer from "../partials/navbarCustomer";
 import HeaderCustomer from "../partials/headerCustomer";
-import AddNewOrder from "./addNewOrder";
 import { ActivePageType } from "../../utils/activePageTypes";
 
 const OrderHistoryCustomer = () => {
@@ -44,11 +43,9 @@ const OrderHistoryCustomer = () => {
       <div className="order-history-container">
         <div className="main">
           <HeaderCustomer
-            username={"Mirza Azwad"}
             navigation={navigation}
             setNavigation={setNavigation}
           />
-          <AddNewOrder />
           <div className="wrapper">
             <div className="table">
               <div className="top-title">

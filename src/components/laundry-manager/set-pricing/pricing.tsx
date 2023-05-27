@@ -5,6 +5,7 @@ import { Table } from "react-bootstrap";
 import {IonIcon} from "@ionic/react";
 import { addCircleOutline } from "ionicons/icons";
 import AddItem from "./add-item-modal";
+import { ActivePageType } from "../../../utils/activePageTypes";
 
 const Pricing = () => {
   const [navigation,setNavigation]=useState(false);
@@ -63,7 +64,7 @@ const Pricing = () => {
   }]);
   return ( 
   <div className="pricing">
-   <NavbarManager navigation={navigation}  setNavigation={setNavigation}/>
+   <NavbarManager navigation={navigation}  setNavigation={setNavigation} activePage={ActivePageType.OrderHistory}/>
     <div className="container">
       <div className="main">
       <HeaderManager  navigation={navigation}  setNavigation={setNavigation}/>

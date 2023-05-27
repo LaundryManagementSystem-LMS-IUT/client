@@ -46,7 +46,6 @@ const DashboardManager = () => {
       <div className="manager-dashboard-container">
         <div className="main">
           <HeaderManager
-            laundryName={"Mirza Azwad"}
             navigation={navigation}
             setNavigation={setNavigation}
           />

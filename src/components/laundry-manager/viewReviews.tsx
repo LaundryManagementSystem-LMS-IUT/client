@@ -18,7 +18,6 @@ const ViewReviews = () => {
       <div className="view-review-container">
         <div className="main">
           <HeaderManager
-            laundryName={"Mirza Azwad"}
             navigation={navigation}
             setNavigation={setNavigation}
           />

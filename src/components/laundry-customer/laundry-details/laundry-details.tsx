@@ -3,6 +3,7 @@ import NavbarCustomer from "../../partials/navbarCustomer";
 import HeaderCustomer from "../../partials/headerCustomer";
 import AddNewOrder from "./addNewOrder";
 import { Table } from "react-bootstrap";
+import { ActivePageType } from "../../../utils/activePageTypes";
 
 const LaundryDetails = () => {
   const [navigation,setNavigation]=useState(false);
@@ -33,7 +34,7 @@ const LaundryDetails = () => {
   }];
   return ( 
     <div className="laundry-details">
-      <NavbarCustomer navigation={navigation} setNavigation={setNavigation} />
+      <NavbarCustomer navigation={navigation} setNavigation={setNavigation} activePage={ActivePageType.Dashboard} />
       <div className="container">
         <div className="main">
         <HeaderCustomer
