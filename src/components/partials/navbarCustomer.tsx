@@ -2,19 +2,23 @@ import { IonIcon } from "@ionic/react";
 import {
   homeOutline,
   logOutOutline,
+  notificationsCircleOutline,
   peopleOutline,
   settingsOutline,
   shirtOutline,
+  starHalfOutline,
 } from "ionicons/icons";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { ActivePageType } from "../../utils/activePageTypes";
 
 type Navbar = {
   navigation: boolean;
   setNavigation: React.Dispatch<React.SetStateAction<boolean>>;
+  activePage: ActivePageType
 };
 
-const NavbarCustomer = ({ navigation, setNavigation }: Navbar) => {
+const NavbarCustomer = ({ navigation, setNavigation, activePage }: Navbar) => {
   const navigate = useNavigate();
   useEffect(() => {
     const toggler = () => {
@@ -40,7 +44,7 @@ const NavbarCustomer = ({ navigation, setNavigation }: Navbar) => {
           </a>
         </li>
 
-        <li>
+        <li className={activePage === ActivePageType.Dashboard ? "active" : ""}>
           <a onClick={() => navigate("/customer/dashboard")}>
             <span className="icon">
               <IonIcon icon={homeOutline}></IonIcon>
@@ -57,7 +61,7 @@ const NavbarCustomer = ({ navigation, setNavigation }: Navbar) => {
           </a>
         </li>
 
-        <li>
+        <li className={activePage === ActivePageType.OrderHistory ? "active" : ""}>
           <a onClick={() => navigate("/customer/history")}>
             <span className="icon">
               <IonIcon icon={peopleOutline}></IonIcon>
@@ -66,7 +70,7 @@ const NavbarCustomer = ({ navigation, setNavigation }: Navbar) => {
           </a>
         </li>
 
-        <li>
+        <li className={activePage === ActivePageType.AccountSettings ? "active" : ""}>
           <a>
             <span className="icon">
               <IonIcon icon={settingsOutline}></IonIcon>

@@ -3,11 +3,12 @@ import { menuOutline, notificationsOutline } from "ionicons/icons";
 import { useState } from "react";
 
 type Customer = {
+  username: string;
   navigation: boolean;
   setNavigation: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const HeaderCustomer = ({ navigation, setNavigation }: Customer) => {
+const HeaderCustomer = ({ username, navigation, setNavigation }: Customer) => {
   const [notification, setNotification] = useState(false);
   const toggleNotification = () => {
     let box = document.getElementById("box");
@@ -31,6 +32,10 @@ const HeaderCustomer = ({ navigation, setNavigation }: Customer) => {
           icon={menuOutline}
           onClick={() => setNavigation(!navigation)}
         ></IonIcon>
+      </div>
+
+      <div className="profile">
+        <h2>Welcome, {username} !</h2>
       </div>
 
       <div className="dropdowns">
@@ -83,9 +88,9 @@ const HeaderCustomer = ({ navigation, setNavigation }: Customer) => {
           <div className="notifi-item">
             <div className="text notif_see_more">
               <p>
-                <a href="">
+                <Link to="/manager/notifications">
                   <span>Show all notifications</span>
-                </a>
+                </Link>
               </p>
             </div>
           </div>
