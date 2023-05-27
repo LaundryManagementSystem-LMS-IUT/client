@@ -41,6 +41,7 @@ const ReviewOrder = () => {
     // axios.post ('', {msg:})
     console.log("Rating:", rating);
     console.log("Review:", review);
+    setRevealReviewForm(false);
   };
 
   return (
@@ -49,6 +50,10 @@ const ReviewOrder = () => {
 
       <div className="table view-reviews-table">
         <div className="my-review">
+        <div className="order-details-review d-flex mx-auto">
+            <img src="/customerProfilePicture.jpg" width="40px" height="40px"></img>
+                  <h5>Nafisa Maliyat</h5>
+          </div>
           <div className="title">
             <div className="container">
               <div className="display-rating">
@@ -90,10 +95,9 @@ const ReviewOrder = () => {
                 className=" add-review-form add-order-form"
                 onSubmit={handleSubmit}
               >
-                <div className="order-details-review">
-                  <h4>Order ID: 1234</h4>
-                  <h4>Laundry Name: ABC Laundry</h4>
-                  <span>Payment: TK 1000</span>
+                <div className="order-details-review d-flex mx-auto">
+                  <img src="/customerProfilePicture.jpg" width="50px" height="50px"></img>
+                  <h4>Nafisa Maliyat</h4>
                 </div>
 
                 <div className="customer-rating">
@@ -118,12 +122,6 @@ const ReviewOrder = () => {
                     onChange={handleReviewChange}
                   ></textarea>
                 </div>
-                {/* <div className="anonymous">
-                  <label htmlFor="">
-                    <input type="checkbox" />
-                    <span>Anonymous Review</span>
-                  </label>
-                </div> */}
 
                 <button className="place-order" type="submit">
                   Submit Review

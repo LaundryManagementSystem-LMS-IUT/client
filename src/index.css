@@ -18,6 +18,22 @@
   --black2: #999;
 }
 
+.forgotPasswordCard{
+  width: 25%;
+  margin-top: 12%;
+}
+
+.inputStyle {
+  width: 50% !important;
+  height: 30px;
+  border-radius: 7px;
+  border: 0px;
+  margin-left: 8px;
+  margin-right: 8px;
+  background: #dddddd;
+  font-size: 20px;
+}
+
 .customer-dashboard,
 .history-customer,
 .manager-dashboard,

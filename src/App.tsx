@@ -16,6 +16,9 @@ import CustomerRegistration from './components/login-signup/customer-register';
 import Landing from './components/login-signup/landing';
 import ViewReviewsManager from './components/laundry-manager/viewReviews';
 import ManagerNotifications from './components/laundry-manager/notifications'
+import EmailVerification from './components/login-signup/email-verification';
+import PhoneVerification from './components/login-signup/phone-verification';
+import ForgotPassword from './components/login-signup/otp-components/forgotPassword';
 
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Landing/>}/>
+          <Route path="/email/verify/:email" element={<EmailVerification/>}/>
+          <Route path="/phone/verify/:phone" element={<PhoneVerification/>}/>
+          <Route path="/forgot" element={<ForgotPassword/>}/>
           <Route path="/login" element={<Login/>}/>
           <Route path="/manager/login" element={<LaundryRegistration/>}/>
           <Route path="/customer/login" element={<CustomerRegistration/>}/>

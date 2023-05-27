@@ -4,6 +4,7 @@ import HeaderCustomer from "../../partials/headerCustomer";
 import AddNewOrder from "./addNewOrder";
 import { Table } from "react-bootstrap";
 import { ActivePageType } from "../../../utils/activePageTypes";
+import ReviewOrder from "./reviewLaundry";
 
 const LaundryDetails = () => {
   const [navigation,setNavigation]=useState(false);
@@ -59,6 +60,7 @@ const LaundryDetails = () => {
             ))}
             </tbody>
           </Table>
+          <ReviewOrder/>
         </div>
       </div>
     </div>
