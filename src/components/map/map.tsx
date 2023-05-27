@@ -9,10 +9,11 @@ type MapLocation={
   setLocation:React.Dispatch<React.SetStateAction<{
     lat: number;
     lng: number;
-}>>
+}>>,
+  setAddress:React.Dispatch<React.SetStateAction<string>>
 }
 
-const Map = ({location,setLocation}:MapLocation) => {
+const Map = ({location,setLocation,setAddress}:MapLocation) => {
   const { isLoaded }: { isLoaded: boolean } = useLoadScript({
     googleMapsApiKey: process.env.REACT_APP_GMPKEY || '', 
     libraries,
@@ -21,7 +22,7 @@ const Map = ({location,setLocation}:MapLocation) => {
     return (<Loader/>)
   } 
   else{
-    return (<GMap location={location} setLocation={setLocation}/>)
+    return (<GMap location={location} setLocation={setLocation} setAddress={setAddress}/>)
   }
 }
 

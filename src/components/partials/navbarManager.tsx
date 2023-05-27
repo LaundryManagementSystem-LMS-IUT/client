@@ -1,5 +1,5 @@
 import { IonIcon } from "@ionic/react";
-import { homeOutline, logOutOutline, notificationsCircleOutline, peopleOutline, settingsOutline } from "ionicons/icons";
+import { homeOutline, logOutOutline,peopleOutline, settingsOutline } from "ionicons/icons";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -50,15 +50,6 @@ const NavbarManager = ({navigation,setNavigation}:Navbar) => {
           <IonIcon icon={peopleOutline}></IonIcon>
         </span>
         <span className="title">Order History</span>
-      </a>
-    </li>
-
-    <li>
-      <a>
-        <span className="icon">
-          <IonIcon icon={notificationsCircleOutline}></IonIcon>
-        </span>
-        <span className="title">Notifications</span>
       </a>
     </li>
 

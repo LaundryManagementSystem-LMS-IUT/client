@@ -11,7 +11,7 @@
 
 :root {
   --darkbrown: #766788;
-  --lightbrown: #766788;
+  --lightbrown: #8f7ba8;
   --white: #fff;
   --gray: #f5f5f5;
   --black1: #1a1b19;
@@ -37,6 +37,8 @@
   display: none !important;
   visibility: none !important;
 }
+
+
 
 .login-registration {
   display: flex;
@@ -64,7 +66,7 @@
 .laundry-registration-box{
   position: relative;
   width: 800px;
-  height: 450px;
+  height: 610px;
   border: 1px solid rgba(255,255,255);
   border-radius: 15px;
   background-color: #fff;
@@ -811,6 +813,27 @@ button {
   color: var(--darkbrown);
 }
 
+.laundry-card:hover{
+  cursor: pointer;
+  transform: scale(1.05);
+}
+.laundry-card{
+  width: 300px!important;
+  height: 320px!important;
+  background-color: var(--lightbrown) !important;
+  border-color: white !important;
+  -webkit-box-shadow :0px 10px 40px -10px rgba(0,0,0,0.7);
+  -moz-box-shadow :0px 10px 40px -10px rgba(0,0,0,0.7);
+  box-shadow : 0px 10px 40px -10px rgba(57, 57, 57, 0.5);
+  transition: transform 0.3s ease-in-out !important;
+}
+
+.laundry-card-image{
+  width: 300px!important;
+  height: 200px!important;
+  object-fit: cover!important;
+}
+
 .profile {
   text-align: center;
   padding: 10px 0rem;
@@ -1401,10 +1424,23 @@ input {
   margin: 0px 3px;
 }
 
+.page-item a {
+  color:var(--darkbrown) !important;
+}
+
+.page-item.active .page-link {
+  background-color: var(--darkbrown) !important;
+  color:#ccc !important;
+}
+
+.page-item.disabled .page-link {
+  opacity: 0.5;
+}
+
 .wrap-pagination {
   display: flex;
   width: max-content;
-  border: 1px solid var(--black2);
+  border: 1px solid var(--black2) !important;
   align-items: center;
   margin-top: 20px;
 }
@@ -1425,7 +1461,7 @@ input {
 }
 
 .wrap-pagination .number.selected {
-  background-color: var(--darkbrown);
+  background-color: var(--darkbrown) !important;
   color: white;
 }
 

@@ -3,9 +3,11 @@ import { cartOutline, cashOutline } from "ionicons/icons";
 import NavbarManager from "../partials/navbarManager";
 import HeaderManager from "../partials/headerManager";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const DashboardManager = () => {
   const [navigation,setNavigation]=useState(false);
+  const navigate=useNavigate();
   useEffect(() => {
     const doneElements = document.querySelectorAll<HTMLElement>('.wrap-item .order-progress .done');
     const totalElements = document.querySelectorAll<HTMLElement>('.wrap-item .order-progress .total');
@@ -21,7 +23,7 @@ const DashboardManager = () => {
     }
   }, []);
   const viewDetails=()=>{
-
+    navigate('/manager/history');
   }
   return ( 
   <div className="manager-dashboard">

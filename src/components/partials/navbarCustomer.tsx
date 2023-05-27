@@ -1,11 +1,10 @@
 import { IonIcon } from "@ionic/react";
 import {
-  chatbubbleOutline,
   homeOutline,
   logOutOutline,
-  notificationsCircleOutline,
   peopleOutline,
   settingsOutline,
+  shirtOutline,
 } from "ionicons/icons";
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -19,7 +18,6 @@ const NavbarCustomer = ({ navigation, setNavigation }: Navbar) => {
   const navigate = useNavigate();
   useEffect(() => {
     const toggler = () => {
-      // console.log("this runs");
       let navigation = document.querySelector(".navigation");
       let main = document.querySelector(".main");
       navigation?.classList.toggle("active");
@@ -50,6 +48,14 @@ const NavbarCustomer = ({ navigation, setNavigation }: Navbar) => {
             <span className="title">Dashboard</span>
           </a>
         </li>
+        <li>
+          <a onClick={() => navigate("/customer/laundries")}>
+            <span className="icon">
+              <IonIcon icon={shirtOutline}></IonIcon>
+            </span>
+            <span className="title">Laundries</span>
+          </a>
+        </li>
 
         <li>
           <a onClick={() => navigate("/customer/history")}>
@@ -57,15 +63,6 @@ const NavbarCustomer = ({ navigation, setNavigation }: Navbar) => {
               <IonIcon icon={peopleOutline}></IonIcon>
             </span>
             <span className="title">Order History</span>
-          </a>
-        </li>
-
-        <li>
-          <a>
-            <span className="icon">
-              <IonIcon icon={notificationsCircleOutline}></IonIcon>
-            </span>
-            <span className="title">Notifications</span>
           </a>
         </li>
 

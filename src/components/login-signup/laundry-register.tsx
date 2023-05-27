@@ -1,5 +1,5 @@
 import { IonIcon } from "@ionic/react";
-import { homeOutline, mapOutline } from "ionicons/icons";
+import { homeOutline, mapOutline, timeOutline, timerOutline } from "ionicons/icons";
 import Map from "../map/map";
 import usePlacesAutocomplete, {
   getGeocode,
@@ -11,6 +11,7 @@ import LaundryImage from "./laundry-image";
 const LaundryRegistration = () => {
   const [location,setLocation]=useState({lat:23.8103,lng:90.4125});
   const [active,setActive]=useState(true);
+  const [address,setAddress]=useState("");
   const {
     ready,
     value,
@@ -22,6 +23,7 @@ const LaundryRegistration = () => {
   const changeValue=(address:string)=>{
     setValue(address);
     setActive(true);
+    setAddress(address);
   }
 
   const handleSelect = async (address:string) => {
@@ -61,7 +63,7 @@ const LaundryRegistration = () => {
               </div>
               <div className="inputbox mx-auto search-bar">
                 <IonIcon icon={mapOutline}></IonIcon>
-                <input type="text" required id="address" name="address" value={value} onChange={(e)=>changeValue(e.target.value)} />
+                <input type="text" required id="address" name="address" value={address} onChange={(e)=>changeValue(e.target.value)} />
                 <label htmlFor="">Address</label>
                 {active && data.length > 0 && status === "OK" && (
                   <ul className="suggestions">
@@ -76,13 +78,23 @@ const LaundryRegistration = () => {
                   </ul>
                 )}
               </div>
+              <div className="inputbox mx-auto">
+                <IonIcon icon={timeOutline}></IonIcon>
+                <input type="time" name="openingTime" id="openingTime" />
+                <label htmlFor="openingTime">Opening Time</label>
+              </div>
+              <div className="inputbox mx-auto">
+              <IonIcon icon={timerOutline}></IonIcon>
+                <input type="time" name="closingTime" id="closingTime" />
+                <label htmlFor="closingTime">Closing Time</label>
+              </div>
               <button type="submit" name="submit" id="submit">
                 Register
               </button>
             </form>
           </div>
           <div style={{ width: "50%", height: "100%" }}>
-            <Map location={location} setLocation={setLocation}/>
+            <Map location={location} setLocation={setLocation} setAddress={setAddress}/>
           </div>
         </div>
       </section>

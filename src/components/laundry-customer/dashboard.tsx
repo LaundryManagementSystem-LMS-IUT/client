@@ -3,12 +3,13 @@ import { cashOutline,cartOutline } from "ionicons/icons";
 import NavbarCustomer from "../partials/navbarCustomer";
 import HeaderCustomer from "../partials/headerCustomer";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 const DashboardCustomer = () => {
   const [navigation,setNavigation]=useState(false);
-
+  const navigate=useNavigate();
   useEffect(() => {
     const doneElements = document.querySelectorAll<HTMLElement>('.wrap-item .order-progress .done');
     const totalElements = document.querySelectorAll<HTMLElement>('.wrap-item .order-progress .total');
@@ -25,7 +26,7 @@ const DashboardCustomer = () => {
   });
 
   const viewDetails=()=>{
-    
+    navigate('/customer/history');
   }
   return ( 
   <div className="customer-dashboard">

@@ -1,9 +1,6 @@
-import { IonIcon } from "@ionic/react";
-import { addCircleOutline, mailOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import NavbarCustomer from "../partials/navbarCustomer";
 import HeaderCustomer from "../partials/headerCustomer";
-import AddNewOrder from "./addNewOrder";
 
 const OrderHistoryCustomer = () => {
   const [navigation, setNavigation] = useState(false);
@@ -43,7 +40,6 @@ const OrderHistoryCustomer = () => {
             navigation={navigation}
             setNavigation={setNavigation}
           />
-          <AddNewOrder />
           <div className="wrapper">
             <div className="table">
               <div className="top-title">
