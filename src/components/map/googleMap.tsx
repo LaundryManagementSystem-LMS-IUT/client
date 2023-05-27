@@ -1,39 +1,49 @@
-import { useEffect, useMemo, useState } from "react";
-// import PlacesAutocomplete from "./placesAutocomplete";
+import { useEffect, useState } from "react";
 import { GoogleMap, MarkerF } from "@react-google-maps/api";
-import { Button, Card, Form} from "react-bootstrap";
+import {Card} from "react-bootstrap";
 
 type MapLocation={
   location:{lat:number,lng:number},
   setLocation:React.Dispatch<React.SetStateAction<{
     lat: number;
     lng: number;
-}>>
+}>>,
+  setAddress:React.Dispatch<React.SetStateAction<string>>
 }
 
-const GMap = ({location,setLocation}:MapLocation)=>{
+const GMap = ({location,setLocation,setAddress}:MapLocation)=>{
   const [markerPosition, setMarkerPosition] = useState({lat:23.8103,lng:90.4125});
-  const [error,setError]=useState("");
-  const [isValid,setIsValid]=useState(false);
 
   useEffect(()=>{
     setMarkerPosition(location);
   },[location])
 
-  const handleMapClick = (e:google.maps.MapMouseEvent) => {
-    setIsValid(true);
-    setMarkerPosition({
-      lat: e?.latLng?.lat() || 0,
-      lng: e?.latLng?.lng() || 0,
-    });
-    setLocation({
-      lat: e?.latLng?.lat() || 0,
-      lng: e?.latLng?.lng() || 0,
-    });
+  const getPlaceDetails = async (lat:number, lng:number) => {
+    const response = await fetch(
+      `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_GMPKEY}`
+    );
+    const data = await response.json();
+    if (data.status === "OK") {
+      setAddress(data.results[0].formatted_address);
+    } else {
+      console.log("Geocode was not successful for the following reason:", data.status);
+      setAddress("");
+    }
   };
 
-  const handleMarkerDragEnd = (event:google.maps.MapMouseEvent) => {
-    setIsValid(true);
+  const handleMapClick = async(e:google.maps.MapMouseEvent) => {
+    setMarkerPosition({
+      lat: e?.latLng?.lat() || 0,
+      lng: e?.latLng?.lng() || 0,
+    });
+    setLocation({
+      lat: e?.latLng?.lat() || 0,
+      lng: e?.latLng?.lng() || 0,
+    });
+    await getPlaceDetails(e?.latLng?.lat() || 0,e?.latLng?.lng() || 0);
+  };
+
+  const handleMarkerDragEnd = async(event:google.maps.MapMouseEvent) => {
     setMarkerPosition({
       lat: event?.latLng?.lat() || 0,
       lng: event?.latLng?.lng() || 0,
@@ -42,6 +52,7 @@ const GMap = ({location,setLocation}:MapLocation)=>{
       lat: event?.latLng?.lat() || 0,
       lng: event?.latLng?.lng() || 0,
     });
+    await getPlaceDetails(event?.latLng?.lat() || 0,event?.latLng?.lng() || 0);
   };
 
   const getUserLocation = () => {
@@ -62,8 +73,7 @@ const GMap = ({location,setLocation}:MapLocation)=>{
   return ( 
       <Card style={{border:'none'}}>
         <Card.Body style={{width:'100%',height:'100%'}}>
-      <div className="errorMessage" style={{color:"red"}}>{error}</div>
-        <GoogleMap zoom={14} center={markerPosition} mapContainerStyle={{width: '100%',height:'338px'}} onClick={handleMapClick}>
+        <GoogleMap zoom={14} center={markerPosition} mapContainerStyle={{width: '100%',height:'486px'}} onClick={handleMapClick}>
         <MarkerF
           position={markerPosition}
           draggable={true}
