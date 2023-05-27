@@ -28,7 +28,7 @@ const LaundryArray = ({array}:Laundries) => {
         {
           displayedLaundries.map((laundry) => (
             <div
-              className="col-xs-6 col-sm-6 col-md-4 col-lg-2 mx-5 my-3"
+              className="col-xs-6 col-sm-8 col-md-8 col-lg-4 my-2"
               key={laundry.id}
             >
                 <LaundryCard

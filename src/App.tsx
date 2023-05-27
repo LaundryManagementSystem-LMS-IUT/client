@@ -19,6 +19,7 @@ import ManagerNotifications from './components/laundry-manager/notifications'
 import EmailVerification from './components/login-signup/email-verification';
 import PhoneVerification from './components/login-signup/phone-verification';
 import ForgotPassword from './components/login-signup/otp-components/forgotPassword';
+import CustomerNotifications from './components/laundry-customer/notifications'
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="/manager/dashboard" element={<DashboardManager/>}/>
           <Route path="/manager/review" element={<ViewReviewsManager/>}/>
           <Route path="/manager/notifications" element={<ManagerNotifications/>}/>
+          <Route path="/customer/notifications" element={<CustomerNotifications/>}/>
         </Routes>
       </Router>
     </div>

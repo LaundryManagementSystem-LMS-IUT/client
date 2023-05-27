@@ -36,7 +36,7 @@ const LaundryDetails = () => {
   return ( 
     <div className="laundry-details">
       <NavbarCustomer navigation={navigation} setNavigation={setNavigation} activePage={ActivePageType.Laundry} />
-      <div className="container">
+      <div className="laundry-detail-container">
         <div className="main">
         <HeaderCustomer
             navigation={navigation}
