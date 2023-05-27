@@ -16,6 +16,7 @@ import CustomerRegistration from './components/login-signup/customer-register';
 import Landing from './components/login-signup/landing';
 import ViewReviewsManager from './components/laundry-manager/viewReviews';
 import ManagerNotifications from './components/laundry-manager/notifications'
+import CustomerNotifications from './components/laundry-customer/notifications'
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/manager/dashboard" element={<DashboardManager/>}/>
           <Route path="/manager/review" element={<ViewReviewsManager/>}/>
           <Route path="/manager/notifications" element={<ManagerNotifications/>}/>
+          <Route path="/customer/notifications" element={<CustomerNotifications/>}/>
         </Routes>
       </Router>
     </div>
