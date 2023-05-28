@@ -20,6 +20,10 @@ import EmailVerification from './components/login-signup/email-verification';
 import PhoneVerification from './components/login-signup/phone-verification';
 import ForgotPassword from './components/login-signup/otp-components/forgotPassword';
 import CustomerNotifications from './components/laundry-customer/notifications'
+import DeliveryRegistration from './components/login-signup/delivery-registration';
+import DashboardDelivery from './components/delivery/dashboard/dashboard';
+import OngoingDelivery from './components/delivery/ongoing/ongoing';
+import DeliveryHistory from './components/delivery/history/history';
 
 function App() {
   return (
@@ -33,9 +37,13 @@ function App() {
           <Route path="/login" element={<Login/>}/>
           <Route path="/manager/login" element={<LaundryRegistration/>}/>
           <Route path="/customer/login" element={<CustomerRegistration/>}/>
+          <Route path="/delivery/login" element={<DeliveryRegistration/>}/>
           <Route path="/signup" element={<SignUp/>}/>
           <Route path="/customer/dashboard" element={<DashboardCustomer/>}/>
           <Route path="/manager/dashboard" element={<DashboardManager/>}/>
+          <Route path="/delivery/dashboard" element={<DashboardDelivery/>}/>
+          <Route path="/delivery/ongoing" element={<OngoingDelivery/>}/>
+          <Route path="/delivery/history" element={<DeliveryHistory/>}/>
           <Route path="/customer/history" element={<OrderHistoryCustomer/>}/>
           <Route path="/customer/laundries" element={<Laundry/>}/>
           <Route path="/customer/laundryDetails/:id" element={<LaundryDetails/>}/>

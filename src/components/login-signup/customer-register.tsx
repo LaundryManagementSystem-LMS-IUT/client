@@ -1,6 +1,6 @@
 import { IonIcon } from "@ionic/react";
 import { callOutline, homeOutline, mapOutline, timeOutline, timerOutline } from "ionicons/icons";
-import Map from "../map-customer/map";
+import Map from "../maps/map-customer/map";
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,

@@ -23,6 +23,16 @@
   margin-top: 12%;
 }
 
+.delivery-request{
+  width:100%;
+  margin-top:1%;
+  margin-bottom: 1%;
+}
+
+.delivery-request .buttons{
+  display:flex;
+}
+
 .inputStyle {
   width: 50% !important;
   height: 30px;
@@ -32,6 +42,14 @@
   margin-right: 8px;
   background: #dddddd;
   font-size: 20px;
+}
+
+.map-delivery{
+  width:50% !important;
+}
+
+.requests{
+  width:50% !important;
 }
 
 .customer-dashboard,
@@ -138,6 +156,19 @@
 .customer-registration-box{
   position: relative;
   width: 800px;
+  height: 500px;
+  border: 1px solid rgba(255,255,255);
+  border-radius: 15px;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.delivery-registration-box{
+  position: relative;
+  width: 400px;
   height: 500px;
   border: 1px solid rgba(255,255,255);
   border-radius: 15px;

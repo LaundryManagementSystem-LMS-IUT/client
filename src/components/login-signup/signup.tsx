@@ -1,7 +1,9 @@
 import { useState } from "react"
 import {Card, Form,InputGroup} from 'react-bootstrap';
 import { IonIcon } from '@ionic/react';
-import { mailOutline,lockClosedOutline, personCircleOutline, callOutline } from 'ionicons/icons';
+import { mailOutline,lockClosedOutline, personCircleOutline, callOutline, logoGoogle } from 'ionicons/icons';
+import NavbarLanding from "../partials/navbarLanding";
+import SignUpModal from "./signup-modal";
 
 const SignUp = () => {
   const [error,setError]=useState("");
@@ -10,6 +12,7 @@ const SignUp = () => {
   const [password,setPassword]=useState("");
   const [confirmErrorPassword,setConfirmError]=useState("");
   const [userType,setUserType]=useState("");
+  const [show,setShow]=useState(false);
 
   const passwordValidator=()=>{
 
@@ -20,16 +23,19 @@ const SignUp = () => {
   
   return ( 
     <div className="login-registration">
+    <NavbarLanding/>
+    <SignUpModal show={show} setShow={setShow}/>
     <Card className="registration-box">
           <Card.Body>
-            <h2>Login</h2>
+            <h2>Sign Up</h2>
             <Form  className="form-value">
-            <h2>Registration</h2>
                     <div className="btn-group">
-                      <input type="radio" className="btn-check" checked name="userSelection" id="userSelection1" value="Laundry_Manager"/>
+                      <input type="radio" className="btn-check" checked name="userSelection" id="userSelection1" value="Laundry_Manager" onClick={()=>setUserType("manager")}/>
                       <label className="btn btn-outline-primary" htmlFor="userSelection1">Laundry Manager</label>
-                      <input type="radio" className="btn-check" name="userSelection" id="userSelection2" value="Laundry_User"/>
+                      <input type="radio" className="btn-check" name="userSelection" id="userSelection2" value="Laundry_User"  onClick={()=>setUserType("customer")}/>
                       <label className="btn btn-outline-primary" htmlFor="userSelection2">Customer</label>
+                      <input type="radio" className="btn-check" name="userSelection" id="userSelection3" value="Delivery" onClick={()=>setUserType("delivery")}/>
+                      <label className="btn btn-outline-primary" htmlFor="userSelection3">Delivery</label>
                     </div>
                     <div className="inputbox">
                         <IonIcon icon={personCircleOutline}></IonIcon>
@@ -53,11 +59,13 @@ const SignUp = () => {
                         <label htmlFor="">Re-enter password</label>
                     </div>
                     <div id="confirmErrorPassword" className="errorBox"></div>
-                    <button type="submit" name="submit" value="submit" disabled={false} id="buttonRegister"  on-click="()=>{document.getElementById('buttonRegister').disabled=true}">Register</button>
+                    <button type="submit" name="submit" value="submit" disabled={false} id="buttonRegister">Register</button>
+                    </Form>
+                    <hr/>
+                    <button name="google" onClick={()=>setShow(true)}>Sign Up with <IonIcon icon={logoGoogle}></IonIcon></button>
                     <div className="login">
                         <p>Already have an account? <a href="/login">Login</a></p>
                     </div>
-            </Form>
           </Card.Body>
         </Card>
   </div>

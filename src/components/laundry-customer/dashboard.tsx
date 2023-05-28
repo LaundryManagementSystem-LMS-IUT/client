@@ -53,7 +53,6 @@ const DashboardCustomer = () => {
           <div className="profile">
             <h2>Welcome, {"Mirza Azwad"} !</h2>
           </div>
-          <div className="cardBox"></div>
           <div className="wrapper">
             <div className="table">
               <div className="top-title">

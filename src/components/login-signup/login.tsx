@@ -1,7 +1,8 @@
 import { useState } from "react"
 import {Card, Form,InputGroup} from 'react-bootstrap';
 import { IonIcon } from '@ionic/react';
-import { mailOutline,lockClosedOutline } from 'ionicons/icons';
+import { mailOutline,lockClosedOutline, logoGoogle } from 'ionicons/icons';
+import NavbarLanding from "../partials/navbarLanding";
 
 const Login = () => {
   const [error,setError]=useState("");
@@ -10,6 +11,7 @@ const Login = () => {
 
   return ( 
       <div className="login-registration">
+        <NavbarLanding/>
         <Card className="login-box">
               <Card.Body>
                 <h2>Login</h2>
@@ -29,6 +31,8 @@ const Login = () => {
                         <label htmlFor=""><input type="checkbox"/>Remember Me!</label> 
                     </div> 
                     <button type="submit" name="submit" id="submit">Log in</button>
+                    <hr/>
+                    <button name="google">Login with <IonIcon icon={logoGoogle}></IonIcon></button>
                     <div className="register">
                         <p>Don't have an account? <a href="/signup">Register</a></p>
                     </div>
