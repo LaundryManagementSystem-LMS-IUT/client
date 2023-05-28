@@ -4,11 +4,55 @@ import { useEffect, useState } from "react";
 import NavbarCustomer from "../partials/navbarCustomer";
 import HeaderCustomer from "../partials/headerCustomer";
 import { ActivePageType } from "../../utils/activePageTypes";
+import { Pagination } from "react-bootstrap";
 
 const OrderHistoryCustomer = () => {
   const [navigation, setNavigation] = useState(false);
+  const [seeDetails, setSeeDetails] = useState<number | null>(null);
+  const [orders] = useState([
+    {
+      id: 1023,
+      laundryName: "Nafisa Laundry 1",
+      payment: "Tk 1000",
+      done: 4,
+      total: 10,
+      status: "Completed",
+      items: [
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        {
+          name: "Pants",
+          washType: "Dry Wash",
+          doneQuantity: 2,
+          totalQuantity: 8,
+        },
+      ],
+    },
+    {
+      id: 1024,
+      laundryName: "Nafisa Laundry 2",
+      payment: "Tk 800",
+      done: 2,
+      total: 5,
+      status: "Pending",
+      items: [
+        {
+          name: "T-Shirt",
+          washType: "Wash",
+          doneQuantity: 2,
+          totalQuantity: 10,
+        },
+        {
+          name: "Jeans",
+          washType: "Dry Wash and Iron",
+          doneQuantity: 4,
+          totalQuantity: 5,
+        },
+      ],
+    },
+  ]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
+  const updateProgress = () => {
     const doneElements = document.querySelectorAll<HTMLElement>(
       ".wrap-item .order-progress .done"
     );
@@ -22,6 +66,7 @@ const OrderHistoryCustomer = () => {
       ".wrap-item .order-progress .progress-text"
     );
 
+    //progress calculation
     for (let i = 0; i < doneElements.length; i++) {
       const doneAmount = parseInt(doneElements[i].innerHTML);
       const totalAmount = parseInt(totalElements[i].innerHTML);
@@ -31,7 +76,64 @@ const OrderHistoryCustomer = () => {
         (doneAmount / totalAmount) * 100
       )}%`;
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    updateProgress();
+  }, [searchQuery, orders]);
+
+  const itemsPerPage = 8; // Number of items per page
+  const totalPages = Math.ceil(orders.length / itemsPerPage); // Total number of pages
+  const [currentPage, setCurrentPage] = useState(1); // Current active page
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const displayedOrders = orders
+    .filter(
+      (order) =>
+        order.laundryName.toLowerCase().includes(searchQuery) ||
+        order.id.toString().includes(searchQuery) ||
+        order.status.toLowerCase().includes(searchQuery)
+    )
+    .slice(startIndex, endIndex);
+
+  //set css of status fetched
+  function getStatusClass(status: string) {
+    if (status === "Completed") {
+      return "completed";
+    } else if (status === "In Progress") {
+      return "processing";
+    } else if (status === "Pending") {
+      return "pending";
+    } else if (status === "Cancelled") {
+      return "cancelled";
+    }
+    return "";
+  }
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+    setCurrentPage(1); // Reset current page when search query changes
+    updateProgress();
+  };
+
+  const getHighlightedText = (text: string, highlight: string) => {
+    if (!text || !highlight) {
+      return text; // Return the original text if either the text or highlight is empty
+    }
+
+    const parts = text.split(new RegExp(`(${highlight})`, "gi"));
+    return parts.map((part, index) =>
+      part.toLowerCase() === highlight.toLowerCase() ? (
+        <mark key={index}>{part}</mark>
+      ) : (
+        part
+      )
+    );
+  };
 
   return (
     <div className="history-customer">
@@ -53,9 +155,11 @@ const OrderHistoryCustomer = () => {
               </div>
               <div className="wrap-input">
                 <input
-                  type="number"
+                  type="text"
                   placeholder="Search order ID..."
                   className="search"
+                  value={searchQuery}
+                  onChange={handleSearch}
                 />
               </div>
               <div className="wrap-content">
@@ -76,62 +180,106 @@ const OrderHistoryCustomer = () => {
                     <span>Status</span>
                   </div>
                 </div>
+                {displayedOrders.map((order) => (
+                  <>
+                    <div
+                      className="wrap-item"
+                      onClick={() =>
+                        setSeeDetails(seeDetails === order.id ? null : order.id)
+                      }
+                    >
+                      <div className="id">
+                        <span>{getHighlightedText(order.id.toString(), searchQuery)}</span>
+                      </div>
+                      <div className="laundry-icon">
+                        <span>{getHighlightedText(order.laundryName, searchQuery)}</span>
+                      </div>
+                      <div className="payment">
+                        <span>{order.payment}</span>
+                      </div>
+                      <div className="order-progress">
+                        <div className="the-bar">
+                          <span className="done hidden">{order.done}</span>
+                          <span className="total hidden">{order.total}</span>
+                          <div className="progress-done"></div>
+                        </div>
 
-                <div className="wrap-item">
-                  <div className="id">
-                    <span>1</span>
-                  </div>
-                  <div className="laundry-icon">
-                    <span>ABC Laundry</span>
-                  </div>
-                  <div className="payment">
-                    <span>Tk 1000</span>
-                  </div>
-                  <div className="order-progress">
-                    <div className="the-bar">
-                      <span className="done hidden">4</span>
-                      <span className="total hidden">10</span>
-                      <div className="progress-done"></div>
+                        <span className="progress-text"></span>
+                      </div>
+                      <div className="status">
+                        <span
+                          className={`status ${getStatusClass(order.status)}`}
+                        >
+                          {getHighlightedText(order.status, searchQuery)}
+                        </span>
+                      </div>
                     </div>
-
-                    <span className="progress-text"></span>
-                  </div>
-                  <div className="status">
-                    <span className="status completed">Completed</span>
-                  </div>
-                </div>
-                <div className="orderDetails hidden">
-                  <div className="wrap-details header">
-                    <div className="icon">
-                      <span>Item</span>
-                    </div>
-                    <div className="quantity">
-                      <span>Progress</span>
-                    </div>
-                  </div>
-                  <div className="wrap-details item">
-                    <div className="icon">
-                      <span>Pants</span>
-                    </div>
-                    <div className="quantity">
-                      <span>
-                        <span className="num">1</span>
-                      </span>
-                      /<span className="total-quantity"> 5</span>
-                    </div>
-                  </div>
-                </div>
-
-                <ul className="wrap-pagination">
-                  <li className="number">«</li>
-                  <li className="number selected">1</li>
-                  <li className="number">2</li>
-                  <li className="number">3</li>
-                  <li className="number">4</li>
-                  <li className="number">»</li>
-                </ul>
+                    {seeDetails == order.id && (
+                      <div className="orderDetails">
+                        <div className="wrap-details header">
+                          <div className="icon">
+                            <span>Item</span>
+                          </div>
+                          <div className="quantity">
+                            <span>Progress</span>
+                          </div>
+                        </div>
+                        {order.items.map((item) => (
+                          <>
+                            <div className="wrap-details item">
+                              <div className="icon">
+                                <span>{item.name}</span>
+                              </div>
+                              <div className="quantity">
+                                <span>
+                                  <span className="num">
+                                    {item.doneQuantity}
+                                  </span>
+                                </span>
+                                /
+                                <span className="total-quantity">
+                                  {item.totalQuantity}
+                                </span>
+                              </div>
+                            </div>
+                          </>
+                        ))}
+                      </div>
+                    )}
+                  </>
+                ))}
               </div>
             </div>
+          </div>
+          <div className="d-flex justify-content-center mt-3">
+            <Pagination className="m-auto py-3">
+              <Pagination.First
+                onClick={() => handlePageChange(1)}
+                disabled={currentPage === 1}
+              />
+              <Pagination.Prev
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+              />
+              {Array.from({ length: totalPages }).map((_, index) => (
+                <Pagination.Item
+                  key={index + 1}
+                  active={currentPage === index + 1}
+                  onClick={() => handlePageChange(index + 1)}
+                  className="pagination"
+                >
+                  {index + 1}
+                </Pagination.Item>
+              ))}
+              <Pagination.Next
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+              />
+              <Pagination.Last
+                onClick={() => handlePageChange(totalPages)}
+                disabled={currentPage === totalPages}
+              />
+            </Pagination>
           </div>
         </div>
       </div>
