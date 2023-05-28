@@ -79,7 +79,7 @@ const AddItem = ({show,setShow,pricing,setPricing}:ModalProperty) => {
     </div>
     </Modal.Body>
     <Modal.Footer>
-      <button type="submit">Add Item</button>
+      <button type="submit" className="add-item-btn">Add Item</button>
     </Modal.Footer>
     </form>
   </Modal>
