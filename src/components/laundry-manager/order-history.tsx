@@ -3,9 +3,12 @@ import NavbarManager from "../partials/navbarManager";
 import HeaderManager from "../partials/headerManager";
 import { ActivePageType } from "../../utils/activePageTypes";
 import { Pagination } from "react-bootstrap";
+import EditOrders from "./edit-order";
 
 const OrderHistoryManager = () => {
   const [navigation, setNavigation] = useState(false);
+  const [editableForm, setEditableForm] = useState<number | null>(null);
+  const [seeDetails, setSeeDetails] = useState<number | null>(null);
   const [orders] = useState([
     {
       id: 1023,
@@ -14,130 +17,52 @@ const OrderHistoryManager = () => {
       done: 4,
       total: 10,
       status: "Completed",
+      items: [
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
+        {
+          name: "Pants",
+          washType: "Dry Wash",
+          doneQuantity: 2,
+          totalQuantity: 8,
+        },
+      ],
     },
     {
       id: 1024,
-      userName: "John Doe",
-      payment: "Tk 750",
-      done: 6,
-      total: 8,
-      status: "In Progress",
-    },
-    {
-      id: 1025,
-      userName: "Jane Smith",
-      payment: "Tk 500",
-      done: 3,
-      total: 5,
-      status: "Completed",
-    },
-    {
-      id: 1026,
-      userName: "David Johnson",
-      payment: "Tk 1200",
-      done: 2,
-      total: 6,
-      status: "In Progress",
-    },
-    {
-      id: 1027,
-      userName: "Emily Brown",
-      payment: "Tk 900",
-      done: 5,
-      total: 7,
-      status: "Completed",
-    },
-    {
-      id: 1028,
-      userName: "Michael Wilson",
+      userName: "John Smith",
       payment: "Tk 800",
-      done: 7,
-      total: 9,
-      status: "In Progress",
-    },
-    {
-      id: 1029,
-      userName: "Sophia Anderson",
-      payment: "Tk 1500",
-      done: 4,
-      total: 6,
-      status: "Completed",
-    },
-    {
-      id: 1030,
-      userName: "Jacob Martinez",
-      payment: "Tk 600",
-      done: 3,
-      total: 5,
-      status: "In Progress",
-    },
-    {
-      id: 1031,
-      userName: "Olivia Thompson",
-      payment: "Tk 1000",
-      done: 6,
-      total: 8,
-      status: "Cancelled",
-    },
-    {
-      id: 1032,
-      userName: "Daniel Garcia",
-      payment: "Tk 700",
       done: 2,
-      total: 4,
-      status: "In Progress",
-    },
-    {
-      id: 1033,
-      userName: "Isabella Rodriguez",
-      payment: "Tk 850",
-      done: 5,
-      total: 7,
-      status: "Completed",
-    },
-    {
-      id: 1034,
-      userName: "Liam Hernandez",
-      payment: "Tk 950",
-      done: 3,
-      total: 6,
-      status: "In Progress",
-    },
-    {
-      id: 1035,
-      userName: "Ava Lopez",
-      payment: "Tk 1200",
-      done: 7,
-      total: 10,
-      status: "Completed",
-    },
-    {
-      id: 1036,
-      userName: "Noah Gonzalez",
-      payment: "Tk 500",
-      done: 0,
-      total: 6,
-      status: "Pending",
-    },
-    {
-      id: 1037,
-      userName: "Mia Adams",
-      payment: "Tk 900",
-      done: 8,
-      total: 8,
-      status: "Completed",
-    },
-    {
-      id: 1038,
-      userName: "Ethan Clark",
-      payment: "Tk 650",
-      done: 3,
       total: 5,
-      status: "In Progress",
+      status: "Pending",
+      items: [
+        {
+          name: "T-Shirt",
+          washType: "Wash",
+          doneQuantity: 2,
+          totalQuantity: 10,
+        },
+        {
+          name: "Jeans",
+          washType: "Dry Wash and Iron",
+          doneQuantity: 4,
+          totalQuantity: 5,
+        },
+      ],
     },
   ]);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
+  const updateProgress = () => {
     const doneElements = document.querySelectorAll<HTMLElement>(
       ".wrap-item .order-progress .done"
     );
@@ -151,6 +76,7 @@ const OrderHistoryManager = () => {
       ".wrap-item .order-progress .progress-text"
     );
 
+    //progress calculation
     for (let i = 0; i < doneElements.length; i++) {
       const doneAmount = parseInt(doneElements[i].innerHTML);
       const totalAmount = parseInt(totalElements[i].innerHTML);
@@ -160,7 +86,11 @@ const OrderHistoryManager = () => {
         (doneAmount / totalAmount) * 100
       )}%`;
     }
-  }, []);
+  };
+
+  useEffect(() => {
+    updateProgress();
+  }, [searchQuery, orders]);
 
   const itemsPerPage = 8; // Number of items per page
   const totalPages = Math.ceil(orders.length / itemsPerPage); // Total number of pages
@@ -170,9 +100,17 @@ const OrderHistoryManager = () => {
   };
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const displayedOrders = orders.slice(startIndex, endIndex);
+  const displayedOrders = orders
+    .filter(
+      (order) =>
+        order.userName.toLowerCase().includes(searchQuery) ||
+        order.id.toString().includes(searchQuery) ||
+        order.status.toLowerCase().includes(searchQuery)
+    )
+    .slice(startIndex, endIndex);
 
-  function getStatusClass(status:string) {
+  //set css of status fetched
+  function getStatusClass(status: string) {
     if (status === "Completed") {
       return "completed";
     } else if (status === "In Progress") {
@@ -184,6 +122,32 @@ const OrderHistoryManager = () => {
     }
     return "";
   }
+
+  const handleCancelOrder = (orderId: number | null) => {
+    setEditableForm(orderId);
+  };
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.target.value.toLowerCase();
+    setSearchQuery(query);
+    setCurrentPage(1); // Reset current page when search query changes
+    updateProgress();
+  };
+
+  const getHighlightedText = (text: string, highlight: string) => {
+    if (!text || !highlight) {
+      return text; // Return the original text if either the text or highlight is empty
+    }
+
+    const parts = text.split(new RegExp(`(${highlight})`, "gi"));
+    return parts.map((part, index) =>
+      part.toLowerCase() === highlight.toLowerCase() ? (
+        <mark key={index}>{part}</mark>
+      ) : (
+        part
+      )
+    );
+  };
 
   return (
     <div className="history-manager">
@@ -205,9 +169,11 @@ const OrderHistoryManager = () => {
               </div>
               <div className="wrap-input">
                 <input
-                  type="number"
-                  placeholder="Search order ID..."
+                  type="text"
+                  placeholder="Search order..."
                   className="search"
+                  value={searchQuery}
+                  onChange={handleSearch}
                 />
               </div>
               <div className="wrap-content">
@@ -216,7 +182,7 @@ const OrderHistoryManager = () => {
                     <span>ID</span>
                   </div>
                   <div className="laundry-name">
-                    <span>Laundry Name</span>
+                    <span>Name</span>
                   </div>
                   <div className="payment">
                     <span>Payment</span>
@@ -230,51 +196,94 @@ const OrderHistoryManager = () => {
                 </div>
 
                 {displayedOrders.map((order) => (
-                  <div className="wrap-item">
-                    <div className="id">
-                      <span>{order.id}</span>
-                    </div>
-                    <div className="laundry-icon">
-                      <span>{order.userName}</span>
-                    </div>
-                    <div className="payment">
-                      <span>{order.payment}</span>
-                    </div>
-                    <div className="order-progress">
-                      <div className="the-bar">
-                        <span className="done hidden">{order.done}</span>
-                        <span className="total hidden">{order.total}</span>
-                        <div className="progress-done"></div>
+                  <>
+                    <div
+                      className="wrap-item"
+                      onClick={() =>
+                        setSeeDetails(seeDetails === order.id ? null : order.id)
+                      }
+                    >
+                      <div className="id">
+                        <span>
+                          {getHighlightedText(order.id.toString(), searchQuery)}
+                        </span>
                       </div>
+                      <div className="laundry-icon">
+                        <span>
+                          {getHighlightedText(order.userName, searchQuery)}
+                        </span>
+                      </div>
+                      <div className="payment">
+                        <span>{order.payment}</span>
+                      </div>
+                      <div className="order-progress">
+                        <div className="the-bar">
+                          <span className="done hidden">{order.done}</span>
+                          <span className="total hidden">{order.total}</span>
+                          <div className="progress-done"></div>
+                        </div>
 
-                      <span className="progress-text"></span>
+                        <span className="progress-text"></span>
+                      </div>
+                      <div className="status">
+                        <span
+                          className={`status ${getStatusClass(order.status)}`}
+                        >
+                          {getHighlightedText(order.status, searchQuery)}
+                        </span>
+                      </div>
                     </div>
-                    <div className="status">
-                      <span className={`status ${getStatusClass(order.status)}`}>{order.status}</span>
-                    </div>
-                  </div>
+                    {seeDetails == order.id && (
+                      <div className="orderDetails">
+                        <div className="wrap-details header">
+                          <div className="icon">
+                            <span>Item</span>
+                          </div>
+                          <div className="quantity">
+                            <span>Progress</span>
+                          </div>
+                        </div>
+                        {order.items.map((item) => (
+                          <>
+                            <div className="wrap-details item">
+                              <div className="icon">
+                                <span>
+                                  {item.name} ({item.washType})
+                                </span>
+                              </div>
+                              <div className="quantity">
+                                <span>
+                                  <span className="num">
+                                    {item.doneQuantity}
+                                  </span>
+                                </span>
+                                /
+                                <span className="total-quantity">
+                                  {item.totalQuantity}
+                                </span>
+                              </div>
+                            </div>
+                          </>
+                        ))}
+
+                        <button
+                          className="edit-order-btn"
+                          type="submit"
+                          onClick={() => setEditableForm(order.id)}
+                        >
+                          Update Order
+                        </button>
+                      </div>
+                    )}
+
+                    {editableForm === order.id && (
+                      <EditOrders
+                        onCancelOrder={handleCancelOrder}
+                        order={order}
+                      />
+                    )}
+                  </>
                 ))}
-                <div className="orderDetails hidden">
-                  <div className="wrap-details header">
-                    <div className="icon">
-                      <span>Item</span>
-                    </div>
-                    <div className="quantity">
-                      <span>Progress</span>
-                    </div>
-                  </div>
-                  <div className="wrap-details item">
-                    <div className="icon">
-                      <span>Pants</span>
-                    </div>
-                    <div className="quantity">
-                      <span>
-                        <span className="num">1</span>
-                      </span>
-                      /<span className="total-quantity"> 5</span>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
