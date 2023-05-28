@@ -24,6 +24,7 @@ import DeliveryRegistration from './components/login-signup/delivery-registratio
 import DashboardDelivery from './components/delivery/dashboard/dashboard';
 import OngoingDelivery from './components/delivery/ongoing/ongoing';
 import DeliveryHistory from './components/delivery/history/history';
+import ChatPage from './components/chats/chat-page/chatRoom';
 
 function App() {
   return (
@@ -51,6 +52,7 @@ function App() {
           <Route path="/manager/fee" element={<Pricing/>}/>
           <Route path="/manager/dashboard" element={<DashboardManager/>}/>
           <Route path="/manager/review" element={<ViewReviewsManager/>}/>
+          <Route path="/manager/chat" element={<ChatPage/>}/>
           <Route path="/manager/notifications" element={<ManagerNotifications/>}/>
           <Route path="/customer/notifications" element={<CustomerNotifications/>}/>
         </Routes>

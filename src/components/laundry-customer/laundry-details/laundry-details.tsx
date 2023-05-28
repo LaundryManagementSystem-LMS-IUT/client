@@ -5,6 +5,7 @@ import AddNewOrder from "./addNewOrder";
 import { Table } from "react-bootstrap";
 import { ActivePageType } from "../../../utils/activePageTypes";
 import ReviewOrder from "./reviewLaundry";
+import CollapsibleChat from "../../chats/chat-collapsible/collapsableChat";
 
 const LaundryDetails = () => {
   const [navigation,setNavigation]=useState(false);
@@ -60,6 +61,7 @@ const LaundryDetails = () => {
             ))}
             </tbody>
           </Table>
+          <CollapsibleChat senderID={"123"} receiverID={"123"} JWT={{_id:"123",token:"123",userType:"123"}}/>
           <ReviewOrder/>
         </div>
       </div>

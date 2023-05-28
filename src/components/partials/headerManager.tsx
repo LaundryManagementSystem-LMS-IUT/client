@@ -36,10 +36,6 @@ const HeaderManager = ({
         ></IonIcon>
       </div>
 
-      <div className="profile">
-        <h2>{"Nafisa Update"}</h2>
-      </div>
-
       <div className="dropdowns">
         <div className="notif_icon" onClick={toggleNotification}>
           <div className="icon-container">
