@@ -25,20 +25,8 @@ const AddOrderModal = ({ show, setShow }: ModalProperty) => {
             <span className="item-icon">Shirt</span>
             <span className="item-quantity">
               <div className="inputbox quantity-input">
-                {/* <input
-                  type="button"
-                  value="-"
-                  className="button-minus border rounded-circle  icon-shape icon-sm mx-1 "
-                  data-field="quantity"
-                /> */}
                 <input type="number" min="0" />
                 <label htmlFor="">Quantity</label>
-                {/* <input
-                  type="button"
-                  value="+"
-                  className="button-plus border rounded-circle icon-shape icon-sm "
-                  data-field="quantity"
-                /> */}
               </div>
             </span>
             <span className="item-wash-type">
