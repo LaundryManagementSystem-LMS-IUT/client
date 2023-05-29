@@ -30,11 +30,11 @@ const SignUp = () => {
             <h2>Sign Up</h2>
             <Form  className="form-value">
                     <div className="btn-group">
-                      <input type="radio" className="btn-check" checked name="userSelection" id="userSelection1" value="Laundry_Manager" onClick={()=>setUserType("manager")}/>
-                      <label className="btn btn-outline-primary" htmlFor="userSelection1">Laundry Manager</label>
-                      <input type="radio" className="btn-check" name="userSelection" id="userSelection2" value="Laundry_User"  onClick={()=>setUserType("customer")}/>
+                      <input type="radio" className="btn-check" checked name="userSelection" id="userSelection1" value="manager" onClick={()=>setUserType("manager")}/>
+                      <label className="btn btn-outline-primary" htmlFor="userSelection1">Manager</label>
+                      <input type="radio" className="btn-check" name="userSelection" id="userSelection2" value="customer"  onClick={()=>setUserType("customer")}/>
                       <label className="btn btn-outline-primary" htmlFor="userSelection2">Customer</label>
-                      <input type="radio" className="btn-check" name="userSelection" id="userSelection3" value="Delivery" onClick={()=>setUserType("delivery")}/>
+                      <input type="radio" className="btn-check" name="userSelection" id="userSelection3" value="delivery" onClick={()=>setUserType("delivery")}/>
                       <label className="btn btn-outline-primary" htmlFor="userSelection3">Delivery</label>
                     </div>
                     <div className="inputbox">
