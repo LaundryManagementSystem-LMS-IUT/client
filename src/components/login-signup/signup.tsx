@@ -29,7 +29,7 @@ const SignUp = () => {
           <Card.Body>
             <h2>Sign Up</h2>
             <Form  className="form-value">
-                    <div className="btn-group">
+                    <div className="btn-group register-btn-group">
                       <input type="radio" className="btn-check" checked name="userSelection" id="userSelection1" value="manager" onClick={()=>setUserType("manager")}/>
                       <label className="btn btn-outline-primary" htmlFor="userSelection1">Manager</label>
                       <input type="radio" className="btn-check" name="userSelection" id="userSelection2" value="customer"  onClick={()=>setUserType("customer")}/>
@@ -59,11 +59,11 @@ const SignUp = () => {
                         <label htmlFor="">Re-enter password</label>
                     </div>
                     <div id="confirmErrorPassword" className="errorBox"></div>
-                    <button type="submit" name="submit" value="submit" disabled={false} id="buttonRegister">Register</button>
+                    <button type="submit" className="register-submit" name="submit" value="submit" disabled={false} id="buttonRegister">Register</button>
                     </Form>
                     <hr/>
-                    <button name="google" onClick={()=>setShow(true)}>Sign Up with <IonIcon icon={logoGoogle}></IonIcon></button>
-                    <div className="login">
+                    <button name="google" className="register-submit" onClick={()=>setShow(true)}>Sign Up with <IonIcon icon={logoGoogle}></IonIcon></button>
+                    <div className="login-link">
                         <p>Already have an account? <a href="/login">Login</a></p>
                     </div>
           </Card.Body>

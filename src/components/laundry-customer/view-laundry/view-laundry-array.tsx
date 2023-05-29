@@ -8,10 +8,11 @@ type Laundries={
     name: string;
     location: string;
     imageURL: string;
-}[]
+}[],
+  searchQuery:string;
 }
 
-const LaundryArray = ({array}:Laundries) => {
+const LaundryArray = ({ array, searchQuery }: Laundries) => {
   const itemsPerPage = 8; // Number of items per page
   const totalPages = Math.ceil(array.length / itemsPerPage); // Total number of pages
   const [currentPage, setCurrentPage] = useState(1); // Current active page
@@ -35,6 +36,7 @@ const LaundryArray = ({array}:Laundries) => {
                   name={laundry.name}
                   location={laundry.location}
                   imageURL={laundry.imageURL}
+                  searchQuery={searchQuery}
                 />
             </div>
           ))}
