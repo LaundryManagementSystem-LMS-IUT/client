@@ -5,6 +5,7 @@ import BillingForm from "./billingForm";
 import { ActivePageType } from "../../../utils/activePageTypes";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
+import OrderTabs from "./orderTabs";
 
 const LaundryDetails = () => {
   const [navigation, setNavigation] = useState(false);
@@ -42,8 +43,7 @@ const LaundryDetails = () => {
   const washItems = items.filter((item) => item.operation === "Wash");
 
   const [orderList, setOrderList] = useState<
-    { name: string; operation: string; quantity: number }[]
-  >([]);
+    { name: string; operation: string; quantity: number;price:number }[]>([]);
 
   const handleTabSelect = (k: string | null) => {
     if (k) setKey(k);
@@ -65,18 +65,17 @@ const LaundryDetails = () => {
 
     if (existingOrderIndex !== -1) {
       const updatedOrderList = [...orderList];
-      updatedOrderList[existingOrderIndex].quantity = quantity;
+      const currentValue=updatedOrderList[existingOrderIndex].quantity*updatedOrderList[existingOrderIndex].price;
+      updatedOrderList[existingOrderIndex].quantity = (isNaN(quantity)?0:Number(quantity));
+      const newValue=updatedOrderList[existingOrderIndex].quantity*updatedOrderList[existingOrderIndex].price;
+      setTotal(total-currentValue+newValue);
       setOrderList(updatedOrderList);
     } else {
-      const newOrder = { name, operation, quantity };
+      const quantityValue=(isNaN(quantity)?0:Number(quantity));
+      const newOrder = { name, operation, quantity:quantityValue,price };
       setOrderList([...orderList, newOrder]);
+      setTotal(total+quantityValue*price);
     }
-
-    const updatedTotal = orderList.reduce(
-      (total, order) => total + price * order.quantity,
-      0
-    );
-    setTotal(updatedTotal);
   };
 
   return (
@@ -108,120 +107,16 @@ const LaundryDetails = () => {
                         className="mb-3"
                       >
                         <Tab eventKey="washniron" title="Wash & Iron">
-                          <div className="operation-type-container">
-                            {washAndIronItems.map((item, index) => (
-                              <div className="operation-type-item-details item-details">
-                                <span className="item-icon">{item.name}</span>
-                                <span className="item-quantity">
-                                  <div className="inputbox quantity-input">
-                                    <input
-                                      type="number"
-                                      min="0"
-                                      onChange={(e) =>
-                                        handleAddToOrder(
-                                          item.name,
-                                          item.operation,
-                                          item.price,
-                                          parseInt(e.target.value)
-                                        )
-                                      }
-                                    />
-                                    <label htmlFor="">Quantity</label>
-                                  </div>
-                                </span>
-                                <span className="item-price">
-                                  <div>৳{item.price}</div>
-                                </span>
-                              </div>
-                            ))}
-                          </div>
+                          <OrderTabs items={washAndIronItems} handleAddToOrder={handleAddToOrder}/>
                         </Tab>
                         <Tab eventKey="wash" title="Wash">
-                          <div className="operation-type-container">
-                            {washItems.map((item, index) => (
-                              <div className="operation-type-item-details item-details">
-                                <span className="item-icon">{item.name}</span>
-                                <span className="item-quantity">
-                                  <div className="inputbox quantity-input">
-                                    <input
-                                      type="number"
-                                      min="0"
-                                      onChange={(e) =>
-                                        handleAddToOrder(
-                                          item.name,
-                                          item.operation,
-                                          item.price,
-                                          parseInt(e.target.value)
-                                        )
-                                      }
-                                    />
-                                    <label htmlFor="">Quantity</label>
-                                  </div>
-                                </span>
-                                <span className="item-price">
-                                  <div>৳{item.price}</div>
-                                </span>
-                              </div>
-                            ))}
-                          </div>
+                          <OrderTabs items={washItems} handleAddToOrder={handleAddToOrder}/>
                         </Tab>
                         <Tab eventKey="iron" title="Iron">
-                          <div className="operation-type-container">
-                            {ironItems.map((item, index) => (
-                              <div className="operation-type-item-details item-details">
-                                <span className="item-icon">{item.name}</span>
-                                <span className="item-quantity">
-                                  <div className="inputbox quantity-input">
-                                    <input
-                                      type="number"
-                                      min="0"
-                                      onChange={(e) =>
-                                        handleAddToOrder(
-                                          item.name,
-                                          item.operation,
-                                          item.price,
-                                          parseInt(e.target.value)
-                                        )
-                                      }
-                                    />
-                                    <label htmlFor="">Quantity</label>
-                                  </div>
-                                </span>
-                                <span className="item-price">
-                                  <div>৳{item.price}</div>
-                                </span>
-                              </div>
-                            ))}
-                          </div>
+                          <OrderTabs items={ironItems} handleAddToOrder={handleAddToOrder}/>
                         </Tab>
                         <Tab eventKey="drywash" title="Dry Wash">
-                          <div className="operation-type-container">
-                            {dryWashItems.map((item, index) => (
-                              <div className="operation-type-item-details item-details">
-                                <span className="item-icon">{item.name}</span>
-                                <span className="item-quantity">
-                                  <div className="inputbox quantity-input">
-                                    <input
-                                      type="number"
-                                      min="0"
-                                      onChange={(e) =>
-                                        handleAddToOrder(
-                                          item.name,
-                                          item.operation,
-                                          item.price,
-                                          parseInt(e.target.value)
-                                        )
-                                      }
-                                    />
-                                    <label htmlFor="">Quantity</label>
-                                  </div>
-                                </span>
-                                <span className="item-price">
-                                  <div>৳{item.price}</div>
-                                </span>
-                              </div>
-                            ))}
-                          </div>
+                          <OrderTabs items={dryWashItems} handleAddToOrder={handleAddToOrder}/>
                         </Tab>
                       </Tabs>
                     </div>
