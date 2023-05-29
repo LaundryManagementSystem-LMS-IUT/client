@@ -60,12 +60,7 @@ const DashboardCustomer = () => {
               </div>
               <div className="first-line">
                 <div className="wrap-input">
-                  <input
-                    type="number"
-                    min="0"
-                    placeholder="Search order ID..."
-                    className="search"
-                  />
+                  
                 </div>
                 <div className="view-more-orders">
                   <button className="view-details" onClick={viewDetails}>
