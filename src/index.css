@@ -33,7 +33,7 @@
   display: flex;
 }
 
-.chatButton{
+.chatButton {
   right: 0%;
   position: fixed;
   z-index: 5;
@@ -41,31 +41,31 @@
   margin-bottom: 0%;
   bottom: 0%;
   width: 15%;
-  height:4%;
+  height: 4%;
   background-color: var(--lightpurple) !important;
-  color:var(--white) !important;
+  color: var(--white) !important;
   border: 2px solid var(--darkpurple) !important;
 }
 
-.chatSenderImage{
+.chatSenderImage {
   width: 45px;
   height: 100%;
   border-radius: 50%;
 }
 
-.button-submit-send{
-  width:20%;
+.button-submit-send {
+  width: 20%;
 }
 
-.chatCollapse{
-  position:fixed;
-  bottom:4%;
-  width:15%;
-  margin-right:2%;
-  right:0%;
+.chatCollapse {
+  position: fixed;
+  bottom: 4%;
+  width: 15%;
+  margin-right: 2%;
+  right: 0%;
 }
 
-.chatCard{
+.chatCard {
   position: relative;
   height: 270px;
   overflow-y: scroll;
@@ -104,7 +104,7 @@
   width: 100% !important;
 }
 
-.chatroom{
+.chatroom {
   height: 100vh;
   top: 0% !important;
   margin-top: 0% !important;
@@ -195,7 +195,7 @@
 }
 
 .get-started .landing-button:hover {
-  background-color: var(--darkbrown);
+  background-color: var(--darkpurple);
   color: var(--white);
 }
 
@@ -248,13 +248,13 @@
 
 .register-link a,
 .login-link a {
-  color: var(--darkbrown);
+  color: var(--darkpurple);
   text-decoration: none;
 }
 
 .register-link a:hover,
 .login-link a:hover {
-  color: var(--darkbrown);
+  color: var(--darkpurple);
   font-weight: bold;
   text-decoration: underline;
 }
@@ -298,6 +298,8 @@
   justify-content: center;
   align-items: center;
 }
+
+/* ============================================================== */
 
 .search-bar input[type="text"]:focus {
   box-shadow: inset 0 0 3px #ddd;
@@ -439,7 +441,8 @@ h5 {
   transition: 0.5s;
 }
 input:focus ~ label,
-input:valid ~ label {
+input:valid ~ label,
+input:not(:placeholder-shown) ~ label {
   top: -2px;
 }
 .inputbox input {
@@ -452,11 +455,12 @@ input:valid ~ label {
   padding: 0 35px 0 5px;
   color: #766788;
 }
-.inputbox ion-icon {
+.inputbox ion-icon,
+.inputbox .icon {
   position: absolute;
   right: 0px;
   color: #766788;
-  font-size: 1.2em;
+  font-size: 1.5em;
   top: 20px;
 }
 .remember {
@@ -485,7 +489,7 @@ input:valid ~ label {
 
 .login-submit:hover,
 .register-submit:hover {
-  border: 1px solid var(--darkbrown);
+  border: 1px solid var(--darkpurple);
   background-color: var(--lightbrown);
   color: var(--white);
 }
@@ -503,23 +507,7 @@ button {
   transition: 0.2s ease-in-out;
 }
 
-/* .login {
-  font-size: 1em;
-  color: #766788;
-  text-align: center;
-  margin: 25px 0 10px;
-}
-.login p a {
-  text-decoration: none;
-  color: #766788;
-  font-weight: 600;
-}
-.login p a:hover {
-  text-decoration: underline;
-} */
-
 .btn-group {
-  /* padding: 0% 0% 5% 0%; */
   border-radius: 25px;
 }
 .btn.btn-outline-primary {
@@ -619,7 +607,6 @@ button {
 
 .table .first-line {
   display: grid;
-  grid-template-columns: 70fr 30fr;
   align-items: center;
 }
 
@@ -627,41 +614,44 @@ button {
   display: flex;
   justify-content: flex-end;
   height: 100%;
+  margin-top: 2%;
 }
 
 .table .first-line .view-details {
   max-width: max-content;
   padding: 8px;
   border-radius: 7px;
-  background: var(--darkpurple);
+  background: var(--white);
+  color: var(--darkpurple);
   font-size: 16px;
-  border: 1px solid transparent;
-  color: var(--white);
+  border: 1px solid var(--darkpurple);
   margin: auto 10px;
   cursor: pointer;
   justify-self: end;
 }
 
 .table .first-line .view-details:hover {
-  background: var(--white);
-  color: var(--darkpurple);
+  background: var(--darkpurple);
+  color: var(--white);
   border: 1px solid var(--darkpurple);
 }
 
 .wrap-content {
   padding: 1.2rem;
+  width: 100%;
 }
 
 .search {
   border: 1px solid #ccc;
   margin: 20px 20px 10px;
   width: 100%;
-  padding: 10px 10px;
+  padding: 10px 15px;
   max-width: 320px;
   outline: none;
-  border-radius: 10px;
+  border-radius: 25px;
   font-size: 16px;
   transition: 0.2s ease-in-out;
+  color: var(--darkpurple);
 }
 
 .search:hover,
@@ -795,14 +785,14 @@ button {
   font-size: 16px;
   font-weight: 500;
 }
-.status.return {
+/* .status.return {
   padding: 2px 4px;
   background: #f00;
   color: var(--white);
   border-radius: 4px;
   font-size: 16px;
   font-weight: 500;
-}
+} */
 .status.processing {
   padding: 2px 4px;
   background: #1795ce;
@@ -812,10 +802,11 @@ button {
   font-weight: 500;
 }
 
-.orderDetails .edit-order-btn {
+.orderDetails .edit-order-btn,
+.place-order-btn .add-order {
   background: var(--white);
-  color: var(--darkbrown);
-  border: 1px solid var(--darkbrown);
+  color: var(--darkpurple);
+  border: 1px solid var(--darkpurple);
   outline: none;
   transition: 0.2s ease-in-out;
   max-width: fit-content;
@@ -824,8 +815,9 @@ button {
   border-radius: 7px;
 }
 
-.orderDetails .edit-order-btn:hover {
-  background: var(--darkbrown);
+.orderDetails .edit-order-btn:hover,
+.place-order-btn .add-order:hover {
+  background: var(--darkpurple);
   color: var(--white);
 }
 
@@ -920,7 +912,7 @@ button {
   }
 }
 
-/* =============== Navigation ================ */
+/* =============== Navigation ================================== */
 .navigation {
   position: fixed;
   width: 300px;
@@ -1309,9 +1301,24 @@ button {
   }
 }
 
+/* ======================----pricing===================================== */
 .pricing-table {
   width: 100%;
   table-layout: fixed;
+  border: 3px solid var(--darkpurple);
+  border-radius: 10px; /* Add this line to make the table rounded */
+}
+
+.pricing-table thead tr h2,
+.pricing-table thead tr h5 {
+  width: max-content;
+}
+
+.pricing-table td input[type="text"],
+.pricing-table td input[type="number"] {
+  width: 100%;
+  text-align: right;
+  outline: none;
 }
 
 .pricing-table td,
@@ -1332,22 +1339,29 @@ button {
   color: var(--white);
 }
 
+/* ==================================ADD ITEM============================= */
 .add-item-btn {
-  background: var(--darkbrown);
+  background: var(--darkpurple);
   color: var(--white);
-  font-size:18px;
-  border: 1px solid var(--darkbrown);
+  font-size: 18px;
+  border: 1px solid var(--darkpurple);
   outline: none;
   transition: 0.2s ease-in-out;
   line-height: 0;
   padding: 10px 20px;
   border-radius: 7px;
 }
-
-.add-item-btn:hover{
+.add-item-btn:hover {
   background: var(--white);
-  color:var(--darkbrown)
+  color: var(--darkpurple);
 }
+
+.add-item-modal-body .inputbox {
+  width: 100%;
+  margin: 10px 0 20px;
+}
+
+/* ====================================NEW ORDER======================= */
 
 .table.new-order-table {
   border: 1px solid var(--darkpurple);
@@ -1389,6 +1403,8 @@ button {
 
 .modal-content {
   padding: 10px 20px !important;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .new-order .add-order-btn .add-order:hover {
@@ -1539,6 +1555,122 @@ button {
   margin-bottom: 15px;
 }
 
+.operation-type-container {
+  padding: 0 20px 10px;
+}
+
+.place-order-btn {
+  width: 100;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.place-order-btn .add-order {
+  width: 250px;
+}
+
+.place-order-form {
+  font-size: 18px;
+}
+
+.place-order-form .nav-tabs .nav-link {
+  color: var(--darkpurple);
+}
+.place-order-form .nav-tabs .nav-link.active {
+  color: var(--darkpurple);
+  font-weight: bold;
+}
+
+.place-order-details {
+  height: 65vh;
+  overflow-y: auto;
+}
+.operation-type-item-details .inputbox {
+  width: 80%;
+}
+
+.place-order-payment-bar {
+  height: max-content;
+  width: 100%;
+  padding: 10px 0;
+  margin: auto;
+  background: var(--darkpurple);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: var(--white);
+  text-align: center;
+}
+
+.item-price div {
+  height: 100%;
+  margin: 20px;
+}
+
+/* =======================BILLING FORM=================================== */
+.billing-container{
+  padding:30px;
+}
+
+.bill-name{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.billing-container .inputbox{
+  width: 90%;
+}
+
+.bill-contact{
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.bill-contact .address-inputbox{
+  width: 97%;
+}
+
+.bill-payment-mode{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.bill-payment-mode div{
+  height: 100%;
+  margin: auto 0;
+}
+
+.bill-payment-mode input[type="radio"] {
+  /* Increase the desired size */
+  width: 20px;
+  height: 20px;
+  /* Additional styles for appearance */
+  margin-right: 5px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.bill-payment-mode input[type="radio"]::before {
+  /* Adjust size of the inner circle */
+  width: 12px;
+  height: 12px;
+  /* Position the inner circle */
+  top: 4px;
+  left: 4px;
+}
+
+
+.bill-payment-mode ion-icon{
+  height: 100%;
+  margin: 0 0px -8px 10px ;
+  font-size: 1.5rem;
+}
+
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
@@ -1582,7 +1714,7 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   padding: 5px;
   cursor: pointer;
-  min-height:12px;
+  min-height: 12px;
   background: var(--darkpurple);
 }
 
@@ -1697,7 +1829,7 @@ input {
   font-size: 16px;
   font-weight: 500;
 }
-.status.pending {
+.status.pending, .status.collecting {
   padding: 2px 4px;
   background: #e9b10a;
   color: var(--white);
@@ -1713,7 +1845,7 @@ input {
   font-size: 16px;
   font-weight: 500;
 }
-.status.processing {
+.status.processing, .status.delivering, .status.delivered {
   padding: 2px 4px;
   background: #1795ce;
   color: var(--white);
@@ -1738,7 +1870,21 @@ input {
 }
 
 .new-order.edit-order {
-  grid-template-columns: 1fr;
+  grid-template-columns: 0.8fr 0.2fr;
+}
+
+.modal-close-btn {
+  font-size: 1.2rem;
+  height: 100%;
+  width: 100%;
+  color: var(--darkpurple);
+}
+
+.modal-close-btn .icon {
+  height: 100%;
+  width: 60%;
+  padding: 20px 0px 20px 40px;
+  cursor: pointer;
 }
 
 .table.edit-order-table {
@@ -2000,11 +2146,11 @@ input {
   color: var(--darkpurple);
 }
 
-.go-to-review{
-  color:var(--darkpurple);
+.go-to-review {
+  color: var(--darkpurple);
 }
 
-.go-to-review:hover{
-  color:var(--darkpurple);
-  font-weight:bold;
+.go-to-review:hover {
+  color: var(--darkpurple);
+  font-weight: bold;
 }

@@ -36,7 +36,7 @@ const NavbarCustomer = ({ navigation, setNavigation, activePage }: Navbar) => {
         <li>
           <a onClick={() => navigate("/customer/dashboard")}>
             <span className="icon">
-              <img src="/logo.png" />
+              <img src="/hanging-dry.png" />
             </span>
             <span className="title">
               <h2>Washify</h2>

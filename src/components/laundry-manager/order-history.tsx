@@ -113,9 +113,9 @@ const OrderHistoryManager = () => {
   function getStatusClass(status: string) {
     if (status === "Completed") {
       return "completed";
-    } else if (status === "In Progress") {
+    } else if (status === "In Progress" || status === "Delivering" || status === "delivered") {
       return "processing";
-    } else if (status === "Pending") {
+    } else if (status === "Pending" || status==="Collecting") {
       return "pending";
     } else if (status === "Cancelled") {
       return "cancelled";
@@ -170,7 +170,7 @@ const OrderHistoryManager = () => {
               <div className="wrap-input">
                 <input
                   type="text"
-                  placeholder="Search order..."
+                  placeholder="Search ID / Name / Status"
                   className="search"
                   value={searchQuery}
                   onChange={handleSearch}

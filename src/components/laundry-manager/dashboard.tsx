@@ -81,17 +81,9 @@ const DashboardManager = () => {
                 <h2>Recent Orders</h2>
               </div>
               <div className="first-line">
-                <div className="wrap-input">
-                  <input
-                    type="number"
-                    min="0"
-                    placeholder="Search order ID..."
-                    className="search"
-                  />
-                </div>
                 <div className="view-more-orders">
                   <button className="view-details" onClick={viewDetails}>
-                    View Order Details
+                    View All Orders
                   </button>
                 </div>
               </div>
