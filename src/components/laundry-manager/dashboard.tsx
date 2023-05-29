@@ -91,7 +91,7 @@ const DashboardManager = () => {
                 </div>
                 <div className="view-more-orders">
                   <button className="view-details" onClick={viewDetails}>
-                    View Detailed History
+                    View Order Details
                   </button>
                 </div>
               </div>

@@ -59,7 +59,7 @@ const NavbarManager = ({ navigation, setNavigation, activePage }: Navbar) => {
             <span className="icon">
               <IonIcon icon={peopleOutline}></IonIcon>
             </span>
-            <span className="title">Order History</span>
+            <span className="title">Order Details</span>
           </a>
         </li>
 
