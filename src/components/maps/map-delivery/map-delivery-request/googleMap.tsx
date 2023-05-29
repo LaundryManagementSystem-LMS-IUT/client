@@ -34,11 +34,10 @@ const GMap = ()=>{
           draggable={false}
           visible={true}
           icon={{
-            url: '/self-marker2.png', // Path to your custom marker image
-            scaledSize: new window.google.maps.Size(30, 30), // Adjust the size as needed
-            anchor: new window.google.maps.Point(20, 29), // Position the anchor point of the image
+            url: '/self-marker2.png', 
+            scaledSize: new window.google.maps.Size(40, 40),
+            anchor: new window.google.maps.Point(20, 29),
           }}
-          label={"You"}
         />
         </GoogleMap>
         </Card.Body>

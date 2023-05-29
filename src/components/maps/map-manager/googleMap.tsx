@@ -73,12 +73,17 @@ const GMap = ({location,setLocation,setAddress}:MapLocation)=>{
   return ( 
       <Card style={{border:'none'}}>
         <Card.Body style={{width:'100%',height:'100%'}}>
-        <GoogleMap zoom={14} center={markerPosition} mapContainerStyle={{width: '100%',height:'518px'}} onClick={handleMapClick}>
+        <GoogleMap zoom={14} center={markerPosition} mapContainerStyle={{width: '100%',height:'504px'}} onClick={handleMapClick}>
         <MarkerF
           position={markerPosition}
           draggable={true}
           onDragEnd={handleMarkerDragEnd}
           visible={true}
+          icon={{
+            url: '/self-marker2.png', 
+            scaledSize: new window.google.maps.Size(40, 40),
+            anchor: new window.google.maps.Point(20, 29),
+          }}
         />
         </GoogleMap>
         </Card.Body>
