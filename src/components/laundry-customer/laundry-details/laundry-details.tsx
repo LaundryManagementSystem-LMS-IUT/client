@@ -44,7 +44,7 @@ const LaundryDetails = () => {
             setNavigation={setNavigation}
           />
           <AddNewOrder/>
-          <Table striped bordered hover>
+          <Table striped bordered hover className="pricing-table">
             <thead>
             <tr>
               <h2>Pricing Chart</h2>
