@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {AiOutlineClose} from 'react-icons/ai'
 
 const EditOrders = ({
   onCancelOrder,
@@ -20,6 +21,18 @@ const EditOrders = ({
     }[];
   };
 }) => {
+  const [doneQuantities, setDoneQuantities] = useState(
+    order.items.map((item) => item.doneQuantity)
+  );
+  const handleDoneQuantityChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const newDoneQuantities = [...doneQuantities];
+    newDoneQuantities[index] = parseInt(e.target.value, 10);
+    setDoneQuantities(newDoneQuantities);
+  };
+  
   const handleCancel = () => {
     onCancelOrder(null);
   };
@@ -35,6 +48,9 @@ const EditOrders = ({
           <div className="edit-order new-order add-review">
             <div className="title">
               <h1>Update Order</h1>
+            </div>
+            <div className="modal-close-btn">
+              <AiOutlineClose className="icon" onClick={() => handleCancel()}/>
             </div>
           </div>
           <form className="orderDetails add-order-form" onSubmit={handleSubmit}>
@@ -89,9 +105,6 @@ const EditOrders = ({
             <button className="place-order" type="submit">
               Update Order
             </button>
-            <span className="cancel-order" onClick={() => handleCancel()}>
-              Cancel
-            </span>
           </form>
         </div>
       </div>
