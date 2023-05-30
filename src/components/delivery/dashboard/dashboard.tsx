@@ -279,7 +279,7 @@ const DashboardDelivery = () => {
   return ( 
   <div className="dashboard-delivery">
     <NavbarDelivery navigation={navigation} setNavigation={setNavigation}  activePage={ActivePageType.Dashboard}/>
-    <div className="container">
+    <div className="custom-container">
       <div className="main">
         <HeaderDelivery navigation={navigation} setNavigation={setNavigation}/>
         <div className="profile">

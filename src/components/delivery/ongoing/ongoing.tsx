@@ -278,7 +278,7 @@ const OngoingDelivery = () => {
   return ( 
   <div className="dashboard-delivery">
     <NavbarDelivery navigation={navigation} setNavigation={setNavigation}  activePage={ActivePageType.OngoingDelivery}/>
-    <div className="container">
+    <div className="ongoing-delivery-container">
       <div className="main">
         <HeaderDelivery navigation={navigation} setNavigation={setNavigation}/>
         <div className="profile">

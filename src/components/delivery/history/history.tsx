@@ -152,7 +152,7 @@ const DeliveryHistory = () => {
   return ( 
   <div className="dashboard-delivery">
     <NavbarDelivery navigation={navigation} setNavigation={setNavigation}  activePage={ActivePageType.ConfirmDelivery}/>
-    <div className="container">
+    <div className="delivery-history-container">
       <div className="main">
         <HeaderDelivery navigation={navigation} setNavigation={setNavigation}/>
         <div className="profile">
