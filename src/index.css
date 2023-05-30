@@ -33,13 +33,10 @@
   display: flex;
 }
 
-<<<<<<< Updated upstream
-=======
 .delivery-history-container .main{
   padding-left: 15px;
 }
 
->>>>>>> Stashed changes
 .chatButton {
   right: 0%;
   position: fixed;
@@ -514,8 +511,6 @@ button {
   transition: 0.2s ease-in-out;
 }
 
-<<<<<<< Updated upstream
-=======
 .dark-button{
   width: 90%;
   height: 40px;
@@ -572,9 +567,15 @@ button {
   border: 1px solid var(--darkpurple);
 }
 
+.disabled-button, .disabled-button:hover{
+  border:1px solid transparent !important;
+  background-color: transparent !important;
+  color:var(--darkpurple) !important;
+  cursor: default !important;
+}
 
 
->>>>>>> Stashed changes
+
 .btn-group {
   border-radius: 25px;
 }
@@ -707,13 +708,10 @@ button {
 .wrap-content {
   padding: 1.2rem;
   width: 100%;
-<<<<<<< Updated upstream
-=======
 }
 
 .wrap-content.dashboard-wrap-content .wrap-item{
   cursor:default;
->>>>>>> Stashed changes
 }
 
 .search {
@@ -987,8 +985,6 @@ button {
   }
 }
 
-<<<<<<< Updated upstream
-=======
 
 /* ========================Laundry details======================= */
 .laundry-detail-container .main .laundry-name{
@@ -996,7 +992,6 @@ button {
   text-align: center;
 }
 
->>>>>>> Stashed changes
 /* =============== Navigation ================================== */
 .navigation {
   position: fixed;
@@ -1951,11 +1946,7 @@ input {
 
 .modal-close-btn .icon {
   height: 100%;
-<<<<<<< Updated upstream
-  width: 60%;
-=======
   width: 80px;
->>>>>>> Stashed changes
   padding: 20px 0px 20px 40px;
   cursor: pointer;
 }
@@ -2156,12 +2147,28 @@ input {
   border: none;
 }
 
-.inputbox.review-inputbox textarea {
-  width: 90%;
+.quill.editor {
+  width: 50vw;
   resize: vertical;
-  min-height: 150px; /* Set a minimum height for the textarea */
-  border-radius: 10px;
+  min-height: 150px;
+  max-height: 220px;
+  overflow-y: auto;
+  margin:20px 0;
 }
+
+.quill.editor .ql-container{
+  border: 1px solid var(--darkpurple);
+  border-radius: 10px;
+  min-height: 150px;
+  max-height: 220px;
+}
+.show-character-count{
+  margin: 10px 0;
+}
+.show-character-count.warning, .rating-empty-warning{
+  color:red;
+}
+
 
 .new-order.add-review {
   padding: 5px 25px;
