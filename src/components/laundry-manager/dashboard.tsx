@@ -88,7 +88,7 @@ const DashboardManager = () => {
                 </div>
               </div>
 
-              <div className="wrap-content">
+              <div className="wrap-content  dashboard-wrap-content">
                 <div className="wrap-title">
                   <div className="id">
                     <span>ID</span>

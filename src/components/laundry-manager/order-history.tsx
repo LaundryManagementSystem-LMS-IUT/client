@@ -113,7 +113,11 @@ const OrderHistoryManager = () => {
   function getStatusClass(status: string) {
     if (status === "Completed") {
       return "completed";
+<<<<<<< Updated upstream
     } else if (status === "In Progress" || status === "Delivering" || status === "delivered") {
+=======
+    } else if (status ==="Processing" || status === "Delivering" || status === "Delivered") {
+>>>>>>> Stashed changes
       return "processing";
     } else if (status === "Pending" || status==="Collecting") {
       return "pending";

@@ -43,7 +43,7 @@ const GMap = ()=>{
         </Card.Body>
         <Card.Footer style={{display:'flex'}}>
         <div className="error" style={{color:"red"}}>{error}</div>
-        <button onClick={getUserLocation}>Get Current Location</button>
+        <button onClick={getUserLocation}  className="dark-button">Get Current Location</button>
         </Card.Footer>
       </Card>
    );

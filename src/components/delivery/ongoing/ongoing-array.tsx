@@ -61,7 +61,7 @@ const OngoingArray = ({ongoingRequests,setOngoingRequests}:OngoingArrayProps) =>
             </div>
           ))}
       </div>
-      <div>
+      <div className="d-flex justify-content-center mt-3">
         <Pagination  className="m-auto py-3">
           <Pagination.First
             onClick={() => handlePageChange(1)}

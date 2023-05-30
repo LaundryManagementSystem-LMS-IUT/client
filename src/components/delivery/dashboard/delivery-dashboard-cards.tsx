@@ -43,9 +43,9 @@ const DeliveryCard = ({delivery}:DeliveryCardProps) => {
       </Card.Body>
       <Card.Footer>
         <div className="buttons">
-        <button>Accept</button>
-        <button style={{marginLeft:'2%'}}>Reject</button>
-        <button style={{marginLeft:'2%'}}>Show Route</button>
+        <button  className="dark-button">Accept</button>
+        <button style={{marginLeft:'2%'}} className="light-button">Reject</button>
+        <button style={{marginLeft:'2%'}} className="third-button">Show Route</button>
         </div>
       </Card.Footer>
     </Card>

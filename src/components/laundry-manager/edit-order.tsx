@@ -1,5 +1,9 @@
 import { useState } from "react";
+<<<<<<< Updated upstream
 import {AiOutlineClose} from 'react-icons/ai'
+=======
+import { AiOutlineClose } from "react-icons/ai";
+>>>>>>> Stashed changes
 
 const EditOrders = ({
   onCancelOrder,
@@ -32,7 +36,11 @@ const EditOrders = ({
     newDoneQuantities[index] = parseInt(e.target.value, 10);
     setDoneQuantities(newDoneQuantities);
   };
+<<<<<<< Updated upstream
   
+=======
+
+>>>>>>> Stashed changes
   const handleCancel = () => {
     onCancelOrder(null);
   };
@@ -50,7 +58,11 @@ const EditOrders = ({
               <h1>Update Order</h1>
             </div>
             <div className="modal-close-btn">
+<<<<<<< Updated upstream
               <AiOutlineClose className="icon" onClick={() => handleCancel()}/>
+=======
+              <AiOutlineClose className="icon" onClick={() => handleCancel()} />
+>>>>>>> Stashed changes
             </div>
           </div>
           <form className="orderDetails add-order-form" onSubmit={handleSubmit}>
@@ -86,17 +98,20 @@ const EditOrders = ({
                   className="statuses-dropdown"
                   defaultValue={order.status}
                 >
+                  <option className="status-options" value="Collecting">
+                    Collecting
+                  </option>
                   <option className="status-options" value="Pending">
                     Pending
                   </option>
                   <option className="status-options" value="Processing">
                     Processing
                   </option>
-                  <option className="status-options" value="In Progress">
-                    In Progress
-                  </option>
                   <option className="status-options" value="Completed">
                     Completed
+                  </option>
+                  <option className="status-options" value="Cancelled">
+                    Cancelled
                   </option>
                 </select>
               </span>
