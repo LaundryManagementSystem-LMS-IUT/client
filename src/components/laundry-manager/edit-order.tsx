@@ -1,9 +1,5 @@
 import { useState } from "react";
-<<<<<<< Updated upstream
-import {AiOutlineClose} from 'react-icons/ai'
-=======
 import { AiOutlineClose } from "react-icons/ai";
->>>>>>> Stashed changes
 
 const EditOrders = ({
   onCancelOrder,
@@ -36,11 +32,6 @@ const EditOrders = ({
     newDoneQuantities[index] = parseInt(e.target.value, 10);
     setDoneQuantities(newDoneQuantities);
   };
-<<<<<<< Updated upstream
-  
-=======
-
->>>>>>> Stashed changes
   const handleCancel = () => {
     onCancelOrder(null);
   };
@@ -58,11 +49,7 @@ const EditOrders = ({
               <h1>Update Order</h1>
             </div>
             <div className="modal-close-btn">
-<<<<<<< Updated upstream
-              <AiOutlineClose className="icon" onClick={() => handleCancel()}/>
-=======
               <AiOutlineClose className="icon" onClick={() => handleCancel()} />
->>>>>>> Stashed changes
             </div>
           </div>
           <form className="orderDetails add-order-form" onSubmit={handleSubmit}>

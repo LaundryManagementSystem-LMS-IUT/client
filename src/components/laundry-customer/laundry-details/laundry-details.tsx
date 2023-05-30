@@ -52,12 +52,8 @@ const LaundryDetails = () => {
             navigation={navigation}
             setNavigation={setNavigation}
           />
-<<<<<<< Updated upstream
-          <AddNewOrder/>
-=======
           <h1 className="laundry-name">Laundry House</h1>
           <AddNewOrder />
->>>>>>> Stashed changes
           <Table striped bordered hover className="pricing-table">
             <thead>
               <tr>
