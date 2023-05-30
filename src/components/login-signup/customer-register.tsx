@@ -73,7 +73,7 @@ const CustomerRegistration = () => {
                   </ul>
                 )}
               </div>
-              <button type="submit" name="submit" id="submit">
+              <button type="submit" name="submit" id="submit"  className="dark-button">
                 Register
               </button>
             </form>

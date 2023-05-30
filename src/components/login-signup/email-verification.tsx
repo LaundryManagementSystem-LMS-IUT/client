@@ -56,8 +56,8 @@ const EmailVerification = () => {
       </div>
       <div style={{marginBottom:'2%'}}><p className="p3">Didn't receive the code?</p></div>
       <div className="d-flex">
-      <button disabled={isDisabled} onClick={resend}>Resend</button>
-      <button disabled={isLocked} style={{marginLeft:'2%'}} onClick={handleSubmit}>
+      <button disabled={isDisabled} onClick={resend} >Resend</button>
+      <button disabled={isLocked} style={{marginLeft:'2%'}} onClick={handleSubmit}  className="dark-button">
           Verify
       </button>
       </div>

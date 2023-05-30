@@ -35,7 +35,7 @@ const CustomerImage=()=>{
         </div>
         </Modal.Body>
         <Modal.Footer>
-                    <button type="submit">
+                    <button type="submit"  className="dark-button">
                       Save Changes
                     </button>
           

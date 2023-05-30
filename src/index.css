@@ -33,6 +33,13 @@
   display: flex;
 }
 
+<<<<<<< Updated upstream
+=======
+.delivery-history-container .main{
+  padding-left: 15px;
+}
+
+>>>>>>> Stashed changes
 .chatButton {
   right: 0%;
   position: fixed;
@@ -507,6 +514,67 @@ button {
   transition: 0.2s ease-in-out;
 }
 
+<<<<<<< Updated upstream
+=======
+.dark-button{
+  width: 90%;
+  height: 40px;
+  background: var(--darkpurple);
+  color:var(--white);
+  border: 1px solid var(--darkpurple);
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+}
+
+.dark-button:hover{
+  background: var(--white);
+  color:var(--darkpurple)
+}
+
+.light-button{
+  width: 90%;
+  height: 40px;
+  background: var(--white);
+  color:var(--darkpurple);
+  border: 1px solid var(--darkpurple);
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+}
+
+.light-button:hover{
+  background: var(--darkpurple);
+  color:var(--white)
+}
+
+.third-button{
+  width: 90%;
+  height: 40px;
+  color:var(--darkpurple);
+  border: 1px solid transparent;
+  outline: none;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: 600;
+  transition: 0.2s ease-in-out;
+  border-radius: 10px;
+  background: transparent;
+}
+
+.third-button:hover{
+  border: 1px solid var(--darkpurple);
+}
+
+
+
+>>>>>>> Stashed changes
 .btn-group {
   border-radius: 25px;
 }
@@ -639,6 +707,13 @@ button {
 .wrap-content {
   padding: 1.2rem;
   width: 100%;
+<<<<<<< Updated upstream
+=======
+}
+
+.wrap-content.dashboard-wrap-content .wrap-item{
+  cursor:default;
+>>>>>>> Stashed changes
 }
 
 .search {
@@ -859,7 +934,7 @@ button {
     left: 0;
   }
   .main {
-    width: 100%;
+    width: 96%;
     left: 0;
   }
   .main.active {
@@ -912,6 +987,16 @@ button {
   }
 }
 
+<<<<<<< Updated upstream
+=======
+
+/* ========================Laundry details======================= */
+.laundry-detail-container .main .laundry-name{
+  color:var(--darkpurple);
+  text-align: center;
+}
+
+>>>>>>> Stashed changes
 /* =============== Navigation ================================== */
 .navigation {
   position: fixed;
@@ -1048,7 +1133,7 @@ button {
 /* ===================== Main ===================== */
 .main {
   position: absolute;
-  width: calc(100% - 300px);
+  width: calc(100% - 320px);
   left: 300px;
   min-height: 100vh;
   background: var(--white);
@@ -1248,22 +1333,6 @@ button {
 }
 
 /* ====================== Responsive Design ========================== */
-@media (max-width: 991px) {
-  .navigation {
-    left: -300px;
-  }
-  .navigation.active {
-    width: 300px;
-    left: 0;
-  }
-  .main {
-    width: 100%;
-    left: 0;
-  }
-  .main.active {
-    left: 300px;
-  }
-}
 
 @media (max-width: 768px) {
   .details {
@@ -1882,7 +1951,11 @@ input {
 
 .modal-close-btn .icon {
   height: 100%;
+<<<<<<< Updated upstream
   width: 60%;
+=======
+  width: 80px;
+>>>>>>> Stashed changes
   padding: 20px 0px 20px 40px;
   cursor: pointer;
 }
@@ -2040,7 +2113,7 @@ input {
 
 .new-review-form {
   background-color: var(--white);
-  max-width: 80%;
+  max-width: 60%;
 }
 
 .view-all-review-table {
@@ -2055,11 +2128,12 @@ input {
 .table.review-comment {
   border: 1px solid var(--darkpurple);
   box-shadow: 1px 1px var(--mediumbrown);
-  margin: 2px 10px 10px;
+  margin: 2px 15px 10px;
   width: 100%;
 }
 .table.review-comment .review {
   padding: 0;
+  width:100%;
 }
 
 .my-review .title .container {
@@ -2067,7 +2141,7 @@ input {
   display: grid;
   align-items: center;
   grid-template-columns: 9fr 1fr;
-  padding: 2px 30px;
+  padding: 2px 43px 2px 20px;
 }
 
 .review-card .title h4 {
@@ -2120,6 +2194,7 @@ input {
   border-radius: 7px;
   background-color: var(--gray);
   border: 1px solid var(--lightpurple);
+  width:50px;
 }
 
 /* NOTIFICATION STYLING ======================================= */

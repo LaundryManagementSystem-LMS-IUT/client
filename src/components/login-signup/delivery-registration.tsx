@@ -28,7 +28,7 @@ const DeliveryRegistration = () => {
               />
               <label htmlFor="">Phone Number</label>
             </div>
-            <button type="submit" name="submit" id="submit">
+            <button type="submit" name="submit" id="submit"  className="dark-button">
               Register
             </button>
           </form>

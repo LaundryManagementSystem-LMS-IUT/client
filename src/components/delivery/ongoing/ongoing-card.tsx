@@ -40,9 +40,9 @@ const OngoingCard = ({ongoing}:OngoingCardProps) => {
       </Card.Body>
       <Card.Footer>
         <div className="buttons">
-        <button>Success</button>
-        <button style={{marginLeft:'2%'}}>Fail</button>
-        <button style={{marginLeft:'2%'}}>Current Route</button>
+        <button className="dark-button">Success</button>
+        <button style={{marginLeft:'2%'}} className="light-button">Fail</button>
+        <button style={{marginLeft:'2%'}} className="third-button">Current Route</button>
         </div>
       </Card.Footer>
     </Card>

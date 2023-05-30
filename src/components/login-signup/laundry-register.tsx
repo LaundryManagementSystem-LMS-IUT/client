@@ -93,7 +93,7 @@ const LaundryRegistration = () => {
                 <input type="time" name="closingTime" id="closingTime" />
                 <label htmlFor="closingTime">Closing Time</label>
               </div>
-              <button type="submit" name="submit" id="submit">
+              <button type="submit" name="submit" id="submit" className="dark-button">
                 Register
               </button>
             </form>
