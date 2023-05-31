@@ -588,6 +588,15 @@ button {
   border-color: #766788;
 }
 
+.btn.btn-primary {
+  --bs-btn-border-radius: 15px;
+  --bs-btn-border-color: #766788;
+  background-color: #766788 !important;
+  --bs-btn-hover-bg: #ab9fd4;
+  color: white;
+  border-color: #766788;
+}
+
 .btn.btn-outline-primary:active {
   --bs-btn-border-color: #766788;
 }
