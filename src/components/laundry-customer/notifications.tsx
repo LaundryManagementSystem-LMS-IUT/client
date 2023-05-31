@@ -23,7 +23,6 @@ const CustomerNotifications = () => {
         .get("/notifications/all/nafisamaliyat@iut-dhaka.edu")
         .then((res) => {
           setNotifications(res.data);
-          // console.log(notifications);
         })
         .catch((err) => {
           console.log(err);

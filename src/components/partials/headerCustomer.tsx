@@ -48,7 +48,7 @@ const HeaderCustomer = ({ navigation, setNavigation }: Customer) => {
 
   useEffect(() => {
     const getTopNotifications = async () => {
-      await axios.get("http://localhost:8000/notifications/latest/dummymanager@iut-dhaka.edu")
+      await axios.get("http://localhost:8000/api/notifications/latest/dummymanager@iut-dhaka.edu")
         .then((res) => {
           setNotifications(res.data);
           const count = countUnreadNotifications(res.data);

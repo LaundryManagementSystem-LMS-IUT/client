@@ -9,27 +9,26 @@ import CollapsibleChat from "../../chats/chat-collapsible/collapsableChat";
 import NewRequest from "../../../utils/newRequest";
 import axios from "axios";
 
-interface ClothItem {
-  manager_email: string;
-  cloth_type: string;
-  operation: string;
-  price: string;
-}
-
-interface GroupedData {
-  [clothType: string]: ClothItem[];
+interface ClothTypeData {
+  ClothType: string;
+  Wash: number;
+  Iron: number;
+  WashAndIron: number;
+  DryClean: number;
 }
 
 const LaundryDetails = () => {
   const [navigation, setNavigation] = useState(false);
-  const [sortedPricing, setSortedPricing] = useState<GroupedData | undefined>();
+  const [pricing, setPricing] = useState<ClothTypeData[]>([]);
 
   useEffect(() => {
     const getLaundryPricing = async () => {
+      // const dynamicValue = "0000000100-2023-05-31 13:15:04:789";
+      // const url = `http://localhost:8000/api/pricing/${dynamicValue}`;
       await axios
-        .get("http://localhost:8000/pricing/dummymanager@iut-dhaka.edu")
+        .get("http://localhost:8000/api/pricing/dummymanager@iut-dhaka.edu")
         .then((res) => {
-          setSortedPricing(res.data);
+          setPricing(res.data);
         })
         .catch((err) => {
           console.log(err);
@@ -84,76 +83,31 @@ const LaundryDetails = () => {
             </thead>
 
             <tbody>
-              {sortedPricing &&
-                Object.entries(sortedPricing).map(([clothType, services]) => (
-                  <tr key={clothType}>
-                    <td>{clothType}</td>
-                    <td>
-                      {services.find(
-                        (service) => service.operation === "Wash"
-                      )?.price ? (
-                        <>
-                          ৳{" "}
-                          {
-                            services.find(
-                              (service) => service.operation === "Wash"
-                            )?.price
-                          }
-                        </>
-                      ) : (
-                        "N/A"
-                      )}
-                    </td>
-                    <td>
-                      {services.find(
-                        (service) => service.operation === "Wash & Iron"
-                      )?.price ? (
-                        <>
-                          ৳{" "}
-                          {
-                            services.find(
-                              (service) => service.operation === "Wash & Iron"
-                            )?.price
-                          }
-                        </>
-                      ) : (
-                        "N/A"
-                      )}
-                    </td>
-                    <td>
-                      {services.find(
-                        (service) => service.operation === "Iron"
-                      )?.price ? (
-                        <>
-                          ৳{" "}
-                          {
-                            services.find(
-                              (service) => service.operation === "Iron"
-                            )?.price
-                          }
-                        </>
-                      ) : (
-                        "N/A"
-                      )}
-                    </td>
-                    <td>
-                      {services.find(
-                        (service) => service.operation === "Dry Wash"
-                      )?.price ? (
-                        <>
-                          ৳{" "}
-                          {
-                            services.find(
-                              (service) => service.operation === "Dry Wash"
-                            )?.price
-                          }
-                        </>
-                      ) : (
-                        "N/A"
-                      )}
-                    </td>
-                  </tr>
-                ))}
+              {pricing.map((price) => (
+                <tr key={price.ClothType}>
+                  <td>{price.ClothType}</td>
+                  <td>
+                    {price.Wash !== null && price.Wash !== 0
+                      ? `৳ ${price.Wash}`
+                      : "N/A"}
+                  </td>
+                  <td>
+                    {price.Iron !== null && price.Iron !== 0
+                      ? `৳ ${price.Iron}`
+                      : "N/A"}
+                  </td>
+                  <td>
+                    {price.WashAndIron !== null && price.WashAndIron !== 0
+                      ? `৳ ${price.WashAndIron}`
+                      : "N/A"}
+                  </td>
+                  <td>
+                    {price.DryClean !== null && price.DryClean !== 0
+                      ? `৳ ${price.DryClean}`
+                      : "N/A"}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </Table>
           <CollapsibleChat

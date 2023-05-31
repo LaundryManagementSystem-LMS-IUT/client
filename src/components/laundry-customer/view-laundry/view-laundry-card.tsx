@@ -9,7 +9,6 @@ type LaundryCardContent={
 }
 
 const LaundryCard = ({name,location,imageURL,searchQuery}:LaundryCardContent) => {
-    console.log("highlight: " + searchQuery);
   
   const getHighlightedText = (text: string, highlight: string) => {
     if (!text || !highlight) {
