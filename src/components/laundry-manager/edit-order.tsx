@@ -32,10 +32,7 @@ const EditOrders = ({
     newDoneQuantities[index] = parseInt(e.target.value, 10);
     setDoneQuantities(newDoneQuantities);
   };
-<<<<<<< Updated upstream
-=======
   
->>>>>>> Stashed changes
   const handleCancel = () => {
     onCancelOrder(null);
   };
