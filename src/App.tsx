@@ -27,6 +27,11 @@ import DeliveryHistory from "./components/delivery/history/history";
 import ChatPage from "./components/chats/chat-page/chatRoom";
 import AddNewOrderCustomer from "./components/laundry-customer/laundry-details/newOrderPage";
 
+// Uchchash Start
+import AccountSettingsCustomer from "./components/laundry-customer/account-settings";
+import AccountSettingsManager from "./components/laundry-manager/dashboard";
+// Uchchash End
+
 function App() {
   return (
     <div className="App">
@@ -48,6 +53,12 @@ function App() {
           <Route path="/delivery/history" element={<DeliveryHistory />} />
           <Route path="/customer/history" element={<OrderHistoryCustomer />} />
           <Route path="/customer/laundries" element={<Laundry />} />
+
+{/* Uchchash Start */}
+          <Route path="/customer/dashboard" element={<AccountSettingsCustomer />} />
+          <Route path="/manager/dashboard" element={<AccountSettingsManager />} />
+{/* Uchchash End */}
+
           <Route
             path="/customer/laundryDetails/:id"
             element={<LaundryDetails />}

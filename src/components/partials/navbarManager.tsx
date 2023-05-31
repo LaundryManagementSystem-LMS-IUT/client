@@ -100,7 +100,7 @@ const NavbarManager = ({ navigation, setNavigation, activePage }: Navbar) => {
             activePage === ActivePageType.AccountSettings ? "active" : ""
           }
         >
-          <a>
+          <a onClick={() => navigate("/manager/account-settings")}>
             <span className="icon">
               <IonIcon icon={settingsOutline}></IonIcon>
             </span>

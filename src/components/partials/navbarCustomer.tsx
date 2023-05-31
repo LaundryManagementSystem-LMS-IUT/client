@@ -71,7 +71,7 @@ const NavbarCustomer = ({ navigation, setNavigation, activePage }: Navbar) => {
         </li>
 
         <li className={activePage === ActivePageType.AccountSettings ? "active" : ""}>
-          <a>
+          <a onClick={() => navigate("/customer/account-settings")}>
             <span className="icon">
               <IonIcon icon={settingsOutline}></IonIcon>
             </span>
