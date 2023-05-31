@@ -6,12 +6,24 @@ import { ActivePageType } from "../../../utils/activePageTypes";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import OrderTabs from "./orderTabs";
+import usePlacesAutocomplete, {
+  getGeocode,
+  getLatLng,
+} from "use-places-autocomplete";
 
 const LaundryDetails = () => {
   const [navigation, setNavigation] = useState(false);
   const [showForm, setShowForm] = useState(false);
   const [key, setKey] = useState<string>("washniron");
   const [total, setTotal] = useState<number>(0);
+  const [payment_method,setPaymentMethod]=useState("cash");
+  const [location,setLocation]=useState({lat:23.8103,lng:90.4125});
+  const [active,setActive]=useState(true);
+  const [address,setAddress]=useState("");
+  const [firstname,setFirstName]=useState("");
+  const [lastname,setLastName]=useState("");
+  const [middlename,setMiddleName]=useState("");
+  const [phone_number,setPhoneNumber]=useState("");
   const [items, setItems] = useState([
     { name: "Shirt", operation: "Dry Wash", price: 10 },
     { name: "Shirt", operation: "Wash & Iron", price: 12 },
@@ -90,6 +102,30 @@ const LaundryDetails = () => {
     console.log(updatedOrderList);
   }
 
+  const {
+    ready,
+    value,
+    setValue,
+    suggestions: { status, data },
+    clearSuggestions,
+  } = usePlacesAutocomplete();
+
+  const handleSelect = async (address:string) => {
+    setValue(address);
+    setActive(false);
+    setAddress(address);
+    clearSuggestions();
+    const results = await getGeocode({ address });
+    const { lat, lng } = await getLatLng(results[0]);
+    const coordinates={lat,lng};
+    setLocation(coordinates);
+    console.log(location);
+  };
+
+
+
+
+
   return (
     <>
       <NavbarCustomer
@@ -148,7 +184,7 @@ const LaundryDetails = () => {
                       <button
                         className="add-order"
                         type="submit"
-                        // onClick={() => setShowForm(true)}
+                        onClick={() => setShowForm(true)}
                       >
                         Proceed To Payment
                       </button>
@@ -158,7 +194,11 @@ const LaundryDetails = () => {
 
                 {showForm && (
                   <>
-                    <BillingForm />
+                    <BillingForm firstname={firstname} setFirstName={setFirstName} middlename={middlename} setMiddleName={setMiddleName} lastname={lastname}
+                      setLastName={setLastName} address={address} setAddress={setAddress} location={location} setLocation={setLocation} phone_number={phone_number} setPhoneNumber={setPhoneNumber}
+                      payment_method={payment_method} setPaymentMethod={setPaymentMethod} setValue={setValue}
+                      active={active} setActive={setActive} handleSelect={handleSelect} data={data} status={status}
+                    />
                     <div className="place-order-btn">
                       <button className="add-order">Confirm Order</button>
                     </div>

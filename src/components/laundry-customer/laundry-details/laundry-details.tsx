@@ -156,11 +156,11 @@ const LaundryDetails = () => {
                 ))}
             </tbody>
           </Table>
-          <CollapsibleChat
+          {/* <CollapsibleChat
             senderID={"123"}
             receiverID={"123"}
             JWT={{ _id: "123", token: "123", userType: "123" }}
-          />
+          /> */}
           <ReviewOrder />
         </div>
       </div>

@@ -1687,6 +1687,12 @@ button {
 /* =======================BILLING FORM=================================== */
 .billing-container{
   padding:30px;
+  width:60%;
+}
+
+.billing-map{
+  width:40%;
+  padding:30px;
 }
 
 .bill-name{
