@@ -84,16 +84,6 @@ const NavbarManager = ({ navigation, setNavigation, activePage }: Navbar) => {
             <span className="title">Set Pricing</span>
           </a>
         </li>
-        <li
-          className={activePage === ActivePageType.Chat ? "active" : ""}
-        >
-          <a onClick={() => navigate("/manager/chat")}>
-            <span className="icon">
-              <IonIcon icon={chatbubbleEllipsesOutline}></IonIcon>
-            </span>
-            <span className="title">Chat</span>
-          </a>
-        </li>
 
         <li
           className={

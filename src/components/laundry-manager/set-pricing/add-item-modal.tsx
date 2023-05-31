@@ -8,6 +8,7 @@ import axios from "axios";
 
 type ModalProperty = {
   show: boolean;
+  manager_email:string,
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
   pricing: {
     ClothType: string;
@@ -29,7 +30,7 @@ type ModalProperty = {
   >;
 };
 
-const AddItem = ({ show, setShow, pricing, setPricing }: ModalProperty) => {
+const AddItem = ({ manager_email,show, setShow, pricing, setPricing }: ModalProperty) => {
   const [label, setLabel] = useState("");
   const [wash, setWash] = useState("");
   const [iron, setIron] = useState("");
@@ -44,7 +45,7 @@ const AddItem = ({ show, setShow, pricing, setPricing }: ModalProperty) => {
         iron_price: iron,
         washAndIron_price: washAndIron,
         dryClean_price: dryClean,
-        manager_email: 'dummymanager@iut-dhaka.edu'
+        manager_email: manager_email
       })
       .then((res) => {
         console.log(res);

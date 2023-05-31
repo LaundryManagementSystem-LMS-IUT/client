@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
-import { ActivePageType } from "../../utils/activePageTypes";
-import NavbarManager from "../partials/navbarManager";
-import HeaderManager from "../partials/headerManager";
+import { ActivePageType } from "../../../utils/activePageTypes";
 import StarsRating from "react-star-rate";
 import { Pagination } from "react-bootstrap";
 import axios from "axios";
-import Loader from "../partials/loader";
-import { useEmail } from "../../Hooks/useEmail";
+import Loader from "../../partials/loader";
+import { useEmail } from "../../../Hooks/useEmail";
 
-const ViewReviews = () => {
-  const [navigation, setNavigation] = useState(false);
-  const {email}=useEmail();
+
+type ViewReviewsProps={
+  manager_email:string,
+  laundry_name:string,
+  setRevealReviewForm:React.Dispatch<React.SetStateAction<boolean>>,
+  disabled:boolean,
+  customer_email:string
+}
+
+
+const ViewReviews = ({manager_email,laundry_name,setRevealReviewForm,disabled,customer_email}:ViewReviewsProps) => {
 
   const [sum,setSum]=useState(0);
   const [reviews,setReviews]=useState<{
@@ -21,17 +27,17 @@ const ViewReviews = () => {
   }[]|undefined>();
 
   const retrieveReviews=async()=>{
-    const result=await axios.get('http://localhost:8000/api/manager/review/'+email).then((res)=>{
+    const result=await axios.get('http://localhost:8000/api/manager/review/'+manager_email).then((res)=>{
     return res.data.reviews;
   }).catch((err)=>console.log(err));
   setReviews(result);
   }
 
   useEffect(()=>{
-    if(email!==""){
+    if(manager_email!==""){
       retrieveReviews();
     }
-  },[email])
+  },[manager_email])
 
   useEffect(()=>{
     if(reviews){
@@ -59,25 +65,18 @@ const ViewReviews = () => {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
   const displayedReviews =reviews && reviews?.length && reviews.length!==0?reviews.slice(startIndex, endIndex):[];
+
+  
   if(reviews!==undefined){
     return (
       <>
-        <NavbarManager
-          navigation={navigation}
-          setNavigation={setNavigation}
-          activePage={ActivePageType.ReviewOrder}
-        />
-        <div className="view-review-container">
-          <div className="main">
-            <HeaderManager
-              navigation={navigation}
-              setNavigation={setNavigation}
-            />
-  
-            <div className="table new-order-table">
+            <div className="wrapper">
+              <button disabled={disabled} className="btn-outline-primary" onClick={()=>setRevealReviewForm(true)}>Add Review</button>
+              <div className="table view-all-review-table">
+              <div className="table new-order-table">
               <div className="new-order">
                 <div className="title">
-                  <h1>Laundry Rating</h1>
+                  <h1>{laundry_name} Average Rating</h1>
                   <div className="container col-lg-12">
                     <StarsRating
                       classNamePrefix="avg-rating-stars col"
@@ -89,12 +88,6 @@ const ViewReviews = () => {
                 </div>
               </div>
             </div>
-            <div className="wrapper">
-              <div className="table view-all-review-table">
-                <div className="top-title">
-                  <h2>Ratings & Reviews</h2>
-                </div>
-  
                 {displayedReviews.map((review, index) => (
                   <div className="table view-reviews-table">
                     <div className="review-card" key={index}>
@@ -153,8 +146,6 @@ const ViewReviews = () => {
                 />
               </Pagination>
             </div>
-          </div>
-        </div>
       </>
     );
   }

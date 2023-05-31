@@ -62,10 +62,6 @@ const Login = () => {
             <button type="submit" name="submit" id="submit" className="login-submit">
               Log in
             </button>
-            <hr />
-            <button name="google" className="login-submit">
-              Login with <IonIcon icon={logoGoogle}></IonIcon>
-            </button>
             <div className="register-link">
               <p>
                 Don't have an account? <a href="/signup">Register</a>

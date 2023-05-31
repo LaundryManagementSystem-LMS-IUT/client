@@ -111,10 +111,9 @@ const SignUp = () => {
             <h2>Sign Up</h2>
             <Form  className="form-value" onSubmit={handleSubmit}> 
                     <div className="errorBox">{error}</div>
-                    <div className="btn-group register-btn-group">
+                    <div className="btn-group register-btn-group" style={{marginLeft:'18%'}}>
                       <button className={`btn ${userType === 'manager' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={()=>setUserType("manager")}>Manager</button>
                       <button className={`btn ${userType === 'customer' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={()=>setUserType("customer")}>Customer</button>
-                      <button className={`btn ${userType === 'delivery' ? 'btn-primary' : 'btn-outline-primary'}`} onClick={()=>setUserType("delivery")}>Delivery</button>
                     </div>
 
                     <div className="inputbox">
@@ -141,8 +140,6 @@ const SignUp = () => {
                     <div id="confirmErrorPassword" className="errorBox">{confirmErrorPassword}</div>
                     <button type="submit" className="register-submit" name="submit" value="submit" disabled={loading || confirmErrorPassword!=="" || ErrorPassword !==""} id="buttonRegister">Register</button>
                     </Form>
-                    <hr/>
-                    <button name="google" className="register-submit" onClick={()=>setShow(true)} disabled={loading}>Sign Up with <IonIcon icon={logoGoogle}></IonIcon></button>
                     <div className="login-link">
                         <p>Already have an account? <a href="/login">Login</a></p>
                     </div>

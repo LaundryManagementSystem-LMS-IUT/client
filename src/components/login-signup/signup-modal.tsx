@@ -12,7 +12,6 @@ const SignUpModal = ({show,setShow}:SignUpModalProps) => {
   <Modal.Body className="d-flex">
     <button>Laundry Manager</button>
     <button style={{marginLeft:'2%'}}>Customer</button>
-    <button style={{marginLeft:'2%'}}>Delivery</button>
   </Modal.Body>
   </Modal> 
   );

@@ -8,6 +8,9 @@ import ReviewOrder from "./reviewLaundry";
 import CollapsibleChat from "../../chats/chat-collapsible/collapsableChat";
 import NewRequest from "../../../utils/newRequest";
 import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useEmail } from "../../../Hooks/useEmail";
+import Loader from "../../partials/loader";
 
 interface ClothTypeData {
   ClothType: string;
@@ -18,108 +21,131 @@ interface ClothTypeData {
 }
 
 const LaundryDetails = () => {
+  const laundry_id=(useParams()).id;
   const [navigation, setNavigation] = useState(false);
   const [pricing, setPricing] = useState<ClothTypeData[]>([]);
+  const [manager_email,setManagerEmail]=useState("");
+  const [laundry_name,setLaundryName]=useState("");
+  const [loading,setLoading]=useState(true);
+  const {email}=useEmail();
 
-  useEffect(() => {
-    const getLaundryPricing = async () => {
-      // const dynamicValue = "0000000100-2023-05-31 13:15:04:789";
-      // const url = `http://localhost:8000/api/pricing/${dynamicValue}`;
-      await axios
-        .get("http://localhost:8000/api/pricing/dummymanager@iut-dhaka.edu")
-        .then((res) => {
-          setPricing(res.data);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
+  const getLaundryPricing = async (manager_email:string) => {
+    await axios
+      .get("http://localhost:8000/api/pricing/"+manager_email)
+      .then((res) => {
+        setPricing(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
 
-    getLaundryPricing();
-  }, []);
+  const getLaundryDetails=async()=>{
+      const result=await axios.get('http://localhost:8000/api/manager/details/'+laundry_id).then((res)=>{
+        return res.data?.laundry
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+      console.log(result);
+      setManagerEmail(result.email);
+      setLaundryName(result.laundry_name);
+      await getLaundryPricing(result.email);
+  }
 
-  return (
-    <div className="laundry-details">
-      <NavbarCustomer
-        navigation={navigation}
-        setNavigation={setNavigation}
-        activePage={ActivePageType.Laundry}
-      />
-      <div className="laundry-detail-container">
-        <div className="main">
-          <HeaderCustomer
-            navigation={navigation}
-            setNavigation={setNavigation}
-          />
-          <h1 className="laundry-name">Laundry House</h1>
-          <AddNewOrder />
-          <Table striped bordered hover className="pricing-table">
-            <thead>
-              <tr>
-                <h2>Pricing Chart</h2>
-              </tr>
-              <tr>
-                <th>
-                  {" "}
-                  <h5>Cloth</h5>{" "}
-                </th>
-                <th>
-                  {" "}
-                  <h5>Wash</h5>{" "}
-                </th>
-                <th>
-                  {" "}
-                  <h5>Iron</h5>{" "}
-                </th>
-                <th>
-                  {" "}
-                  <h5>Wash And Iron</h5>{" "}
-                </th>
-                <th>
-                  {" "}
-                  <h5>Dry Clean</h5>{" "}
-                </th>
-              </tr>
-            </thead>
 
-            <tbody>
-              {pricing.map((price) => (
-                <tr key={price.ClothType}>
-                  <td>{price.ClothType}</td>
-                  <td>
-                    {price.Wash !== null && price.Wash !== 0
-                      ? `৳ ${price.Wash}`
-                      : "N/A"}
-                  </td>
-                  <td>
-                    {price.Iron !== null && price.Iron !== 0
-                      ? `৳ ${price.Iron}`
-                      : "N/A"}
-                  </td>
-                  <td>
-                    {price.WashAndIron !== null && price.WashAndIron !== 0
-                      ? `৳ ${price.WashAndIron}`
-                      : "N/A"}
-                  </td>
-                  <td>
-                    {price.DryClean !== null && price.DryClean !== 0
-                      ? `৳ ${price.DryClean}`
-                      : "N/A"}
-                  </td>
+  useEffect(()=>{
+    getLaundryDetails();
+  },[])
+
+  
+
+  if(!loading){
+    return (
+      <div className="laundry-details">
+        <NavbarCustomer
+          navigation={navigation}
+          setNavigation={setNavigation}
+          activePage={ActivePageType.Laundry}
+        />
+        <div className="laundry-detail-container">
+          <div className="main">
+            <HeaderCustomer
+              navigation={navigation}
+              setNavigation={setNavigation}
+            />
+            <h1 className="laundry-name">Laundry House</h1>
+            <AddNewOrder />
+            <Table striped bordered hover className="pricing-table">
+              <thead>
+                <tr>
+                  <h2>Pricing Chart</h2>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
-          {/* <CollapsibleChat
-            senderID={"123"}
-            receiverID={"123"}
-            JWT={{ _id: "123", token: "123", userType: "123" }}
-          /> */}
-          <ReviewOrder />
+                <tr>
+                  <th>
+                    {" "}
+                    <h5>Cloth</h5>{" "}
+                  </th>
+                  <th>
+                    {" "}
+                    <h5>Wash</h5>{" "}
+                  </th>
+                  <th>
+                    {" "}
+                    <h5>Iron</h5>{" "}
+                  </th>
+                  <th>
+                    {" "}
+                    <h5>Wash And Iron</h5>{" "}
+                  </th>
+                  <th>
+                    {" "}
+                    <h5>Dry Clean</h5>{" "}
+                  </th>
+                </tr>
+              </thead>
+  
+              <tbody>
+                {pricing.map((price) => (
+                  <tr key={price.ClothType}>
+                    <td>{price.ClothType}</td>
+                    <td>
+                      {price.Wash !== null && price.Wash !== 0
+                        ? `৳ ${price.Wash}`
+                        : "N/A"}
+                    </td>
+                    <td>
+                      {price.Iron !== null && price.Iron !== 0
+                        ? `৳ ${price.Iron}`
+                        : "N/A"}
+                    </td>
+                    <td>
+                      {price.WashAndIron !== null && price.WashAndIron !== 0
+                        ? `৳ ${price.WashAndIron}`
+                        : "N/A"}
+                    </td>
+                    <td>
+                      {price.DryClean !== null && price.DryClean !== 0
+                        ? `৳ ${price.DryClean}`
+                        : "N/A"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+        <ReviewOrder customer_email={email} laundry_id={laundry_id} laundry_name={laundry_name} manager_email={manager_email} />
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+  else{
+    return(
+      <Loader/>
+    )
+  }
 };
 
 export default LaundryDetails;

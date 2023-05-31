@@ -7,6 +7,7 @@ import { addCircleOutline } from "ionicons/icons";
 import AddItem from "./add-item-modal";
 import { ActivePageType } from "../../../utils/activePageTypes";
 import axios from "axios";
+import { useEmail } from "../../../Hooks/useEmail";
 
 interface ClothTypeData {
   ClothType: string;
@@ -17,6 +18,7 @@ interface ClothTypeData {
 }
 
 const Pricing = () => {
+  const {email}=useEmail();
   const [navigation, setNavigation] = useState(false);
   const [show, setShow] = useState(false);
   const [curr_index, setIndex] = useState(-1);
@@ -30,7 +32,7 @@ const Pricing = () => {
     // if (updatedPricing !== null && updatedPricing.length !== 0) {
       await axios
         .post("http://localhost:8000/api/pricing/updatePricing", {
-          manager_email: "dummymanager@iut-dhaka.edu",
+          manager_email: email,
           pricing: pricing,
         })
         .then((res) => {
@@ -71,8 +73,10 @@ const Pricing = () => {
 
   useEffect(() => {
     const getLaundryPricing = async () => {
+  console.log(email);
+
       await axios
-        .get("http://localhost:8000/api/pricing/dummymanager@iut-dhaka.edu")
+      .get("http://localhost:8000/api/pricing/"+email)
         .then((res) => {
           setPricing(res.data);
           console.log(res.data);
@@ -82,8 +86,10 @@ const Pricing = () => {
         });
     };
 
-    getLaundryPricing();
-  }, []);
+    if(email){
+      getLaundryPricing();
+    }
+  }, [email]);
 
   return (
     <div className="pricing">
@@ -103,6 +109,7 @@ const Pricing = () => {
             setShow={setShow}
             pricing={pricing}
             setPricing={setPricing}
+            manager_email={email}
           />
           <div className="table new-order-table">
             <div className="new-order">

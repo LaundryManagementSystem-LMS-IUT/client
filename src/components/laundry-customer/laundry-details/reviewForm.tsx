@@ -1,14 +1,22 @@
 import axios from "axios";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactQuill from "react-quill";
 import StarsRating from "react-star-rate";
+import { useEmail } from "../../../Hooks/useEmail";
 
 type ReviewFormProps={
-  setRevealReviewForm:React.Dispatch<React.SetStateAction<boolean>>
+  setRevealReviewForm:React.Dispatch<React.SetStateAction<boolean>>,
+  manager_email:string,
+  customer_email:string
 }
 
-const ReviewForm = ({setRevealReviewForm}:ReviewFormProps) => {
+const ReviewForm = ({customer_email,setRevealReviewForm,manager_email}:ReviewFormProps) => {
 
+  const [customer,setCustomer]=useState<{
+    username:string,
+    email:string,
+    profile_picture:string
+  }>();
   const [rating, setRating] = useState<number>(0);
   const [ratingEmpty, setRatingEmpty] = useState(false);
   const [review, setReview] = useState<string>("");
@@ -17,6 +25,17 @@ const ReviewForm = ({setRevealReviewForm}:ReviewFormProps) => {
   const editorRef = useRef<ReactQuill | null>(null);
   const [exceededCharCount, setExceededCharCount] = useState(false);
   const MAX_CHARACTERS = 250;
+
+  useEffect(()=>{
+    const retrieveCustomerInfo=async()=>{
+      const result=await axios.get('http://localhost:8000/api/customer/details/'+customer_email).then((res)=>{
+        return res.data?.customer;
+      }).catch(err=>console.log(err));
+      setCustomer(result);
+    }
+
+
+  },[customer_email])
 
   const handleRatingChange = (newRating: number | undefined) => {
     if (newRating !== undefined) {
@@ -67,11 +86,14 @@ const ReviewForm = ({setRevealReviewForm}:ReviewFormProps) => {
     checkEmptyRating();
     // axios.post ('', {msg:})
     await axios.post('http://localhost:8000/api/customer/review',{
-      customer_email:'nafisamaliyat@iut-dhaka.edu',
-      manager_email:'mirzaazwad23931@gmail.com',
+      customer_email:customer_email,
+      manager_email:manager_email,
       review:review,
       review_stars:rating
-    }).then((res)=>console.log(res)).catch((err)=>console.log(err));
+    }).then((res)=>{
+      console.log(res);
+      window.location.reload();
+    }).catch((err)=>console.log(err));
     console.log(rating);
     console.log(review);
   };
@@ -90,12 +112,12 @@ const ReviewForm = ({setRevealReviewForm}:ReviewFormProps) => {
               >
                 <div className="order-details-review d-flex mx-auto">
                   <img
-                    src="/customerProfilePicture.jpg"
+                    src={customer?.profile_picture?customer.profile_picture:"/customerProfilePicture.jpg"}
                     width="50px"
                     height="50px"
                     alt="profile picture"
                   ></img>
-                  <h4>Nafisa Maliyat</h4>
+                  <h4>{customer?.username}</h4>
                 </div>
 
                 <div className="customer-rating">
