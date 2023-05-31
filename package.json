@@ -2,7 +2,11 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
+<<<<<<< Updated upstream
   "proxy": "http://localhost:8000",
+=======
+  "proxy":"http://localhost:8000",
+>>>>>>> Stashed changes
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
     "@fortawesome/react-fontawesome": "^0.2.0",
