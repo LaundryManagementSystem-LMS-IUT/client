@@ -1,13 +1,10 @@
 import { Modal } from "react-bootstrap";
 import { IonIcon } from "@ionic/react";
-import {MdOutlineDryCleaning, MdOutlineIron} from 'react-icons/md'
-import {TbIroningSteam} from 'react-icons/tb'
-import {
-  shirtOutline,
-  waterOutline,
-} from "ionicons/icons";
+import { MdOutlineDryCleaning, MdOutlineIron } from "react-icons/md";
+import { TbIroningSteam } from "react-icons/tb";
+import { shirtOutline, waterOutline } from "ionicons/icons";
 import { useState } from "react";
-// import axios from "axios";
+import axios from "axios";
 
 type ModalProperty = {
   show: boolean;
@@ -39,17 +36,25 @@ const AddItem = ({ show, setShow, pricing, setPricing }: ModalProperty) => {
   const [washAndIron, setWashAndIron] = useState("");
   const [dryClean, setDryClean] = useState("");
 
-//   const addNewItem = async () => {
-//     await axios.post("http://localhost:8000/api/pricing/addItem",
-//      { item_name: label, wash_price: wash, iron_price:iron, washAndIron_price: washAndIron
-//     }).then((res) =>{
-//       console.log(res);
-//     }).catch((err) => {
-//       console.log(err);
-//     });
-// };
+  const addNewItem = async () => {
+    await axios
+      .post("http://localhost:8000/api/pricing/addItem", {
+        item_name: label,
+        wash_price: wash,
+        iron_price: iron,
+        washAndIron_price: washAndIron,
+        dryClean_price: dryClean,
+        manager_email: 'dummymanager@iut-dhaka.edu'
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("comes here");
     try {
@@ -63,7 +68,7 @@ const AddItem = ({ show, setShow, pricing, setPricing }: ModalProperty) => {
           DryClean: Number(dryClean),
         },
       ]);
-      // await addNewItem();
+      await addNewItem();
       setShow(false);
       console.log(pricing);
     } catch (err) {
@@ -139,7 +144,7 @@ const AddItem = ({ show, setShow, pricing, setPricing }: ModalProperty) => {
           </div>
           <div className="inputbox">
             {/* <IonIcon icon={shirtOutline}></IonIcon> */}
-            <MdOutlineDryCleaning className="icon"/>
+            <MdOutlineDryCleaning className="icon" />
             <input
               type="number"
               className="item-dryclean"
