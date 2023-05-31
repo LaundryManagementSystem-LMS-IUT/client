@@ -43,14 +43,11 @@ const LaundryDetails = () => {
   const washItems = items.filter((item) => item.operation === "Wash");
 
   const [orderList, setOrderList] = useState<
-    { name: string; operation: string; quantity: number;price:number }[]>([]);
+    { name: string; operation: string; quantity: number; price: number }[]
+  >([]);
 
   const handleTabSelect = (k: string | null) => {
     if (k) setKey(k);
-  };
-
-  const handleTotal = (amount: number) => {
-    setTotal(total + amount);
   };
 
   const handleAddToOrder = (
@@ -65,18 +62,33 @@ const LaundryDetails = () => {
 
     if (existingOrderIndex !== -1) {
       const updatedOrderList = [...orderList];
-      const currentValue=updatedOrderList[existingOrderIndex].quantity*updatedOrderList[existingOrderIndex].price;
-      updatedOrderList[existingOrderIndex].quantity = (isNaN(quantity)?0:Number(quantity));
-      const newValue=updatedOrderList[existingOrderIndex].quantity*updatedOrderList[existingOrderIndex].price;
-      setTotal(total-currentValue+newValue);
+      const currentValue =
+        updatedOrderList[existingOrderIndex].quantity *
+        updatedOrderList[existingOrderIndex].price;
+      updatedOrderList[existingOrderIndex].quantity = isNaN(quantity)
+        ? 0
+        : Number(quantity);
+      const newValue =
+        updatedOrderList[existingOrderIndex].quantity *
+        updatedOrderList[existingOrderIndex].price;
+      setTotal(total - currentValue + newValue);
       setOrderList(updatedOrderList);
     } else {
-      const quantityValue=(isNaN(quantity)?0:Number(quantity));
-      const newOrder = { name, operation, quantity:quantityValue,price };
+      const quantityValue = isNaN(quantity) ? 0 : Number(quantity);
+      const newOrder = { name, operation, quantity: quantityValue, price };
       setOrderList([...orderList, newOrder]);
-      setTotal(total+quantityValue*price);
+      setTotal(total + quantityValue * price);
     }
   };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const updatedOrderList = orderList.map((order) => {
+      const { price, ...rest } = order;
+      return rest;
+    });
+    console.log(updatedOrderList);
+  }
 
   return (
     <>
@@ -98,7 +110,7 @@ const LaundryDetails = () => {
               </div>
               <div className="place-order-form">
                 {!showForm && (
-                  <>
+                  <form onSubmit={handleSubmit}>
                     <div className="place-order-details">
                       <Tabs
                         id="controlled-tab-example"
@@ -107,39 +119,48 @@ const LaundryDetails = () => {
                         className="mb-3"
                       >
                         <Tab eventKey="washniron" title="Wash & Iron">
-                          <OrderTabs items={washAndIronItems} handleAddToOrder={handleAddToOrder}/>
+                          <OrderTabs
+                            items={washAndIronItems}
+                            handleAddToOrder={handleAddToOrder}
+                          />
                         </Tab>
                         <Tab eventKey="wash" title="Wash">
-                          <OrderTabs items={washItems} handleAddToOrder={handleAddToOrder}/>
+                          <OrderTabs
+                            items={washItems}
+                            handleAddToOrder={handleAddToOrder}
+                          />
                         </Tab>
                         <Tab eventKey="iron" title="Iron">
-                          <OrderTabs items={ironItems} handleAddToOrder={handleAddToOrder}/>
+                          <OrderTabs
+                            items={ironItems}
+                            handleAddToOrder={handleAddToOrder}
+                          />
                         </Tab>
                         <Tab eventKey="drywash" title="Dry Wash">
-                          <OrderTabs items={dryWashItems} handleAddToOrder={handleAddToOrder}/>
+                          <OrderTabs
+                            items={dryWashItems}
+                            handleAddToOrder={handleAddToOrder}
+                          />
                         </Tab>
                       </Tabs>
                     </div>
                     <div className="place-order-btn">
                       <button
                         className="add-order"
-                        onClick={() => setShowForm(true)}
+                        type="submit"
+                        // onClick={() => setShowForm(true)}
                       >
                         Proceed To Payment
                       </button>
                     </div>
-                  </>
+                  </form>
                 )}
 
                 {showForm && (
                   <>
                     <BillingForm />
                     <div className="place-order-btn">
-                      <button
-                        className="add-order"
-                      >
-                        Confirm Order
-                      </button>
+                      <button className="add-order">Confirm Order</button>
                     </div>
                   </>
                 )}

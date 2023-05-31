@@ -1,5 +1,3 @@
-import { IonIcon } from "@ionic/react";
-import { addCircleOutline, mailOutline } from "ionicons/icons";
 import { useEffect, useState } from "react";
 import NavbarCustomer from "../partials/navbarCustomer";
 import HeaderCustomer from "../partials/headerCustomer";
@@ -214,7 +212,7 @@ const OrderHistoryCustomer = () => {
                         </span>
                       </div>
                     </div>
-                    {seeDetails == order.id && (
+                    {seeDetails === order.id && (
                       <div className="orderDetails">
                         <div className="wrap-details header">
                           <div className="icon">

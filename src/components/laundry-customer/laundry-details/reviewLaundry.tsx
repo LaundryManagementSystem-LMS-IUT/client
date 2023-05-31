@@ -20,7 +20,7 @@ const ReviewOrder = () => {
   const handleRatingChange = (newRating: number | undefined) => {
     if (newRating !== undefined) {
       setRating(newRating);
-      if (newRating != 0) setRatingEmpty(false);
+      if (newRating !== 0) setRatingEmpty(false);
     }
   };
   const handleEditorChange = (content: string) => {
@@ -46,7 +46,7 @@ const ReviewOrder = () => {
     setReview(event.target.value);
   };
   const checkEmptyRating = () => {
-    if (rating == 0) {
+    if (rating === 0) {
       setRatingEmpty(true);
     } else {
       setRatingEmpty(false);
@@ -79,6 +79,7 @@ const ReviewOrder = () => {
               src="/customerProfilePicture.jpg"
               width="40px"
               height="40px"
+              alt="profile picture"
             ></img>
             <h5>Nafisa Maliyat</h5>
           </div>
@@ -128,6 +129,7 @@ const ReviewOrder = () => {
                     src="/customerProfilePicture.jpg"
                     width="50px"
                     height="50px"
+                    alt="profile picture"
                   ></img>
                   <h4>Nafisa Maliyat</h4>
                 </div>

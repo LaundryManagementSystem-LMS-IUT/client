@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarCustomer from "../../partials/navbarCustomer";
 import HeaderCustomer from "../../partials/headerCustomer";
 import AddNewOrder from "./addNewOrder";
@@ -6,39 +6,39 @@ import { Table } from "react-bootstrap";
 import { ActivePageType } from "../../../utils/activePageTypes";
 import ReviewOrder from "./reviewLaundry";
 import CollapsibleChat from "../../chats/chat-collapsible/collapsableChat";
+import NewRequest from "../../../utils/newRequest";
+import axios from "axios";
+
+interface ClothItem {
+  manager_email: string;
+  cloth_type: string;
+  operation: string;
+  price: string;
+}
+
+interface GroupedData {
+  [clothType: string]: ClothItem[];
+}
 
 const LaundryDetails = () => {
   const [navigation, setNavigation] = useState(false);
-  const pricing = [
-    {
-      ClothType: "Shirt",
-      Wash: 80,
-      Iron: 60,
-      WashAndIron: 50,
-      DryClean: 40,
-    },
-    {
-      ClothType: "Pant",
-      Wash: 80,
-      Iron: 60,
-      WashAndIron: 50,
-      DryClean: 40,
-    },
-    {
-      ClothType: "Blanket",
-      Wash: 80,
-      Iron: 60,
-      WashAndIron: 50,
-      DryClean: 40,
-    },
-    {
-      ClothType: "Sweater",
-      Wash: 80,
-      Iron: 60,
-      WashAndIron: 50,
-      DryClean: 40,
-    },
-  ];
+  const [sortedPricing, setSortedPricing] = useState<GroupedData | undefined>();
+
+  useEffect(() => {
+    const getLaundryPricing = async () => {
+      await axios
+        .get("http://localhost:8000/pricing/dummymanager@iut-dhaka.edu")
+        .then((res) => {
+          setSortedPricing(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getLaundryPricing();
+  }, []);
+
   return (
     <div className="laundry-details">
       <NavbarCustomer
@@ -82,16 +82,78 @@ const LaundryDetails = () => {
                 </th>
               </tr>
             </thead>
+
             <tbody>
-              {pricing.map((price, index) => (
-                <tr>
-                  <td>{price.ClothType}</td>
-                  <td>৳ {price.Wash}</td>
-                  <td>৳ {price.Iron}</td>
-                  <td>৳ {price.WashAndIron}</td>
-                  <td>৳ {price.DryClean}</td>
-                </tr>
-              ))}
+              {sortedPricing &&
+                Object.entries(sortedPricing).map(([clothType, services]) => (
+                  <tr key={clothType}>
+                    <td>{clothType}</td>
+                    <td>
+                      {services.find(
+                        (service) => service.operation === "Wash"
+                      )?.price ? (
+                        <>
+                          ৳{" "}
+                          {
+                            services.find(
+                              (service) => service.operation === "Wash"
+                            )?.price
+                          }
+                        </>
+                      ) : (
+                        "N/A"
+                      )}
+                    </td>
+                    <td>
+                      {services.find(
+                        (service) => service.operation === "Wash & Iron"
+                      )?.price ? (
+                        <>
+                          ৳{" "}
+                          {
+                            services.find(
+                              (service) => service.operation === "Wash & Iron"
+                            )?.price
+                          }
+                        </>
+                      ) : (
+                        "N/A"
+                      )}
+                    </td>
+                    <td>
+                      {services.find(
+                        (service) => service.operation === "Iron"
+                      )?.price ? (
+                        <>
+                          ৳{" "}
+                          {
+                            services.find(
+                              (service) => service.operation === "Iron"
+                            )?.price
+                          }
+                        </>
+                      ) : (
+                        "N/A"
+                      )}
+                    </td>
+                    <td>
+                      {services.find(
+                        (service) => service.operation === "Dry Wash"
+                      )?.price ? (
+                        <>
+                          ৳{" "}
+                          {
+                            services.find(
+                              (service) => service.operation === "Dry Wash"
+                            )?.price
+                          }
+                        </>
+                      ) : (
+                        "N/A"
+                      )}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
           <CollapsibleChat

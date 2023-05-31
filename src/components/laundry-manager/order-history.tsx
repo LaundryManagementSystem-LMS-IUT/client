@@ -113,9 +113,13 @@ const OrderHistoryManager = () => {
   function getStatusClass(status: string) {
     if (status === "Completed") {
       return "completed";
-    } else if (status ==="Processing" || status === "Delivering" || status === "Delivered") {
+    } else if (
+      status === "Processing" ||
+      status === "Delivering" ||
+      status === "Delivered"
+    ) {
       return "processing";
-    } else if (status === "Pending" || status==="Collecting") {
+    } else if (status === "Pending" || status === "Collecting") {
       return "pending";
     } else if (status === "Cancelled") {
       return "cancelled";

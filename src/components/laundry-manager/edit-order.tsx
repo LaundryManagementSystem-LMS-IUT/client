@@ -32,6 +32,7 @@ const EditOrders = ({
     newDoneQuantities[index] = parseInt(e.target.value, 10);
     setDoneQuantities(newDoneQuantities);
   };
+  
   const handleCancel = () => {
     onCancelOrder(null);
   };

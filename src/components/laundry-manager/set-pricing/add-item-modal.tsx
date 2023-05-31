@@ -3,12 +3,11 @@ import { IonIcon } from "@ionic/react";
 import {MdOutlineDryCleaning, MdOutlineIron} from 'react-icons/md'
 import {TbIroningSteam} from 'react-icons/tb'
 import {
-  constructOutline,
-  refreshCircleOutline,
   shirtOutline,
   waterOutline,
 } from "ionicons/icons";
 import { useState } from "react";
+// import axios from "axios";
 
 type ModalProperty = {
   show: boolean;
@@ -40,6 +39,16 @@ const AddItem = ({ show, setShow, pricing, setPricing }: ModalProperty) => {
   const [washAndIron, setWashAndIron] = useState("");
   const [dryClean, setDryClean] = useState("");
 
+//   const addNewItem = async () => {
+//     await axios.post("http://localhost:8000/api/pricing/addItem",
+//      { item_name: label, wash_price: wash, iron_price:iron, washAndIron_price: washAndIron
+//     }).then((res) =>{
+//       console.log(res);
+//     }).catch((err) => {
+//       console.log(err);
+//     });
+// };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log("comes here");
@@ -54,7 +63,9 @@ const AddItem = ({ show, setShow, pricing, setPricing }: ModalProperty) => {
           DryClean: Number(dryClean),
         },
       ]);
+      // await addNewItem();
       setShow(false);
+      console.log(pricing);
     } catch (err) {
       console.log(err);
     }

@@ -1,24 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ActivePageType } from "../../utils/activePageTypes";
 import NavbarManager from "../partials/navbarManager";
 import HeaderManager from "../partials/headerManager";
 import { Link } from "react-router-dom";
 import { Pagination } from "react-bootstrap";
+import newRequest from "../../utils/newRequest";
+
+interface Notification {
+  notification_id: number;
+  message: string;
+  formattedTime: string;
+  status: string;
+}
 
 const ManagerNotifications = () => {
   const [navigation, setNavigation] = useState(false);
-  const [notifications] = useState([
-    { name: "Nafisa Maliyat", timestamp: "11:00 PM" },
-    { name: "N. Maliyat", timestamp: "11:00 PM" },
-    { name: "Maliyat Nafisa", timestamp: "11:00 PM" },
-    { name: "Nafisa M.", timestamp: "11:00 PM" },
-    { name: "N. M.", timestamp: "10:00 PM" },
-    { name: "Maliyat, Nafisa", timestamp: "11:00 PM" },
-    { name: "Nafisa", timestamp: "2:00 PM" },
-    { name: "Nafisa M", timestamp: "11:00 PM" },
-    { name: "N. Maliyat", timestamp: "11:00 PM" },
-    { name: "Maliyat", timestamp: "11:00 PM" },
-  ]);
+  
+  const [notifications, setNotifications] = useState<Notification[]>([]);
+  useEffect(() => {
+    const getTopNotifications = async () => {
+      await newRequest
+        .get("/notifications/all/nafisamaliyat@iut-dhaka.edu")
+        .then((res) => {
+          setNotifications(res.data);
+          // console.log(notifications);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getTopNotifications();
+  }, []);
 
   const itemsPerPage = 4; // Number of items per page
   const totalPages = Math.ceil(notifications.length / itemsPerPage); // Total number of pages
@@ -46,16 +59,16 @@ const ManagerNotifications = () => {
           <h1 className="notification-header">Your Notifications</h1>
 
           {displayedNotifications.map((notification, index) => (
-            <div className="table view-reviews-table">
+            <div className="table view-reviews-table" key={notification.notification_id}>
               <div className="notifications my-review" key={index}>
                 <div className="container">
-                  <h3>{notification.name}</h3>
-                  <span>Left a review</span>
+                  <h3>Some User Name</h3>
+                  <span>{notification.message}</span>
                   <Link to="/manager/review" className="go-to-review">
                     <span>View it here</span>
                   </Link>
                   <br />
-                  {notification.timestamp}
+                  {notification.formattedTime}
                 </div>
               </div>
             </div>
