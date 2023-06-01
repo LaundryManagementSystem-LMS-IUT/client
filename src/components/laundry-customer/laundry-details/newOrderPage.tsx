@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NavbarCustomer from "../../partials/navbarCustomer";
 import HeaderCustomer from "../../partials/headerCustomer";
 import BillingForm from "./billingForm";
@@ -10,9 +10,57 @@ import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
 } from "use-places-autocomplete";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useEmail } from "../../../Hooks/useEmail";
+
+interface ClothTypeData {
+  ClothType: string;
+  Wash: number;
+  Iron: number;
+  WashAndIron: number;
+  DryClean: number;
+}
 
 const LaundryDetails = () => {
+  const laundry_id=(useParams()).id;
   const [navigation, setNavigation] = useState(false);
+  const [pricing, setPricing] = useState<ClothTypeData[]>([]);
+  const [manager_email,setManagerEmail]=useState("");
+  const [loading,setLoading]=useState(true);
+  const {email}=useEmail();
+
+  const getLaundryPricing = async (manager_email:string) => {
+    await axios
+      .get("http://localhost:8000/api/pricing/"+manager_email)
+      .then((res) => {
+        setPricing(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        setLoading(false);
+        console.log(err);
+      });
+  };
+
+  const getLaundryDetails=async()=>{
+      const result=await axios.get('http://localhost:8000/api/manager/details/'+laundry_id).then((res)=>{
+        return res.data?.laundry
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+      console.log(result);
+      setManagerEmail(result.email);
+      await getLaundryPricing(result.email);
+  }
+
+  useEffect(()=>{
+    if(laundry_id){
+      getLaundryDetails();
+    }
+  },[laundry_id]);
+
   const [showForm, setShowForm] = useState(false);
   const [key, setKey] = useState<string>("washniron");
   const [total, setTotal] = useState<number>(0);
@@ -93,12 +141,20 @@ const LaundryDetails = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updatedOrderList = orderList.map((order) => {
       const { price, ...rest } = order;
       return rest;
     });
+    
+    await axios.post('http://localhost:8000/api/order/addOrder',{
+      customer_email:email,
+      manager_email:manager_email,
+      orderList:updatedOrderList
+    }).then((res)=>console.log(res)).catch((err)=>console.log(err));
+    console.log(email);
+    console.log(manager_email);
     console.log(updatedOrderList);
   }
 
@@ -181,28 +237,9 @@ const LaundryDetails = () => {
                       </Tabs>
                     </div>
                     <div className="place-order-btn">
-                      <button
-                        className="add-order"
-                        type="submit"
-                        onClick={() => setShowForm(true)}
-                      >
-                        Proceed To Payment
-                      </button>
-                    </div>
-                  </form>
-                )}
-
-                {showForm && (
-                  <>
-                    <BillingForm firstname={firstname} setFirstName={setFirstName} middlename={middlename} setMiddleName={setMiddleName} lastname={lastname}
-                      setLastName={setLastName} address={address} setAddress={setAddress} location={location} setLocation={setLocation} phone_number={phone_number} setPhoneNumber={setPhoneNumber}
-                      payment_method={payment_method} setPaymentMethod={setPaymentMethod} setValue={setValue}
-                      active={active} setActive={setActive} handleSelect={handleSelect} data={data} status={status}
-                    />
-                    <div className="place-order-btn">
                       <button className="add-order">Confirm Order</button>
                     </div>
-                  </>
+                  </form>
                 )}
                 <div className="place-order-payment-bar">
                   Your total is ৳{total}

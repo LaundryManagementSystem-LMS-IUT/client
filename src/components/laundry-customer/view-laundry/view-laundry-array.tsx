@@ -4,11 +4,11 @@ import { Pagination } from "react-bootstrap";
 
 type Laundries={
   array:{
-    id: string;
-    name: string;
-    location: string;
-    imageURL: string;
-}[],
+    laundry_id:string,
+    laundry_name:string,
+    address:string,
+    profile_picture:string
+}[];
   searchQuery:string;
 }
 
@@ -30,12 +30,13 @@ const LaundryArray = ({ array, searchQuery }: Laundries) => {
           displayedLaundries.map((laundry) => (
             <div
               className="col-xs-6 col-sm-8 col-md-8 col-lg-4 my-2"
-              key={laundry.id}
+              key={laundry.laundry_id}
             >
                 <LaundryCard
-                  name={laundry.name}
-                  location={laundry.location}
-                  imageURL={laundry.imageURL}
+                  laundry_id={laundry.laundry_id}
+                  laundry_name={laundry.laundry_name}
+                  address={laundry.address}
+                  profile_picture={laundry.profile_picture}
                   searchQuery={searchQuery}
                 />
             </div>
