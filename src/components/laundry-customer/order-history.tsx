@@ -3,51 +3,26 @@ import NavbarCustomer from "../partials/navbarCustomer";
 import HeaderCustomer from "../partials/headerCustomer";
 import { ActivePageType } from "../../utils/activePageTypes";
 import { Pagination } from "react-bootstrap";
+import axios from "axios";
+
+interface ItemData {
+  name: string;
+  washType: string;
+  quantity: number;
+}
+
+interface OrderData {
+  id: string;
+  laundryName: string;
+  payment: number;
+  status: string;
+  items: ItemData[];
+}
 
 const OrderHistoryCustomer = () => {
   const [navigation, setNavigation] = useState(false);
-  const [seeDetails, setSeeDetails] = useState<number | null>(null);
-  const [orders] = useState([
-    {
-      id: 1023,
-      laundryName: "Nafisa Laundry 1",
-      payment: "Tk 1000",
-      done: 4,
-      total: 10,
-      status: "Completed",
-      items: [
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        {
-          name: "Pants",
-          washType: "Dry Wash",
-          doneQuantity: 2,
-          totalQuantity: 8,
-        },
-      ],
-    },
-    {
-      id: 1024,
-      laundryName: "Nafisa Laundry 2",
-      payment: "Tk 800",
-      done: 2,
-      total: 5,
-      status: "Pending",
-      items: [
-        {
-          name: "T-Shirt",
-          washType: "Wash",
-          doneQuantity: 2,
-          totalQuantity: 10,
-        },
-        {
-          name: "Jeans",
-          washType: "Dry Wash and Iron",
-          doneQuantity: 4,
-          totalQuantity: 5,
-        },
-      ],
-    },
-  ]);
+  const [seeDetails, setSeeDetails] = useState<string | null>(null);
+  const [orders, setOrders] = useState<OrderData[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
 
   const updateProgress = () => {
@@ -80,6 +55,22 @@ const OrderHistoryCustomer = () => {
     updateProgress();
   }, [searchQuery, orders]);
 
+  useEffect(()=>{
+    const email='nafisamaliyat@iut-dhaka.edu'
+    const getOrderHistory = async () => {
+      await axios
+      .get("http://localhost:8000/api/order/getCustomerHistory/"+email)
+      .then((res) => {
+        console.log(res);
+        setOrders(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+    getOrderHistory();
+  }, []);
+
   const itemsPerPage = 8; // Number of items per page
   const totalPages = Math.ceil(orders.length / itemsPerPage); // Total number of pages
   const [currentPage, setCurrentPage] = useState(1); // Current active page
@@ -99,16 +90,35 @@ const OrderHistoryCustomer = () => {
 
   //set css of status fetched
   function getStatusClass(status: string) {
-    if (status === "Completed") {
+    if (status === "COMPLETED") {
       return "completed";
-    } else if (status ==="Processing" || status === "Delivering" || status === "Delivered") {
+    } else if (
+      status === "PROCESSING" ||
+      status === "DELIVERING" ||
+      status === "DELIVERED"
+    ) {
       return "processing";
-    } else if (status === "Pending" || status==="Collecting") {
+    } else if (status === "PENDING" || status === "Collecting") {
       return "pending";
-    } else if (status === "Cancelled") {
+    } else if (status === "CANCELLED") {
       return "cancelled";
     }
     return "";
+  }
+
+  function getDoneAmount(status: string) {
+    if (status === "COMPLETED") {
+      return 100;
+    } else if (status === "PROCESSING") {
+      return 50;
+    } else if (status === "PENDING" || status === "Collecting") {
+      return 25;
+    } else if (status === "DELIVERING") {
+      return 75;
+    } else if (status === "CANCELLED") {
+      return 0;
+    }
+    return 0; // Return null instead of an empty string
   }
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -187,18 +197,22 @@ const OrderHistoryCustomer = () => {
                       }
                     >
                       <div className="id">
-                        <span>{getHighlightedText(order.id.toString(), searchQuery)}</span>
+                        <span>
+                          {getHighlightedText(order.id.toString(), searchQuery)}
+                        </span>
                       </div>
                       <div className="laundry-icon">
-                        <span>{getHighlightedText(order.laundryName, searchQuery)}</span>
+                        <span>
+                          {getHighlightedText(order.laundryName, searchQuery)}
+                        </span>
                       </div>
                       <div className="payment">
                         <span>{order.payment}</span>
                       </div>
                       <div className="order-progress">
                         <div className="the-bar">
-                          <span className="done hidden">{order.done}</span>
-                          <span className="total hidden">{order.total}</span>
+                          <span className="done hidden">{getDoneAmount(order.status)}</span>
+                          <span className="total hidden">100</span>
                           <div className="progress-done"></div>
                         </div>
 
@@ -219,7 +233,7 @@ const OrderHistoryCustomer = () => {
                             <span>Item</span>
                           </div>
                           <div className="quantity">
-                            <span>Progress</span>
+                            <span>Quantity</span>
                           </div>
                         </div>
                         {order.items.map((item) => (
@@ -229,14 +243,14 @@ const OrderHistoryCustomer = () => {
                                 <span>{item.name}</span>
                               </div>
                               <div className="quantity">
-                                <span>
+                                {/* <span>
                                   <span className="num">
                                     {item.doneQuantity}
                                   </span>
                                 </span>
-                                /
+                                / */}
                                 <span className="total-quantity">
-                                  {item.totalQuantity}
+                                  {item.quantity}
                                 </span>
                               </div>
                             </div>
