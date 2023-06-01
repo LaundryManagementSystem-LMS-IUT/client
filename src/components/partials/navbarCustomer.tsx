@@ -80,7 +80,7 @@ const NavbarCustomer = ({ navigation, setNavigation, activePage }: Navbar) => {
         </li>
 
         <li>
-          <a>
+        <a onClick={() => navigate("/")}>
             <span className="icon">
               <IonIcon icon={logOutOutline}></IonIcon>
             </span>

@@ -14,7 +14,7 @@ const AddNewOrder = () => {
           <h1>Add a new order</h1>
         </div>
         <div className="add-order-btn">
-          <button className="add-order" onClick={() => navigate(`/customer/laundryDetails/${id}/order`)}>
+          <button className="add-order" onClick={() => navigate(`/customer/laundryDetails/order/${id}`)}>
             Add Order
             <IonIcon icon={addCircleOutline}></IonIcon>
           </button>

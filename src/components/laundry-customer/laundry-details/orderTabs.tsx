@@ -1,10 +1,10 @@
 type OrderTabsProps={
   items:{
-    name:string,
+    cloth_type:string,
     operation:string,
     price:number
   }[],
-  handleAddToOrder:(name: string, operation: string, price: number, quantity: number) => void
+  handleAddToOrder:(cloth_type: string, operation: string, price: number, quantity: number) => void
 }
 
 const OrderTabs = ({items,handleAddToOrder}:OrderTabsProps) => {
@@ -12,7 +12,7 @@ const OrderTabs = ({items,handleAddToOrder}:OrderTabsProps) => {
     <div className="operation-type-container">
       {items.map((item, index) => (
         <div className="operation-type-item-details item-details">
-          <span className="item-icon">{item.name}</span>
+          <span className="item-icon">{item.cloth_type}</span>
           <span className="item-quantity">
             <div className="inputbox quantity-input">
               <input
@@ -20,7 +20,7 @@ const OrderTabs = ({items,handleAddToOrder}:OrderTabsProps) => {
                 min="0"
                 onChange={(e) =>
                   handleAddToOrder(
-                    item.name,
+                    item.cloth_type,
                     item.operation,
                     item.price,
                     parseInt(e.target.value)

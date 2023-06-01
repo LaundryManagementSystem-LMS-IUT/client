@@ -11,7 +11,7 @@ import usePlacesAutocomplete, {
   getLatLng,
 } from "use-places-autocomplete";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEmail } from "../../../Hooks/useEmail";
 
 interface ClothTypeData {
@@ -25,16 +25,22 @@ interface ClothTypeData {
 const LaundryDetails = () => {
   const laundry_id=(useParams()).id;
   const [navigation, setNavigation] = useState(false);
-  const [pricing, setPricing] = useState<ClothTypeData[]>([]);
+  const navigate=useNavigate();
   const [manager_email,setManagerEmail]=useState("");
   const [loading,setLoading]=useState(true);
   const {email}=useEmail();
+  const [items, setItems] = useState<{
+    cloth_type:string,
+    operation:string,
+    price:number
+  }[]>([]);
 
-  const getLaundryPricing = async (manager_email:string) => {
+  const getServices = async (manager_email:string) => {
     await axios
-      .get("http://localhost:8000/api/pricing/"+manager_email)
+      .get("http://localhost:8000/api/services/"+manager_email)
       .then((res) => {
-        setPricing(res.data);
+        console.log(res);
+        setItems(res.data.services);
         setLoading(false);
       })
       .catch((err) => {
@@ -43,8 +49,10 @@ const LaundryDetails = () => {
       });
   };
 
+  
   const getLaundryDetails=async()=>{
       const result=await axios.get('http://localhost:8000/api/manager/details/'+laundry_id).then((res)=>{
+        console.log(res);
         return res.data?.laundry
       })
       .catch((err)=>{
@@ -52,7 +60,7 @@ const LaundryDetails = () => {
       })
       console.log(result);
       setManagerEmail(result.email);
-      await getLaundryPricing(result.email);
+      await getServices(result.email);
   }
 
   useEffect(()=>{
@@ -72,28 +80,6 @@ const LaundryDetails = () => {
   const [lastname,setLastName]=useState("");
   const [middlename,setMiddleName]=useState("");
   const [phone_number,setPhoneNumber]=useState("");
-  const [items, setItems] = useState([
-    { name: "Shirt", operation: "Dry Wash", price: 10 },
-    { name: "Shirt", operation: "Wash & Iron", price: 12 },
-    { name: "Trousers", operation: "Wash & Iron", price: 15 },
-    { name: "Trousers", operation: "Iron", price: 12 },
-    { name: "Dress", operation: "Dry Wash", price: 20 },
-    { name: "Dress", operation: "Wash & Iron", price: 25 },
-    { name: "Coat", operation: "Dry Wash", price: 30 },
-    { name: "Coat", operation: "Wash", price: 25 },
-    { name: "Sweater", operation: "Dry Wash", price: 15 },
-    { name: "Sweater", operation: "Iron", price: 10 },
-    { name: "Blouse", operation: "Wash & Iron", price: 12 },
-    { name: "Blouse", operation: "Iron", price: 8 },
-    { name: "Jeans", operation: "Wash", price: 10 },
-    { name: "Jeans", operation: "Iron", price: 8 },
-    { name: "Skirt", operation: "Dry Wash", price: 10 },
-    { name: "Jacket", operation: "Wash & Iron", price: 25 },
-    { name: "T-Shirt", operation: "Wash", price: 6 },
-    { name: "T-Shirt", operation: "Iron", price: 4 },
-    { name: "Shorts", operation: "Wash", price: 8 },
-    { name: "Shorts", operation: "Dry Wash", price: 12 },
-  ]);
 
   const dryWashItems = items.filter((item) => item.operation === "Dry Wash");
   const washAndIronItems = items.filter(
@@ -103,7 +89,7 @@ const LaundryDetails = () => {
   const washItems = items.filter((item) => item.operation === "Wash");
 
   const [orderList, setOrderList] = useState<
-    { name: string; operation: string; quantity: number; price: number }[]
+    { cloth_type: string; operation: string; quantity: number; price: number }[]
   >([]);
 
   const handleTabSelect = (k: string | null) => {
@@ -111,13 +97,13 @@ const LaundryDetails = () => {
   };
 
   const handleAddToOrder = (
-    name: string,
+    cloth_type: string,
     operation: string,
     price: number,
     quantity: number
   ) => {
     const existingOrderIndex = orderList.findIndex(
-      (order) => order.name === name && order.operation === operation
+      (order) => order.cloth_type === cloth_type && order.operation === operation
     );
 
     if (existingOrderIndex !== -1) {
@@ -135,7 +121,7 @@ const LaundryDetails = () => {
       setOrderList(updatedOrderList);
     } else {
       const quantityValue = isNaN(quantity) ? 0 : Number(quantity);
-      const newOrder = { name, operation, quantity: quantityValue, price };
+      const newOrder = { cloth_type, operation, quantity: quantityValue, price };
       setOrderList([...orderList, newOrder]);
       setTotal(total + quantityValue * price);
     }
@@ -152,7 +138,10 @@ const LaundryDetails = () => {
       customer_email:email,
       manager_email:manager_email,
       orderList:updatedOrderList
-    }).then((res)=>console.log(res)).catch((err)=>console.log(err));
+    }).then((res)=>{
+      console.log(res);
+      navigate('/customer/dashboard');
+    }).catch((err)=>console.log(err));
     console.log(email);
     console.log(manager_email);
     console.log(updatedOrderList);

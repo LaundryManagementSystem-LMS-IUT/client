@@ -64,7 +64,7 @@ function App() {
             element={<LaundryDetails />}
           />
           <Route
-            path="/customer/laundryDetails/:id/order"
+            path="/customer/laundryDetails/order/:id"
             element={<AddNewOrderCustomer />}
           />
           <Route path="/manager/history" element={<OrderHistoryManager />} />
