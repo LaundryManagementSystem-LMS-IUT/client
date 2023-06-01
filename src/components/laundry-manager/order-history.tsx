@@ -4,62 +4,26 @@ import HeaderManager from "../partials/headerManager";
 import { ActivePageType } from "../../utils/activePageTypes";
 import { Pagination } from "react-bootstrap";
 import EditOrders from "./edit-order";
+import axios from "axios";
+interface ItemData {
+  name: string;
+  washType: string;
+  quantity: number;
+}
 
+interface OrderData {
+  id: string;
+  userName: string;
+  payment: number;
+  status: string;
+  items: ItemData[];
+}
 const OrderHistoryManager = () => {
   const [navigation, setNavigation] = useState(false);
   const [editableForm, setEditableForm] = useState<number | null>(null);
-  const [seeDetails, setSeeDetails] = useState<number | null>(null);
-  const [orders] = useState([
-    {
-      id: 1023,
-      userName: "Nafisa Maliyat",
-      payment: "Tk 1000",
-      done: 4,
-      total: 10,
-      status: "Completed",
-      items: [
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        { name: "Shirt", washType: "Wash", doneQuantity: 5, totalQuantity: 9 },
-        {
-          name: "Pants",
-          washType: "Dry Wash",
-          doneQuantity: 2,
-          totalQuantity: 8,
-        },
-      ],
-    },
-    {
-      id: 1024,
-      userName: "John Smith",
-      payment: "Tk 800",
-      done: 2,
-      total: 5,
-      status: "Pending",
-      items: [
-        {
-          name: "T-Shirt",
-          washType: "Wash",
-          doneQuantity: 2,
-          totalQuantity: 10,
-        },
-        {
-          name: "Jeans",
-          washType: "Dry Wash and Iron",
-          doneQuantity: 4,
-          totalQuantity: 5,
-        },
-      ],
-    },
-  ]);
+  const [orders, setOrders] = useState<OrderData[]>([]);
+  const [seeDetails, setSeeDetails] = useState<string | null>(null);
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const updateProgress = () => {
@@ -89,6 +53,22 @@ const OrderHistoryManager = () => {
   };
 
   useEffect(() => {
+    const email = "dummymanager@iut-dhaka.edu";
+    const getOrderHistory = async () => {
+      await axios
+        .get("http://localhost:8000/api/order/getManagerOrderHistory/"+email)
+        .then((res) => {
+          console.log(res);
+          setOrders(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getOrderHistory();
+  }, []);
+
+  useEffect(() => {
     updateProgress();
   }, [searchQuery, orders]);
 
@@ -109,23 +89,37 @@ const OrderHistoryManager = () => {
     )
     .slice(startIndex, endIndex);
 
-  //set css of status fetched
-  function getStatusClass(status: string) {
-    if (status === "Completed") {
-      return "completed";
-    } else if (
-      status === "Processing" ||
-      status === "Delivering" ||
-      status === "Delivered"
-    ) {
-      return "processing";
-    } else if (status === "Pending" || status === "Collecting") {
-      return "pending";
-    } else if (status === "Cancelled") {
-      return "cancelled";
+    function getStatusClass(status: string) {
+      if (status === "COMPLETED") {
+        return "completed";
+      } else if (
+        status === "PROCESSING" ||
+        status === "DELIVERING" ||
+        status === "DELIVERED"
+      ) {
+        return "processing";
+      } else if (status === "PENDING" || status === "Collecting") {
+        return "pending";
+      } else if (status === "CANCELLED") {
+        return "cancelled";
+      }
+      return "";
     }
-    return "";
-  }
+  
+    function getDoneAmount(status: string) {
+      if (status === "COMPLETED") {
+        return 100;
+      } else if (status === "PROCESSING") {
+        return 50;
+      } else if (status === "PENDING" || status === "Collecting") {
+        return 25;
+      } else if (status === "DELIVERING") {
+        return 75;
+      } else if (status === "CANCELLED") {
+        return 0;
+      }
+      return 0; // Return null instead of an empty string
+    }
 
   const handleCancelOrder = (orderId: number | null) => {
     setEditableForm(orderId);
@@ -222,8 +216,8 @@ const OrderHistoryManager = () => {
                       </div>
                       <div className="order-progress">
                         <div className="the-bar">
-                          <span className="done hidden">{order.done}</span>
-                          <span className="total hidden">{order.total}</span>
+                          <span className="done hidden">{getDoneAmount(order.status)}</span>
+                          <span className="total hidden">100</span>
                           <div className="progress-done"></div>
                         </div>
 
@@ -237,54 +231,37 @@ const OrderHistoryManager = () => {
                         </span>
                       </div>
                     </div>
-                    {seeDetails == order.id && (
+                    {seeDetails === order.id && (
                       <div className="orderDetails">
                         <div className="wrap-details header">
                           <div className="icon">
                             <span>Item</span>
                           </div>
                           <div className="quantity">
-                            <span>Progress</span>
+                            <span>Quantity</span>
                           </div>
                         </div>
                         {order.items.map((item) => (
                           <>
                             <div className="wrap-details item">
                               <div className="icon">
-                                <span>
-                                  {item.name} ({item.washType})
-                                </span>
+                                <span>{item.name}</span>
                               </div>
                               <div className="quantity">
-                                <span>
+                                {/* <span>
                                   <span className="num">
                                     {item.doneQuantity}
                                   </span>
                                 </span>
-                                /
+                                / */}
                                 <span className="total-quantity">
-                                  {item.totalQuantity}
+                                  {item.quantity}
                                 </span>
                               </div>
                             </div>
                           </>
                         ))}
-
-                        <button
-                          className="edit-order-btn"
-                          type="submit"
-                          onClick={() => setEditableForm(order.id)}
-                        >
-                          Update Order
-                        </button>
                       </div>
-                    )}
-
-                    {editableForm === order.id && (
-                      <EditOrders
-                        onCancelOrder={handleCancelOrder}
-                        order={order}
-                      />
                     )}
                   </>
                 ))}

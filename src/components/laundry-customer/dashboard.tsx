@@ -5,10 +5,43 @@ import HeaderCustomer from "../partials/headerCustomer";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ActivePageType } from "../../utils/activePageTypes";
+import axios from "axios";
+
+interface ItemData {
+  name: string;
+  washType: string;
+  quantity: number;
+}
+
+interface OrderData {
+  id: string;
+  laundryName: string;
+  payment: number;
+  status: string;
+  items: ItemData[];
+}
 
 const DashboardCustomer = () => {
   const [navigation, setNavigation] = useState(false);
+  const [orders, setOrders] = useState<OrderData[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const email = "nafisamaliyat@iut-dhaka.edu";
+    const getOrderHistory = async () => {
+      await axios
+        .get("http://localhost:8000/api/order/getCustomerHistory/" + email)
+        .then((res) => {
+          console.log(res);
+          setOrders(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+    getOrderHistory();
+  }, []);
+
   useEffect(() => {
     const doneElements = document.querySelectorAll<HTMLElement>(
       ".wrap-item .order-progress .done"
@@ -33,6 +66,39 @@ const DashboardCustomer = () => {
       )}%`;
     }
   });
+
+  //set css of status fetched
+  function getStatusClass(status: string) {
+    if (status === "COMPLETED") {
+      return "completed";
+    } else if (
+      status === "PROCESSING" ||
+      status === "DELIVERING" ||
+      status === "DELIVERED"
+    ) {
+      return "processing";
+    } else if (status === "PENDING" || status === "Collecting") {
+      return "pending";
+    } else if (status === "CANCELLED") {
+      return "cancelled";
+    }
+    return "";
+  }
+
+  function getDoneAmount(status: string) {
+    if (status === "COMPLETED") {
+      return 100;
+    } else if (status === "PROCESSING") {
+      return 50;
+    } else if (status === "PENDING" || status === "Collecting") {
+      return 25;
+    } else if (status === "DELIVERING") {
+      return 75;
+    } else if (status === "CANCELLED") {
+      return 0;
+    }
+    return 0; // Return null instead of an empty string
+  }
 
   const viewDetails = () => {
     navigate("/customer/history");
@@ -59,9 +125,7 @@ const DashboardCustomer = () => {
                 <h2>Recent Orders</h2>
               </div>
               <div className="first-line">
-                <div className="wrap-input">
-                  
-                </div>
+                <div className="wrap-input"></div>
                 <div className="view-more-orders">
                   <button className="view-details" onClick={viewDetails}>
                     View Order Details
@@ -85,88 +149,34 @@ const DashboardCustomer = () => {
                   </div>
                 </div>
 
-                <div className="wrap-item">
-                  <div className="id">
-                    <span>1</span>
-                  </div>
-                  <div className="payment">
-                    <span>Tk 1000</span>
-                  </div>
-                  <div className="order-progress">
-                    <div className="the-bar">
-                      <span className="done hidden">0</span>
-                      <span className="total hidden">10</span>
-                      <div className="progress-done"></div>
+                {orders.map((order) => (
+                  <div className="wrap-item" key={order.id}>
+                    <div className="id">
+                      <span>{order.id}</span>
                     </div>
-
-                    <span className="progress-text"></span>
-                  </div>
-                  <div className="status">
-                    <span className="status pending">Pending</span>
-                  </div>
-                </div>
-                <div className="wrap-item">
-                  <div className="id">
-                    <span>2</span>
-                  </div>
-                  <div className="payment">
-                    <span>Tk 1000</span>
-                  </div>
-                  <div className="order-progress">
-                    <div className="the-bar">
-                      <span className="done hidden">13</span>
-                      <span className="total hidden">13</span>
-                      <div className="progress-done"></div>
+                    <div className="payment">
+                      <span>Tk {order.payment}</span>
                     </div>
+                    <div className="order-progress">
+                      <div className="the-bar">
+                        <span className="done hidden">
+                          {getDoneAmount(order.status)}
+                        </span>
+                        <span className="total hidden">100</span>
+                        <div className="progress-done"></div>
+                      </div>
 
-                    <span className="progress-text"></span>
-                  </div>
-                  <div className="status">
-                    <span className="status completed">Completed</span>
-                  </div>
-                </div>
-
-                <div className="wrap-item">
-                  <div className="id">
-                    <span>3</span>
-                  </div>
-                  <div className="payment">
-                    <span>Tk 1000</span>
-                  </div>
-                  <div className="order-progress">
-                    <div className="the-bar">
-                      <span className="done hidden">4</span>
-                      <span className="total hidden">10</span>
-                      <div className="progress-done"></div>
+                      <span className="progress-text"></span>
                     </div>
-
-                    <span className="progress-text"></span>
-                  </div>
-                  <div className="status">
-                    <span className="status processing">Processing</span>
-                  </div>
-                </div>
-
-                <div className="wrap-item">
-                  <div className="id">
-                    <span>4</span>
-                  </div>
-                  <div className="payment">
-                    <span>Tk 1000</span>
-                  </div>
-                  <div className="order-progress">
-                    <div className="the-bar">
-                      <span className="done hidden">4</span>
-                      <span className="total hidden">10</span>
-                      <div className="progress-done"></div>
+                    <div className="status">
+                      <span
+                        className={`status ${getStatusClass(order.status)}`}
+                      >
+                        {order.status}
+                      </span>
                     </div>
-
-                    <span className="progress-text"></span>
                   </div>
-                  <div className="status">
-                    <span className="status processing">Processing</span>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
