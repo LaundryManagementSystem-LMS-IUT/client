@@ -137,7 +137,8 @@ const LaundryDetails = () => {
     await axios.post('http://localhost:8000/api/order/addOrder',{
       customer_email:email,
       manager_email:manager_email,
-      orderList:updatedOrderList
+      orderList:updatedOrderList,
+      payment:total
     }).then((res)=>{
       console.log(res);
       navigate('/customer/dashboard');
