@@ -114,9 +114,9 @@ const DashboardManager = () => {
             setNavigation={setNavigation}
           />
           <div className="profile">
-            <h2>{"Mirza Azwad"}</h2>
+            <h2>{"Dummy Manager"}</h2>
           </div>
-          <div className="cardBox">
+          {/* <div className="cardBox">
             <div className="card">
               <div>
                 <div className="numbers">80</div>
@@ -138,7 +138,7 @@ const DashboardManager = () => {
                 <IonIcon icon={cashOutline} ></IonIcon>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="wrapper">
             <div className="table">
               <div className="top-title">
