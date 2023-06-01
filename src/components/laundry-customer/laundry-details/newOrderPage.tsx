@@ -6,6 +6,10 @@ import { ActivePageType } from "../../../utils/activePageTypes";
 import Tab from "react-bootstrap/Tab";
 import Tabs from "react-bootstrap/Tabs";
 import OrderTabs from "./orderTabs";
+import React from 'react';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import usePlacesAutocomplete, {
   getGeocode,
   getLatLng,
@@ -48,6 +52,7 @@ const LaundryDetails = () => {
         console.log(err);
       });
   };
+  const [laundry_name,setLaundryName]=useState("");
 
   
   const getLaundryDetails=async()=>{
@@ -59,6 +64,7 @@ const LaundryDetails = () => {
         console.log(err);
       })
       console.log(result);
+      setLaundryName(result.laundry_name);
       setManagerEmail(result.email);
       await getServices(result.email);
   }
@@ -127,6 +133,8 @@ const LaundryDetails = () => {
     }
   };
 
+
+
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const updatedOrderList = orderList.map((order) => {
@@ -141,12 +149,68 @@ const LaundryDetails = () => {
       payment:total
     }).then((res)=>{
       console.log(res);
+      generateReceipt(updatedOrderList);
       navigate('/customer/dashboard');
     }).catch((err)=>console.log(err));
     console.log(email);
     console.log(manager_email);
     console.log(updatedOrderList);
   }
+
+  const generateReceipt = (updatedOrderList: {
+    cloth_type: string;
+    operation: string;
+    quantity: number;
+}[]) => {
+    const docDefinition: any  = {
+      content: [
+        { text: 'Receipt', style: 'header' },
+        { text: '---------------------------------------------', style: 'divider' },
+        { text: 'Order Details', style: 'subheader' },
+        {
+          columns: [
+            { text: 'Cloth Type', bold: true },
+            { text: 'Quantity', bold: true },
+            { text: 'Price', bold: true }
+          ]
+        },
+        updatedOrderList.map((mp,ix)=>{
+          {
+            columns: [
+              mp.cloth_type,
+              mp.quantity,
+              mp.operation
+            ]
+          }
+        }),
+        { text: '---------------------------------------------', style: 'divider' },
+        { text: `Total: ${total} taka`, style: 'total' }
+      ],
+      styles: {
+        header: {
+          fontSize: 20,
+          bold: true,
+          alignment: 'center',
+          margin: [0, 0, 0, 20]
+        },
+        subheader: {
+          fontSize: 16,
+          bold: true,
+          margin: [0, 10, 0, 5]
+        },
+        divider: {
+          margin: [0, 5]
+        },
+        total: {
+          fontSize: 14,
+          bold: true,
+          margin: [0, 20]
+        }
+      }
+    };
+  
+    pdfMake.createPdf(docDefinition).download('receipt'+email+'.pdf');
+  };
 
   const {
     ready,
